@@ -1,0 +1,52 @@
+{
+  "name": "mithril-scenario-timeline",
+  "version": "0.0.1",
+  "description": "A scenario timeline component for the Mithril framework.",
+  "main": "dist/mithril-scenario-timeline.js",
+  "module": "dist/mithril-scenario-timeline.mjs",
+  "browser": "dist/mithril-scenario-timeline.mjs",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/erikvullings/mithril-scenario-timeline.git"
+  },
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "link": "npm link",
+    "start": "rollup -c -w",
+    "build": "npm run build:production && npm run build:domain",
+    "build:production": "rm -fr ./dist && rollup -c",
+    "build:domain": "typedoc --out ../../docs/typedoc src",
+    "patch-release": "npm run build && npm version patch --force -m \"Patch release\" && npm publish && git push --follow-tags",
+    "minor-release": "npm run build && npm version minor --force -m \"Minor release\" && npm publish && git push --follow-tags",
+    "major-release": "npm run build && npm version major --force -m \"Major release\" && npm publish && git push --follow-tags"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "mithril",
+    "scenario",
+    "timeline"
+  ],
+  "author": "Erik Vullings <erik.vullings@gmail.com> (http://www.tno.nl)",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/mithril": "^1.1.16",
+    "autoprefixer": "^9.5.1",
+    "rollup": "^1.11.3",
+    "rollup-plugin-commonjs": "^9.3.4",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^4.2.3",
+    "rollup-plugin-postcss": "^2.0.3",
+    "rollup-plugin-sourcemaps": "^0.4.2",
+    "rollup-plugin-terser": "^4.0.4",
+    "rollup-plugin-typescript2": "^0.21.0",
+    "tslib": "^1.9.3",
+    "typedoc": "^0.14.2",
+    "typescript": "^3.4.5"
+  },
+  "peerDependencies": {
+    "mithril": "next"
+  }
+}

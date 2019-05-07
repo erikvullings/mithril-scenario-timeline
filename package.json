@@ -1,0 +1,35 @@
+{
+  "name": "mithril-scenario-timeline",
+  "version": "0.0.1",
+  "description": "A scenario timeline component for the Mithril framework",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "lerna run link",
+    "link": "lerna run link",
+    "build:domain": "lerna run build:domain --parallel",
+    "start": "lerna run start --parallel",
+    "patch-release": "lerna run patch-release --parallel",
+    "minor-release": "lerna run minor-release --parallel",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erikvullings/mithril-scenario-timeline.git"
+  },
+  "keywords": [
+    "mithril",
+    "scenario",
+    "timeline",
+    "mithril",
+    "component"
+  ],
+  "author": "Erik Vullings <erik.vullings@gmail.com> (http://www.tno.nl)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/erikvullings/mithril-scenario-timeline/issues"
+  },
+  "homepage": "https://github.com/erikvullings/mithril-scenario-timeline#readme",
+  "devDependencies": {
+    "lerna": "^3.13.4"
+  }
+}
