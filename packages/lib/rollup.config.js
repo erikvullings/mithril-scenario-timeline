@@ -4,13 +4,20 @@ import sourceMaps from 'rollup-plugin-sourcemaps';
 import typescript from 'rollup-plugin-typescript2';
 import postcss from 'rollup-plugin-postcss';
 import json from 'rollup-plugin-json';
+import simplevars from 'postcss-simple-vars';
+import nested from 'postcss-nested';
+import postcssPresetEnv from 'postcss-preset-env';
+import cssnano from 'cssnano';
 import { terser } from 'rollup-plugin-terser';
 
 const pkg = require('./package.json');
+const production = !process.env.ROLLUP_WATCH;
 
 export default {
   input: `src/index.ts`,
   watch: 'src/**',
+  context: 'null',
+  moduleContext: 'null',
   output: [
     {
       file: pkg.module,
@@ -20,7 +27,7 @@ export default {
     {
       file: pkg.main,
       format: 'iife',
-      name: 'ScenarioTimeline',
+      name: 'TreeContainer',
       sourcemap: true,
       globals: {
         mithril: 'm',
@@ -36,7 +43,17 @@ export default {
   plugins: [
     // Allow json resolution
     json(),
-    postcss(),
+    postcss({
+      extensions: ['.css'],
+      plugins: [
+        simplevars(),
+        nested(),
+        postcssPresetEnv({
+          autoprefixer: { grid: true },
+        }),
+        cssnano(),
+      ],
+    }),
     // Compile TypeScript files
     typescript({
       rollupCommonJSResolveHack: true,
@@ -55,6 +72,6 @@ export default {
     // Resolve source maps to the original source
     sourceMaps(),
     // minifies generated bundles
-    terser(),
+    production && terser(),
   ],
 };
