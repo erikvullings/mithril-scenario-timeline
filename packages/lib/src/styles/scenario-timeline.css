@@ -1,4 +1,31 @@
 .mst__container {
+  width: 100%;
   height: 100%;
   overflow: hidden;
+}
+
+.mst__items {
+  position: relative;
+}
+
+.mst__item {
+  position: absolute;
+}
+
+.mst__item--rect {
+  border: 2px solid black;
+}
+
+.mst__item--circle {
+  background: red;
+  border-radius: 50%;
+  line-height: 0.5;
+}
+
+.mst__title {
+  padding-left: 10px;
+}
+
+.mst__item--circle > .mst__title {
+  padding-left: 20px;
 }
