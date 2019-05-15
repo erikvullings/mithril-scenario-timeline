@@ -148,11 +148,19 @@ export const boundsToCircleStyle = (b: IBoundingRectangle, diameter = 8) =>
   `top: ${b.top + (b.height - diameter) / 2}px; left: ${b.left -
     diameter / 2}px; width: ${diameter}px; height: ${diameter}px`;
 
-// export const compose = <T>(...fns: Function[]) => fns.reduceRight(_pipe)
+/* Compose and pipe functions from https://dev.to/ascorbic/creating-a-typed-compose-function-in-typescript-3-351i */
 
+/**
+ * Compose multiple one-aray functions together, e.g. when supplying f1, f2 and f3,
+ * the result is equivalent to fn1(fn2(fn3(inner))).
+ */
 export const compose = <R>(fn1: (a: R) => R, ...fns: Array<(a: R) => R>) =>
   fns.reduce((prevFn, nextFn) => value => prevFn(nextFn(value)), fn1);
 
+/**
+ * Pipe multiple one-aray functions together, e.g. when supplying f1, f2 and f3,
+ * the result is equivalent to fn3(fn2(fn1(inner))).
+ */
 export const pipe = <T extends any[], R>(fn1: (...args: T) => R, ...fns: Array<(a: R) => R>) => {
   const piped = fns.reduce((prevFn, nextFn) => (value: R) => nextFn(prevFn(value)), value => value);
   return (...args: T) => piped(fn1(...args));
