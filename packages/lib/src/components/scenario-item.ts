@@ -1,7 +1,7 @@
 import m, { FactoryComponent, Attributes } from 'mithril';
 import { IExecutingTimelineItem } from '..';
 import { IBoundingRectangle } from '../interfaces';
-import { boundsToStyle, boundsToCircleStyle } from '../helpers';
+import { boundsToStyle, boundsToCircleStyle as boundsToMarkerStyle } from '../helpers';
 
 export interface IScenarioItem extends Attributes {
   /** Bound for the component using absolute positioning */
@@ -15,8 +15,8 @@ export const ScenarioItem: FactoryComponent<IScenarioItem> = () => {
     view: ({ attrs: { item, bounds } }) => {
       return isInstantenaous(item)
         ? m(
-            '.mst__item.mst__item--circle',
-            { style: boundsToCircleStyle(bounds, 8) },
+            '.mst__item.mst__item--diamond',
+            { style: boundsToMarkerStyle(bounds) },
             m('div.mst__title', item.title)
           )
         : m('.mst__item.mst__item--rect', { style: boundsToStyle(bounds) }, m('div.mst__title', item.title));

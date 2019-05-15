@@ -141,12 +141,10 @@ export const flatten = (items: IExecutingTimelineItem[]) => {
 
 /** Convert a bounding rectangle to a style */
 export const boundsToStyle = (b: IBoundingRectangle) =>
-  `top: ${b.top}px; left: ${b.left}px; width: ${b.width}px; height: ${b.height}px`;
+  `top: ${b.top}px; left: ${b.left}px; width: ${b.width}px; height: ${b.height}px;`;
 
 /** Convert a bounding rectangle to a style for wrapping a circle */
-export const boundsToCircleStyle = (b: IBoundingRectangle, diameter = 8) =>
-  `top: ${b.top + (b.height - diameter) / 2}px; left: ${b.left -
-    diameter / 2}px; width: ${diameter}px; height: ${diameter}px`;
+export const boundsToCircleStyle = (b: IBoundingRectangle) => `top: ${b.top}px; left: ${b.left}px`;
 
 /* Compose and pipe functions from https://dev.to/ascorbic/creating-a-typed-compose-function-in-typescript-3-351i */
 
@@ -164,4 +162,21 @@ export const compose = <R>(fn1: (a: R) => R, ...fns: Array<(a: R) => R>) =>
 export const pipe = <T extends any[], R>(fn1: (...args: T) => R, ...fns: Array<(a: R) => R>) => {
   const piped = fns.reduce((prevFn, nextFn) => (value: R) => nextFn(prevFn(value)), value => value);
   return (...args: T) => piped(fn1(...args));
+};
+
+export const range = (s: number, e: number, step = 1) =>
+  Array.from({ length: Math.ceil((e - s) / step) }, (_, k) => k * step + s);
+
+/**
+ * Pad left, default with a '0'
+ *
+ * @see http://stackoverflow.com/a/10073788/319711
+ * @param {(string | number)} n
+ * @param {number} width
+ * @param {string} [z='0']
+ * @returns
+ */
+export const padLeft = (n: string | number, width = 2, z = '0') => {
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 };

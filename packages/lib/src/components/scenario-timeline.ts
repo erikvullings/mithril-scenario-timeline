@@ -3,6 +3,7 @@ import '../styles/scenario-timeline.css';
 import { ITimelineItem } from '../interfaces/timeline';
 import { calcStartEndTimes, toTree, flatten, pipe } from '../helpers';
 import { ScenarioItems } from './scenario-items';
+import { TimeAxis } from './time-axis';
 
 export interface IScenarioTimeline extends Attributes {
   /** 1 second is x pixels horizontally */
@@ -20,6 +21,9 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
     lineHeight: number;
   };
 
+  const gutter = 4;
+  const margin = 20;
+  const timeAxisHeight = 32;
   const preprocessTimeline = pipe(calcStartEndTimes, toTree, flatten);
 
   return {
@@ -30,14 +34,19 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
     view: ({ attrs: { timeline } }) => {
       const { lineHeight, scale } = state;
       const items = preprocessTimeline(timeline);
+      const startTime = Math.min(...items.map(item => item.startTime!));
+      const endTime = Math.max(...items.map(item => item.endTime!));
       const bounds = {
         left: 0,
-        top: 0,
-        width: Math.max(...items.map(item => item.endTime!)),
+        top: gutter,
+        width: scale * endTime + margin,
         height: items.length * lineHeight,
       };
       console.table(items);
-      return m(ScenarioItems, { items, bounds, lineHeight, scale });
+      return [
+        m(TimeAxis, { startTime, endTime, bounds: { ...bounds, top: 0, height: timeAxisHeight }, scale }),
+        m(ScenarioItems, { items, bounds, lineHeight, scale }),
+      ];
     },
   };
 };
