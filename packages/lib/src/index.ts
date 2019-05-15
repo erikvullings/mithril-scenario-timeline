@@ -1,4 +1,2 @@
-export * from './interfaces/timeline-state';
-export * from './interfaces/timeline';
-export * from './interfaces/dependency';
+export * from './interfaces';
 export * from './components/scenario-timeline';

@@ -1,13 +1,14 @@
 .mst__container {
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  position: relative;
 }
 
 .mst__items {
   position: relative;
 }
 
+.mst__links,
 .mst__item {
   position: absolute;
 }

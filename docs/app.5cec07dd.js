@@ -16134,7 +16134,8 @@ exports.TimelineItemState = TimelineItemState;
   TimelineItemState[TimelineItemState["ON_HOLD"] = 2] = "ON_HOLD";
   TimelineItemState[TimelineItemState["EXECUTED"] = 3] = "EXECUTED";
   TimelineItemState[TimelineItemState["CANCELLED"] = 4] = "CANCELLED";
-})(TimelineItemState || (exports.TimelineItemState = TimelineItemState = {}));
+})(TimelineItemState || (exports.TimelineItemState = TimelineItemState = {})); //# sourceMappingURL=index.js.map
+
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
@@ -16194,12 +16195,42 @@ function styleInject(css, ref) {
   }
 }
 
-var css = ".mst__container{width:100%;height:100%;overflow:hidden}.mst__items{position:relative}.mst__item{position:absolute}.mst__item--rect{border:2px solid #000}.mst__item--circle{background:red;border-radius:50%;line-height:.5}.mst__title{padding-left:10px}.mst__item--diamond{line-height:.5;width:0;height:0;border:5px solid transparent;border-bottom-color:red;top:-5px}.mst__item--diamond:after{content:\"\";position:absolute;left:-5px;top:5px;width:0;height:0;border:5px solid transparent;border-top-color:red}.mst__time-scale{color:#6b6b6b;font-size:12px;border-bottom:1px solid #cecece;background-color:#fff;box-sizing:border-box;margin:0;padding:0;position:relative}.mst__time-scale-text{position:absolute;color:#a6a6a6;display:inline-block;white-space:nowrap;overflow:hidden;text-align:center;height:100%}.mst__time-scale-marker{position:absolute;top:22px;width:1px;height:10px;color:#a6a6a6;background:#a6a6a6}.mst__time-scale-legend{text-align:right}";
+var css = ".mst__container{width:100%;height:100%}.mst__container,.mst__items{position:relative}.mst__item,.mst__links{position:absolute}.mst__item--rect{border:2px solid #000}.mst__item--circle{background:red;border-radius:50%;line-height:.5}.mst__title{padding-left:10px}.mst__item--diamond{line-height:.5;width:0;height:0;border:5px solid transparent;border-bottom-color:red;top:-5px}.mst__item--diamond:after{content:\"\";position:absolute;left:-5px;top:5px;width:0;height:0;border:5px solid transparent;border-top-color:red}.mst__time-scale{color:#6b6b6b;font-size:12px;border-bottom:1px solid #cecece;background-color:#fff;box-sizing:border-box;margin:0;padding:0;position:relative}.mst__time-scale-text{position:absolute;color:#a6a6a6;display:inline-block;white-space:nowrap;overflow:hidden;text-align:center;height:100%}.mst__time-scale-marker{position:absolute;top:22px;width:1px;height:10px;color:#a6a6a6;background:#a6a6a6}.mst__time-scale-legend{text-align:right}";
 styleInject(css);
+/**
+ * Pipe multiple one-aray functions together, e.g. when supplying f1, f2 and f3,
+ * the result is equivalent to fn3(fn2(fn1(inner))).
+ */
+
+var pipe = function (fn1) {
+  var fns = [];
+
+  for (var _i = 1; _i < arguments.length; _i++) {
+    fns[_i - 1] = arguments[_i];
+  }
+
+  var piped = fns.reduce(function (prevFn, nextFn) {
+    return function (value) {
+      return nextFn(prevFn(value));
+    };
+  }, function (value) {
+    return value;
+  });
+  return function () {
+    var args = [];
+
+    for (var _i = 0; _i < arguments.length; _i++) {
+      args[_i] = arguments[_i];
+    }
+
+    return piped(fn1.apply(void 0, args));
+  };
+};
 /**
  * Convert the timeline items to their reactive counterpart (IExecutingTimelineItem),
  * so start time and duration can be computed reactively.
  */
+
 
 var calcStartEndTimes = function (items) {
   var lookupMap = items.reduce(function (acc, cur) {
@@ -16318,7 +16349,7 @@ var toTree = function (items) {
       return parentId ? item.parentId === parentId : !item.parentId;
     }).map(function (item) {
       return __assign({}, item, {
-        children: findChildren(item.id)
+        children: item.isOpen ? findChildren(item.id) : undefined
       });
     });
   };
@@ -16341,8 +16372,9 @@ var flatten = function (items) {
 
   return f(items, []);
 };
-/** Convert a bounding rectangle to a style */
 
+var preprocessTimeline = pipe(calcStartEndTimes, toTree, flatten);
+/** Convert a bounding rectangle to a style */
 
 var boundsToStyle = function (b) {
   return "top: " + b.top + "px; left: " + b.left + "px; width: " + b.width + "px; height: " + b.height + "px;";
@@ -16352,36 +16384,6 @@ var boundsToStyle = function (b) {
 
 var boundsToCircleStyle = function (b) {
   return "top: " + b.top + "px; left: " + b.left + "px";
-};
-/**
- * Pipe multiple one-aray functions together, e.g. when supplying f1, f2 and f3,
- * the result is equivalent to fn3(fn2(fn1(inner))).
- */
-
-
-var pipe = function (fn1) {
-  var fns = [];
-
-  for (var _i = 1; _i < arguments.length; _i++) {
-    fns[_i - 1] = arguments[_i];
-  }
-
-  var piped = fns.reduce(function (prevFn, nextFn) {
-    return function (value) {
-      return nextFn(prevFn(value));
-    };
-  }, function (value) {
-    return value;
-  });
-  return function () {
-    var args = [];
-
-    for (var _i = 0; _i < arguments.length; _i++) {
-      args[_i] = arguments[_i];
-    }
-
-    return piped(fn1.apply(void 0, args));
-  };
 };
 
 var range = function (s, e, step) {
@@ -16436,8 +16438,7 @@ var ScenarioItem = function () {
       }, (0, _mithril.default)('div.mst__title', item.title));
     }
   };
-}; //# sourceMappingURL=scenario-item.js.map
-
+};
 
 var ScenarioItems = function () {
   /** Space between subsequent rows */
@@ -16470,8 +16471,7 @@ var ScenarioItems = function () {
       }));
     }
   };
-}; //# sourceMappingURL=scenario-items.js.map
-
+};
 
 var TimeAxis = function () {
   var textWidth = 50;
@@ -16518,12 +16518,22 @@ var TimeAxis = function () {
   };
 };
 
+var ScenarioLinks = function () {
+  return {
+    view: function (_a) {
+      var bounds = _a.attrs.bounds;
+      return (0, _mithril.default)('.mst__links', {
+        style: boundsToStyle(bounds)
+      });
+    }
+  };
+};
+
 var ScenarioTimeline = function () {
   var state = {};
   var gutter = 4;
   var margin = 20;
   var timeAxisHeight = 32;
-  var preprocessTimeline = pipe(calcStartEndTimes, toTree, flatten);
   return {
     oninit: function (_a) {
       var _b = _a.attrs,
@@ -16550,7 +16560,7 @@ var ScenarioTimeline = function () {
         height: items.length * lineHeight
       };
       console.table(items);
-      return [(0, _mithril.default)(TimeAxis, {
+      return (0, _mithril.default)('.mst__container', [(0, _mithril.default)(TimeAxis, {
         startTime: startTime,
         endTime: endTime,
         bounds: __assign({}, bounds, {
@@ -16563,11 +16573,17 @@ var ScenarioTimeline = function () {
         bounds: bounds,
         lineHeight: lineHeight,
         scale: scale
-      })];
+      }), (0, _mithril.default)(ScenarioLinks, {
+        items: items,
+        bounds: __assign({}, bounds, {
+          top: gutter + timeAxisHeight
+        }),
+        lineHeight: lineHeight,
+        scale: scale
+      })]);
     }
   };
-}; //# sourceMappingURL=index.js.map
-//# sourceMappingURL=mithril-scenario-timeline.mjs.map
+}; //# sourceMappingURL=mithril-scenario-timeline.mjs.map
 
 
 exports.ScenarioTimeline = ScenarioTimeline;
@@ -16595,12 +16611,14 @@ exports.EditorPage = function () {
     timeline: [{
       id: 'a',
       title: 'A',
+      isOpen: true,
       delay: 0
     }, {
       id: 'a.1',
       title: 'a.1',
       parentId: 'a',
       delay: 40,
+      isOpen: true,
       dependsOn: [{
         id: 'a',
         condition: 'started'
@@ -16610,6 +16628,7 @@ exports.EditorPage = function () {
       title: 'a.2',
       parentId: 'a',
       delay: 40,
+      isOpen: true,
       dependsOn: [{
         id: 'a.1',
         condition: 'finished'
@@ -16662,6 +16681,7 @@ exports.EditorPage = function () {
     }, {
       id: 'b',
       title: 'B',
+      isOpen: true,
       delay: 200
     }, {
       id: 'b.1',
@@ -16890,7 +16910,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51121" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51029" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

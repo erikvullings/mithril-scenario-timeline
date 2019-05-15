@@ -1,9 +1,10 @@
 import m, { FactoryComponent, Attributes } from 'mithril';
 import '../styles/scenario-timeline.css';
 import { ITimelineItem } from '../interfaces/timeline';
-import { calcStartEndTimes, toTree, flatten, pipe } from '../helpers';
+import { preprocessTimeline } from '../helpers';
 import { ScenarioItems } from './scenario-items';
 import { TimeAxis } from './time-axis';
+import { ScenarioLinks } from './scenario-links';
 
 export interface IScenarioTimeline extends Attributes {
   /** 1 second is x pixels horizontally */
@@ -24,7 +25,6 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
   const gutter = 4;
   const margin = 20;
   const timeAxisHeight = 32;
-  const preprocessTimeline = pipe(calcStartEndTimes, toTree, flatten);
 
   return {
     oninit: ({ attrs: { scale, lineHeight } }) => {
@@ -43,10 +43,11 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
         height: items.length * lineHeight,
       };
       console.table(items);
-      return [
+      return m('.mst__container', [
         m(TimeAxis, { startTime, endTime, bounds: { ...bounds, top: 0, height: timeAxisHeight }, scale }),
         m(ScenarioItems, { items, bounds, lineHeight, scale }),
-      ];
+        m(ScenarioLinks, { items, bounds: { ...bounds, top: gutter + timeAxisHeight }, lineHeight, scale }),
+      ]);
     },
   };
 };

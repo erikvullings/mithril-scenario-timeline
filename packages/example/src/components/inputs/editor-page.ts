@@ -1,18 +1,20 @@
 import m from 'mithril';
 import { CodeBlock } from 'mithril-materialized';
-import { ScenarioTimeline, ITimeline } from 'mithril-scenario-timeline';
+import { ScenarioTimeline, ITimelineItem } from 'mithril-scenario-timeline';
 
 export const EditorPage = () => {
   const state = {
     timeline: [{
       id: 'a',
       title: 'A',
+      isOpen: true,
       delay: 0,
     }, {
       id: 'a.1',
       title: 'a.1',
       parentId: 'a',
       delay: 40,
+      isOpen: true,
       dependsOn: [{
         id: 'a',
         condition: 'started',
@@ -22,6 +24,7 @@ export const EditorPage = () => {
       title: 'a.2',
       parentId: 'a',
       delay: 40,
+      isOpen: true,
       dependsOn: [{
         id: 'a.1',
         condition: 'finished',
@@ -71,9 +74,10 @@ export const EditorPage = () => {
         id: 'a.1.1',
         condition: 'finished',
       }],
-    } as ITimeline, {
+    }, {
       id: 'b',
       title: 'B',
+      isOpen: true,
       delay: 200,
     }, {
       id: 'b.1',
@@ -84,7 +88,7 @@ export const EditorPage = () => {
         id: 'b',
         condition: 'started',
       }],
-    }] as ITimeline[],
+    }] as ITimelineItem[],
   };
   return {
     view: () => {

@@ -1,6 +1,24 @@
 import { ITimelineItem, IExecutingTimelineItem, IBoundingRectangle } from '../interfaces';
 import { IDependency } from '../interfaces/dependency';
 
+/* Compose and pipe functions from https://dev.to/ascorbic/creating-a-typed-compose-function-in-typescript-3-351i */
+
+/**
+ * Compose multiple one-aray functions together, e.g. when supplying f1, f2 and f3,
+ * the result is equivalent to fn1(fn2(fn3(inner))).
+ */
+export const compose = <R>(fn1: (a: R) => R, ...fns: Array<(a: R) => R>) =>
+  fns.reduce((prevFn, nextFn) => value => prevFn(nextFn(value)), fn1);
+
+/**
+ * Pipe multiple one-aray functions together, e.g. when supplying f1, f2 and f3,
+ * the result is equivalent to fn3(fn2(fn1(inner))).
+ */
+export const pipe = <T extends any[], R>(fn1: (...args: T) => R, ...fns: Array<(a: R) => R>) => {
+  const piped = fns.reduce((prevFn, nextFn) => (value: R) => nextFn(prevFn(value)), value => value);
+  return (...args: T) => piped(fn1(...args));
+};
+
 /**
  * Convert the timeline items to their reactive counterpart (IExecutingTimelineItem),
  * so start time and duration can be computed reactively.
@@ -121,7 +139,7 @@ export const toTree = (items: IExecutingTimelineItem[]) => {
       .filter(item => (parentId ? item.parentId === parentId : !item.parentId))
       .map(item => ({
         ...item,
-        children: findChildren(item.id),
+        children: item.isOpen ? findChildren(item.id) : undefined,
       }));
 
   return findChildren();
@@ -139,30 +157,14 @@ export const flatten = (items: IExecutingTimelineItem[]) => {
   return f(items, []);
 };
 
+export const preprocessTimeline = pipe(calcStartEndTimes, toTree, flatten);
+
 /** Convert a bounding rectangle to a style */
 export const boundsToStyle = (b: IBoundingRectangle) =>
   `top: ${b.top}px; left: ${b.left}px; width: ${b.width}px; height: ${b.height}px;`;
 
 /** Convert a bounding rectangle to a style for wrapping a circle */
 export const boundsToCircleStyle = (b: IBoundingRectangle) => `top: ${b.top}px; left: ${b.left}px`;
-
-/* Compose and pipe functions from https://dev.to/ascorbic/creating-a-typed-compose-function-in-typescript-3-351i */
-
-/**
- * Compose multiple one-aray functions together, e.g. when supplying f1, f2 and f3,
- * the result is equivalent to fn1(fn2(fn3(inner))).
- */
-export const compose = <R>(fn1: (a: R) => R, ...fns: Array<(a: R) => R>) =>
-  fns.reduce((prevFn, nextFn) => value => prevFn(nextFn(value)), fn1);
-
-/**
- * Pipe multiple one-aray functions together, e.g. when supplying f1, f2 and f3,
- * the result is equivalent to fn3(fn2(fn1(inner))).
- */
-export const pipe = <T extends any[], R>(fn1: (...args: T) => R, ...fns: Array<(a: R) => R>) => {
-  const piped = fns.reduce((prevFn, nextFn) => (value: R) => nextFn(prevFn(value)), value => value);
-  return (...args: T) => piped(fn1(...args));
-};
 
 export const range = (s: number, e: number, step = 1) =>
   Array.from({ length: Math.ceil((e - s) / step) }, (_, k) => k * step + s);
