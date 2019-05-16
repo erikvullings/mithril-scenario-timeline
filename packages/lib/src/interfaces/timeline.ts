@@ -13,6 +13,12 @@ export interface ITimelineItem {
   delay?: number;
   /** If true, show the items children */
   isOpen?: boolean;
+  /**
+   * Percentage completed [0, 1].
+   * For messages, this will be either 0 or 1, but for aggregated tasks,
+   * this represents how many of the total number of messages are completed.
+   */
+  completed?: number;
   /** IDs of the items that it depends on before it can start, i.e. these other items need to be completed */
   dependsOn?: IDependency[];
   /**
@@ -20,8 +26,6 @@ export interface ITimelineItem {
    * this item can no longer be executed.
    */
   alternativeTo?: string[];
-  /** Optional view function to render the item */
-  view?: FactoryComponent<ITimelineItem>;
 }
 
 export interface IExecutingTimelineItem extends ITimelineItem {
@@ -31,12 +35,6 @@ export interface IExecutingTimelineItem extends ITimelineItem {
   startTime?: number;
   /** Calculated property: based on the delay and the start time of the related item. */
   endTime?: number;
-  /**
-   * Percentage completed [0, 100].
-   * For messages, this will be either 0 or 100, but for aggregated tasks,
-   * this represents how many of the total number of messages are completed.
-   */
-  completed?: number;
   /** Calculated property: Either 0 for messages, or the total delay of all of its children. */
   duration?: number;
   /** Calculated list of child IDs */

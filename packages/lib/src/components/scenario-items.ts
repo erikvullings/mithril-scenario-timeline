@@ -10,6 +10,8 @@ export interface IScenarioItems extends Attributes {
   lineHeight: number;
   /** 1 second is x pixels horizontally */
   scale: number;
+  /** Optional onclick event handler to inform you that the item has been clicked */
+  onClick?: (item: IExecutingTimelineItem) => void;
   items: IExecutingTimelineItem[];
 }
 
@@ -18,7 +20,7 @@ export const ScenarioItems: FactoryComponent<IScenarioItems> = () => {
   const gutter = 2;
 
   return {
-    view: ({ attrs: { items, bounds, scale, lineHeight } }) => {
+    view: ({ attrs: { items, bounds, scale, lineHeight, onClick } }) => {
       const getBounds = (item: IExecutingTimelineItem, row: number) => ({
         top: bounds.top + lineHeight * row + gutter,
         left: item.startTime! * scale,
@@ -29,7 +31,7 @@ export const ScenarioItems: FactoryComponent<IScenarioItems> = () => {
       return m(
         '.mst__items',
         { style: boundsToStyle(bounds) },
-        items.map((item, row) => m(ScenarioItem, { item, key: item.id, bounds: getBounds(item, row) }))
+        items.map((item, row) => m(ScenarioItem, { item, key: item.id, bounds: getBounds(item, row), onClick }))
       );
     },
   };

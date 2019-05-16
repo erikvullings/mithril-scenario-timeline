@@ -11,20 +11,32 @@
 }
 
 .mst__item--rect {
+  position: absolute;
+  z-index: 2;
+  cursor: pointer;
   border: 2px solid black;
 }
+.mst__item--rect:hover {
+  border: 3px solid black;
+}
 
-.mst__item--circle {
-  background: red;
-  border-radius: 50%;
-  line-height: 0.5;
+.mst__item--completed {
+  position: absolute;
+  opacity: 0.5;
+  background: lightgray;
 }
 
 .mst__title {
   padding-left: 10px;
 }
 
+.mst__item--rect > .mst__title {
+  margin-top: -1px;
+}
+
 .mst__item--diamond {
+  position: absolute;
+  cursor: pointer;
   z-index: 2;
   line-height: 0.5;
   width: 0;
@@ -42,6 +54,27 @@
   height: 0;
   border: 5px solid transparent;
   border-top-color: red;
+}
+.mst__item--completed_diamond {
+  position: absolute;
+  cursor: pointer;
+  z-index: 2;
+  line-height: 0.5;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-bottom-color: gray;
+  top: -5px;
+}
+.mst__item--completed_diamond:after {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 5px;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-top-color: gray;
 }
 
 .mst__time-scale {
@@ -93,6 +126,7 @@
 .mst__link--vertical {
   /* position: absolute; */
   background: #a6a6a6;
+  opacity: 0.5;
   height: 0;
   width: 2px;
 }
@@ -100,6 +134,7 @@
 .mst__link--horizontal {
   /* position: absolute; */
   background: #a6a6a6;
+  opacity: 0.5;
   width: 0;
   height: 2px;
 }

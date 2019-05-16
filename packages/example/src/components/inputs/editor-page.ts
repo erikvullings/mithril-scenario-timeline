@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { CodeBlock } from 'mithril-materialized';
-import { ScenarioTimeline, ITimelineItem } from 'mithril-scenario-timeline';
+import { ScenarioTimeline, ITimelineItem, IExecutingTimelineItem } from 'mithril-scenario-timeline';
 
 export const EditorPage = () => {
   const state = {
@@ -13,6 +13,7 @@ export const EditorPage = () => {
       id: 'a.1',
       title: 'a.1',
       parentId: 'a',
+      completed: 0.5,
       delay: 40,
       isOpen: true,
       dependsOn: [{
@@ -33,6 +34,7 @@ export const EditorPage = () => {
       id: 'a.1.1',
       title: 'a.1.1',
       parentId: 'a.1',
+      completed: 1,
       delay: 0,
       dependsOn: [{
         id: 'a.1',
@@ -60,6 +62,7 @@ export const EditorPage = () => {
       id: 'a.1.2',
       title: 'a.1.2',
       parentId: 'a.1',
+      completed: 1,
       delay: 100,
       dependsOn: [{
         id: 'a.1.1',
@@ -70,6 +73,7 @@ export const EditorPage = () => {
       title: 'a.3',
       parentId: 'a',
       delay: 140,
+      completed: 100,
       dependsOn: [{
         id: 'a.1.1',
         condition: 'finished',
@@ -178,14 +182,16 @@ export const EditorPage = () => {
   return {
     view: () => {
       const { timeline, timeline2 } = state;
+      const onClick = (item: IExecutingTimelineItem) => console.table(item);
+
       return m('.col.s12', [
         m('h2.header', 'ScenarioTimeline'),
 
-        m(ScenarioTimeline, { timeline, title: 'Hello timeline' }),
+        m(ScenarioTimeline, { timeline, title: 'Hello timeline', onClick }),
 
         m('h2.header', 'ScenarioTimeline 2'),
 
-        m(ScenarioTimeline, { timeline: timeline2, title: 'Hello timeline 2' }),
+        m(ScenarioTimeline, { timeline: timeline2, title: 'Hello timeline 2', onClick }),
 
         m(CodeBlock, {
           code: `TODO`,

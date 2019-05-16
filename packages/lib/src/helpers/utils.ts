@@ -203,6 +203,10 @@ export const extractDependencyLinks = (items: IExecutingTimelineItem[], lineHeig
 export const boundsToStyle = (b: IBoundingRectangle) =>
   `top: ${b.top}px; left: ${b.left}px; width: ${b.width}px; height: ${b.height}px;`;
 
+/** Convert a bounding rectangle to a style for the completion percentage */
+export const boundsToCompletionStyle = (b: IBoundingRectangle, completion = 0) =>
+  `top: 0px; left: 0px; width: ${b.width * completion}px; height: ${b.height - 3}px;`;
+
 /** Convert a bounding rectangle to a style for wrapping a circle */
 export const boundsToMarkerStyle = (b: IBoundingRectangle) => `top: ${b.top}px; left: ${b.left - 4}px`;
 
