@@ -34,10 +34,10 @@ export const TimeAxis: FactoryComponent<ITimeAxis> = () => {
   const scaleFactor = (step: number): [number, string] =>
     step < 60 ? [1, 'sec'] : step < 600 ? [60, 'min'] : step <= 3600 ? [3600, 'hrs'] : [5 * 3600, 'hrs'];
 
-  const hour = 60 * 60 * 60;
+  const hour = 60 * 60;
 
   const formatTime = (sf: number, time: number) =>
-    sf <= 60 ? time / 60 : `${padLeft(time / hour)}:${padLeft(time % hour)}`;
+    sf <= 60 ? time / 60 : `${padLeft(Math.round(time / hour))}:${padLeft(Math.round((time % hour) / 60))}`;
 
   return {
     view: ({ attrs: { bounds, startTime, endTime, scale } }) => {

@@ -18,7 +18,7 @@ export interface IScenarioTimeline extends Attributes {
 export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
   const state = {} as {
     // 1 second is x pixels
-    scale: number;
+    scale?: number;
     lineHeight: number;
   };
 
@@ -26,16 +26,18 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
   const margin = 20;
   const timeAxisHeight = 32;
 
+  const calculateScale = (duration: number) => duration > 800 ? Math.floor(80000 / duration) / 100 : 1;
+
   return {
     oninit: ({ attrs: { scale, lineHeight } }) => {
-      state.scale = scale || 1;
+      state.scale = scale;
       state.lineHeight = lineHeight || 28;
     },
     view: ({ attrs: { timeline } }) => {
-      const { lineHeight, scale } = state;
       const items = preprocessTimeline(timeline);
       const startTime = Math.min(...items.map(item => item.startTime!));
       const endTime = Math.max(...items.map(item => item.endTime!));
+      const { lineHeight, scale = calculateScale(endTime - startTime) } = state;
       const bounds = {
         left: 0,
         top: gutter,
