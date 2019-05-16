@@ -27,6 +27,7 @@
 }
 
 .mst__item--diamond {
+  z-index: 2;
   line-height: 0.5;
   width: 0;
   height: 0;
@@ -89,23 +90,26 @@
 
 .mst__link {
   position: absolute;
-  background: orangered;
 }
 
-.mst__link > .mst__link--vertical {
-  position: absolute;
-  background: orangered;
+.mst__link--vertical {
+  /* position: absolute; */
+  background: #a6a6a6;
   height: 0;
   width: 2px;
 }
 
-.mst__link > .mst__link--horizontal {
-  position: absolute;
-  background: orangered;
+.mst__link--horizontal {
+  /* position: absolute; */
+  background: #a6a6a6;
   width: 0;
   height: 2px;
 }
 
-/* .mst__link.mst__link--vertical:hover {
+.mst__link:hover > .mst__link--vertical {
   width: 3px;
-} */
+}
+
+.mst__link:hover > .mst__link--horizontal {
+  height: 3px;
+}

@@ -16195,7 +16195,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css = ".mst__container{width:100%;height:100%}.mst__container,.mst__items{position:relative}.mst__item--rect{border:2px solid #000}.mst__item--circle{background:red;border-radius:50%;line-height:.5}.mst__title{padding-left:10px}.mst__item--diamond{line-height:.5;width:0;height:0;border:5px solid transparent;border-bottom-color:red;top:-5px}.mst__item--diamond:after{content:\"\";position:absolute;left:-5px;top:5px;width:0;height:0;border:5px solid transparent;border-top-color:red}.mst__time-scale{color:#6b6b6b;font-size:12px;border-bottom:1px solid #cecece;background-color:#fff;box-sizing:border-box;margin:0;padding:0;position:relative}.mst__time-scale-text{position:absolute;color:#a6a6a6;display:inline-block;white-space:nowrap;overflow:hidden;text-align:center;height:100%}.mst__time-scale-marker{position:absolute;top:22px;width:1px;height:10px;color:#a6a6a6;background:#a6a6a6}.mst__time-scale-legend{text-align:right}.mst__item,.mst__links{position:absolute}.mst__link,.mst__link>.mst__link--vertical{position:absolute;background:#ff4500}.mst__link>.mst__link--vertical{height:0;width:2px}.mst__link>.mst__link--horizontal{position:absolute;background:#ff4500;width:0;height:2px}";
+var css = ".mst__container{width:100%;height:100%}.mst__container,.mst__items{position:relative}.mst__item--rect{border:2px solid #000}.mst__item--circle{background:red;border-radius:50%;line-height:.5}.mst__title{padding-left:10px}.mst__item--diamond{z-index:2;line-height:.5;width:0;height:0;border:5px solid transparent;border-bottom-color:red;top:-5px}.mst__item--diamond:after{content:\"\";position:absolute;left:-5px;top:5px;width:0;height:0;border:5px solid transparent;border-top-color:red}.mst__time-scale{color:#6b6b6b;font-size:12px;border-bottom:1px solid #cecece;background-color:#fff;box-sizing:border-box;margin:0;padding:0;position:relative}.mst__time-scale-text{position:absolute;color:#a6a6a6;display:inline-block;white-space:nowrap;overflow:hidden;text-align:center;height:100%}.mst__time-scale-marker{position:absolute;top:22px;width:1px;height:10px;color:#a6a6a6;background:#a6a6a6}.mst__time-scale-legend{text-align:right}.mst__item,.mst__link,.mst__links{position:absolute}.mst__link--vertical{background:#a6a6a6;height:0;width:2px}.mst__link--horizontal{background:#a6a6a6;width:0;height:2px}.mst__link:hover>.mst__link--vertical{width:3px}.mst__link:hover>.mst__link--horizontal{height:3px}";
 styleInject(css);
 /**
  * Pipe multiple one-aray functions together, e.g. when supplying f1, f2 and f3,
@@ -16569,8 +16569,14 @@ var TimeAxis = function () {
 
 
 var ScenarioLink = function () {
-  // const bounds = ({ x1, y1, x2, y2 }: ILink) =>
-  //   `left: ${x1}px; top: ${y1}px; width: ${x2 - x1}px; height: ${y2 - y1}px;`;
+  var bounds = function (_a) {
+    var x1 = _a.x1,
+        y1 = _a.y1,
+        x2 = _a.x2,
+        y2 = _a.y2;
+    return "left: " + x1 + "px; top: " + y1 + "px; width: " + (x2 - x1) + "px; height: " + (y2 - y1) + "px;";
+  };
+
   var verLine = function (_a) {
     var x1 = _a.x1,
         y1 = _a.y1,
@@ -16582,7 +16588,7 @@ var ScenarioLink = function () {
     var x1 = _a.x1,
         x2 = _a.x2,
         y2 = _a.y2;
-    return "left: " + x1 + "px; top: " + y2 + "px; width: " + (x2 - x1) + "px;";
+    return "left: " + x1 + "px; top: " + y2 + "px; width: " + (x2 - x1 || 1) + "px;";
   };
 
   return {
@@ -16590,17 +16596,17 @@ var ScenarioLink = function () {
       var link = _a.attrs.link;
       var x1 = link.x1,
           x2 = link.x2;
-      return (0, _mithril.default)('.mst__link', // {
-      //   style: bounds(link),
-      // },
-      [(0, _mithril.default)('.mst__link--vertical', {
+      return (0, _mithril.default)('.mst__link', {
+        style: bounds(link)
+      }, [(0, _mithril.default)('.mst__link--vertical', {
         style: verLine(link)
       }), x1 === x2 ? undefined : (0, _mithril.default)('.mst__link--horizontal', {
         style: horLine(link)
       })]);
     }
   };
-};
+}; //# sourceMappingURL=scenario-link.js.map
+
 
 var ScenarioLinks = function () {
   return {
@@ -16621,7 +16627,8 @@ var ScenarioLinks = function () {
       }));
     }
   };
-};
+}; //# sourceMappingURL=scenario-links.js.map
+
 
 var ScenarioTimeline = function () {
   var state = {};
