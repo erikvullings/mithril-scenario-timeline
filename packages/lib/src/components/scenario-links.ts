@@ -1,7 +1,8 @@
 import m, { FactoryComponent, Attributes } from 'mithril';
 import { IExecutingTimelineItem } from '..';
 import { IBoundingRectangle } from '../interfaces';
-import { boundsToStyle } from '../helpers';
+import { boundsToStyle, extractDependencyLinks } from '../helpers';
+import { ScenarioLink } from './scenario-link';
 
 export interface IScenarioLinks extends Attributes {
   /** Bound for the component using absolute positioning */
@@ -15,8 +16,10 @@ export interface IScenarioLinks extends Attributes {
 
 export const ScenarioLinks: FactoryComponent<IScenarioLinks> = () => {
   return {
-    view: ({ attrs: { bounds } }) => {
-      return m('.mst__links', { style: boundsToStyle(bounds) });
+    view: ({ attrs: { items, bounds, lineHeight, scale } }) => {
+      const links = extractDependencyLinks(items, lineHeight, scale);
+      console.table(links);
+      return m('.mst__links', { style: boundsToStyle(bounds) }, links.map(link => m(ScenarioLink, { link })));
     },
   };
 };

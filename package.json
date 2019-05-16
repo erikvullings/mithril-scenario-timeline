@@ -6,6 +6,7 @@
   "scripts": {
     "postinstall": "lerna run link",
     "link": "lerna run link",
+    "clean": "rm -fr ./docs && lerna run clean --parallel",
     "build:domain": "lerna run build:domain --parallel",
     "start": "lerna run start --parallel",
     "patch-release": "lerna run patch-release --parallel",

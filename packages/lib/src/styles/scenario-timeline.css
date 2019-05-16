@@ -8,7 +8,6 @@
   position: relative;
 }
 
-.mst__links,
 .mst__item {
   position: absolute;
 }
@@ -79,3 +78,34 @@
 .mst__time-scale-legend {
   text-align: right;
 }
+
+.mst__links {
+  position: absolute;
+}
+
+.mst__item {
+  position: absolute;
+}
+
+.mst__link {
+  position: absolute;
+  background: orangered;
+}
+
+.mst__link > .mst__link--vertical {
+  position: absolute;
+  background: orangered;
+  height: 0;
+  width: 2px;
+}
+
+.mst__link > .mst__link--horizontal {
+  position: absolute;
+  background: orangered;
+  width: 0;
+  height: 2px;
+}
+
+/* .mst__link.mst__link--vertical:hover {
+  width: 3px;
+} */

@@ -16195,7 +16195,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css = ".mst__container{width:100%;height:100%}.mst__container,.mst__items{position:relative}.mst__item,.mst__links{position:absolute}.mst__item--rect{border:2px solid #000}.mst__item--circle{background:red;border-radius:50%;line-height:.5}.mst__title{padding-left:10px}.mst__item--diamond{line-height:.5;width:0;height:0;border:5px solid transparent;border-bottom-color:red;top:-5px}.mst__item--diamond:after{content:\"\";position:absolute;left:-5px;top:5px;width:0;height:0;border:5px solid transparent;border-top-color:red}.mst__time-scale{color:#6b6b6b;font-size:12px;border-bottom:1px solid #cecece;background-color:#fff;box-sizing:border-box;margin:0;padding:0;position:relative}.mst__time-scale-text{position:absolute;color:#a6a6a6;display:inline-block;white-space:nowrap;overflow:hidden;text-align:center;height:100%}.mst__time-scale-marker{position:absolute;top:22px;width:1px;height:10px;color:#a6a6a6;background:#a6a6a6}.mst__time-scale-legend{text-align:right}";
+var css = ".mst__container{width:100%;height:100%}.mst__container,.mst__items{position:relative}.mst__item--rect{border:2px solid #000}.mst__item--circle{background:red;border-radius:50%;line-height:.5}.mst__title{padding-left:10px}.mst__item--diamond{line-height:.5;width:0;height:0;border:5px solid transparent;border-bottom-color:red;top:-5px}.mst__item--diamond:after{content:\"\";position:absolute;left:-5px;top:5px;width:0;height:0;border:5px solid transparent;border-top-color:red}.mst__time-scale{color:#6b6b6b;font-size:12px;border-bottom:1px solid #cecece;background-color:#fff;box-sizing:border-box;margin:0;padding:0;position:relative}.mst__time-scale-text{position:absolute;color:#a6a6a6;display:inline-block;white-space:nowrap;overflow:hidden;text-align:center;height:100%}.mst__time-scale-marker{position:absolute;top:22px;width:1px;height:10px;color:#a6a6a6;background:#a6a6a6}.mst__time-scale-legend{text-align:right}.mst__item,.mst__links{position:absolute}.mst__link,.mst__link>.mst__link--vertical{position:absolute;background:#ff4500}.mst__link>.mst__link--vertical{height:0;width:2px}.mst__link>.mst__link--horizontal{position:absolute;background:#ff4500;width:0;height:2px}";
 styleInject(css);
 /**
  * Pipe multiple one-aray functions together, e.g. when supplying f1, f2 and f3,
@@ -16374,7 +16374,52 @@ var flatten = function (items) {
 };
 
 var preprocessTimeline = pipe(calcStartEndTimes, toTree, flatten);
+
+var extractDependencyLinks = function (items, lineHeight, scale) {
+  var findItem = function (id) {
+    return items.map(function (it, index) {
+      return {
+        it: it,
+        index: index
+      };
+    }).filter(function (i) {
+      return i.it.id === id;
+    }).shift();
+  };
+
+  return items.reduce(function (acc, item, row) {
+    if (item.dependsOn && item.dependsOn.length) {
+      var links = item.dependsOn.map(function (dep) {
+        var found = findItem(dep.id);
+
+        if (!found) {
+          return undefined;
+        }
+
+        var it = found.it,
+            index = found.index;
+        var time = dep.condition === 'started' ? it.startTime : it.endTime;
+        var verOffset = it.children ? 4 : -4;
+        var horOffset = item.children ? -4 : -7;
+        var x1 = time * scale;
+        var y1 = (index + 1) * lineHeight + verOffset;
+        var x2 = item.startTime * scale + horOffset;
+        var y2 = (row + 0.5) * lineHeight + 1 + (item.startTime === time ? -6 : 0);
+        return {
+          x1: x1,
+          y1: y1,
+          x2: x2,
+          y2: y2
+        };
+      }).filter(Boolean);
+      acc.push.apply(acc, links);
+    }
+
+    return acc;
+  }, []);
+};
 /** Convert a bounding rectangle to a style */
+
 
 var boundsToStyle = function (b) {
   return "top: " + b.top + "px; left: " + b.left + "px; width: " + b.width + "px; height: " + b.height + "px;";
@@ -16382,8 +16427,8 @@ var boundsToStyle = function (b) {
 /** Convert a bounding rectangle to a style for wrapping a circle */
 
 
-var boundsToCircleStyle = function (b) {
-  return "top: " + b.top + "px; left: " + b.left + "px";
+var boundsToMarkerStyle = function (b) {
+  return "top: " + b.top + "px; left: " + (b.left - 4) + "px";
 };
 
 var range = function (s, e, step) {
@@ -16419,7 +16464,9 @@ var padLeft = function (n, width, z) {
 
   n = n + '';
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
-};
+}; //# sourceMappingURL=utils.js.map
+//# sourceMappingURL=index.js.map
+
 
 var ScenarioItem = function () {
   var isInstantenaous = function (item) {
@@ -16432,13 +16479,14 @@ var ScenarioItem = function () {
           item = _b.item,
           bounds = _b.bounds;
       return isInstantenaous(item) ? (0, _mithril.default)('.mst__item.mst__item--diamond', {
-        style: boundsToCircleStyle(bounds)
+        style: boundsToMarkerStyle(bounds)
       }, (0, _mithril.default)('div.mst__title', item.title)) : (0, _mithril.default)('.mst__item.mst__item--rect', {
         style: boundsToStyle(bounds)
       }, (0, _mithril.default)('div.mst__title', item.title));
     }
   };
-};
+}; //# sourceMappingURL=scenario-item.js.map
+
 
 var ScenarioItems = function () {
   /** Space between subsequent rows */
@@ -16471,7 +16519,8 @@ var ScenarioItems = function () {
       }));
     }
   };
-};
+}; //# sourceMappingURL=scenario-items.js.map
+
 
 var TimeAxis = function () {
   var textWidth = 50;
@@ -16516,15 +16565,60 @@ var TimeAxis = function () {
       }).concat([(0, _mithril.default)('.mst__time-scale-legend', legend)]));
     }
   };
+}; //# sourceMappingURL=time-axis.js.map
+
+
+var ScenarioLink = function () {
+  // const bounds = ({ x1, y1, x2, y2 }: ILink) =>
+  //   `left: ${x1}px; top: ${y1}px; width: ${x2 - x1}px; height: ${y2 - y1}px;`;
+  var verLine = function (_a) {
+    var x1 = _a.x1,
+        y1 = _a.y1,
+        y2 = _a.y2;
+    return "left: " + x1 + "px; top: " + y1 + "px; height: " + (y2 - y1) + "px;";
+  };
+
+  var horLine = function (_a) {
+    var x1 = _a.x1,
+        x2 = _a.x2,
+        y2 = _a.y2;
+    return "left: " + x1 + "px; top: " + y2 + "px; width: " + (x2 - x1) + "px;";
+  };
+
+  return {
+    view: function (_a) {
+      var link = _a.attrs.link;
+      var x1 = link.x1,
+          x2 = link.x2;
+      return (0, _mithril.default)('.mst__link', // {
+      //   style: bounds(link),
+      // },
+      [(0, _mithril.default)('.mst__link--vertical', {
+        style: verLine(link)
+      }), x1 === x2 ? undefined : (0, _mithril.default)('.mst__link--horizontal', {
+        style: horLine(link)
+      })]);
+    }
+  };
 };
 
 var ScenarioLinks = function () {
   return {
     view: function (_a) {
-      var bounds = _a.attrs.bounds;
+      var _b = _a.attrs,
+          items = _b.items,
+          bounds = _b.bounds,
+          lineHeight = _b.lineHeight,
+          scale = _b.scale;
+      var links = extractDependencyLinks(items, lineHeight, scale);
+      console.table(links);
       return (0, _mithril.default)('.mst__links', {
         style: boundsToStyle(bounds)
-      });
+      }, links.map(function (link) {
+        return (0, _mithril.default)(ScenarioLink, {
+          link: link
+        });
+      }));
     }
   };
 };
@@ -16583,7 +16677,9 @@ var ScenarioTimeline = function () {
       })]);
     }
   };
-}; //# sourceMappingURL=mithril-scenario-timeline.mjs.map
+}; //# sourceMappingURL=scenario-timeline.js.map
+//# sourceMappingURL=index.js.map
+//# sourceMappingURL=mithril-scenario-timeline.mjs.map
 
 
 exports.ScenarioTimeline = ScenarioTimeline;
@@ -16673,7 +16769,7 @@ exports.EditorPage = function () {
       id: 'a.3',
       title: 'a.3',
       parentId: 'a',
-      delay: 100,
+      delay: 140,
       dependsOn: [{
         id: 'a.1.1',
         condition: 'finished'
@@ -16910,7 +17006,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51029" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53904" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

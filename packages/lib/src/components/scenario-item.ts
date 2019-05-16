@@ -1,7 +1,7 @@
 import m, { FactoryComponent, Attributes } from 'mithril';
 import { IExecutingTimelineItem } from '..';
 import { IBoundingRectangle } from '../interfaces';
-import { boundsToStyle, boundsToCircleStyle as boundsToMarkerStyle } from '../helpers';
+import { boundsToStyle, boundsToMarkerStyle } from '../helpers';
 
 export interface IScenarioItem extends Attributes {
   /** Bound for the component using absolute positioning */

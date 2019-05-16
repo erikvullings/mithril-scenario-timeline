@@ -69,7 +69,7 @@ export const EditorPage = () => {
       id: 'a.3',
       title: 'a.3',
       parentId: 'a',
-      delay: 100,
+      delay: 140,
       dependsOn: [{
         id: 'a.1.1',
         condition: 'finished',

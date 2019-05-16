@@ -1,5 +1,6 @@
 import { ITimelineItem, IExecutingTimelineItem, IBoundingRectangle } from '../interfaces';
 import { IDependency } from '../interfaces/dependency';
+import { ILink } from '../interfaces/link';
 
 /* Compose and pipe functions from https://dev.to/ascorbic/creating-a-typed-compose-function-in-typescript-3-351i */
 
@@ -23,7 +24,7 @@ export const pipe = <T extends any[], R>(fn1: (...args: T) => R, ...fns: Array<(
  * Convert the timeline items to their reactive counterpart (IExecutingTimelineItem),
  * so start time and duration can be computed reactively.
  */
-export const calcStartEndTimes = (items: ITimelineItem[]) => {
+const calcStartEndTimes = (items: ITimelineItem[]) => {
   const lookupMap = items.reduce(
     (acc, cur) => {
       const { id } = cur;
@@ -132,7 +133,7 @@ export const calcStartEndTimes = (items: ITimelineItem[]) => {
   );
 };
 
-export const toTree = (items: IExecutingTimelineItem[]) => {
+const toTree = (items: IExecutingTimelineItem[]) => {
   // TODO Check if isOpen
   const findChildren = (parentId?: string): IExecutingTimelineItem[] =>
     items
@@ -145,7 +146,7 @@ export const toTree = (items: IExecutingTimelineItem[]) => {
   return findChildren();
 };
 
-export const flatten = (items: IExecutingTimelineItem[]) => {
+const flatten = (items: IExecutingTimelineItem[]) => {
   const f = (children: IExecutingTimelineItem[], init: IExecutingTimelineItem[]) =>
     children.reduce((acc, child) => {
       acc.push(child);
@@ -157,14 +158,53 @@ export const flatten = (items: IExecutingTimelineItem[]) => {
   return f(items, []);
 };
 
-export const preprocessTimeline = pipe(calcStartEndTimes, toTree, flatten);
+export const preprocessTimeline = pipe(
+  calcStartEndTimes,
+  toTree,
+  flatten
+);
+
+export const extractDependencyLinks = (items: IExecutingTimelineItem[], lineHeight: number, scale: number) => {
+  const findItem = (id: string) =>
+    items
+      .map((it, index) => ({ it, index }))
+      .filter(i => i.it.id === id)
+      .shift();
+
+  return items.reduce(
+    (acc, item, row) => {
+      if (item.dependsOn && item.dependsOn.length) {
+        const links = item.dependsOn
+          .map(dep => {
+            const found = findItem(dep.id);
+            if (!found) {
+              return undefined;
+            }
+            const { it, index } = found;
+            const time = dep.condition === 'started' ? it.startTime! : it.endTime!;
+            const verOffset = it.children ? 4 : -4;
+            const horOffset = item.children ? -4 : -7;
+            const x1 = time * scale;
+            const y1 = (index + 1) * lineHeight + verOffset;
+            const x2 = item.startTime! * scale + horOffset;
+            const y2 = (row + 0.5) * lineHeight + 1 + (item.startTime! === time ? -6 : 0);
+            return { x1, y1, x2, y2 };
+          })
+          .filter(Boolean) as ILink[];
+        acc.push(...links);
+      }
+      return acc;
+    },
+    [] as ILink[]
+  );
+};
 
 /** Convert a bounding rectangle to a style */
 export const boundsToStyle = (b: IBoundingRectangle) =>
   `top: ${b.top}px; left: ${b.left}px; width: ${b.width}px; height: ${b.height}px;`;
 
 /** Convert a bounding rectangle to a style for wrapping a circle */
-export const boundsToCircleStyle = (b: IBoundingRectangle) => `top: ${b.top}px; left: ${b.left}px`;
+export const boundsToMarkerStyle = (b: IBoundingRectangle) => `top: ${b.top}px; left: ${b.left - 4}px`;
 
 export const range = (s: number, e: number, step = 1) =>
   Array.from({ length: Math.ceil((e - s) / step) }, (_, k) => k * step + s);

@@ -11,10 +11,11 @@
   },
   "typings": "dist/index.d.ts",
   "scripts": {
+    "clean": "rm -fr ./dist && rm -fr .rpt2_cache",
     "link": "npm link",
     "start": "rollup -c -w",
     "build": "npm run build:production && npm run build:domain",
-    "build:production": "rm -fr ./dist && rollup -c",
+    "build:production": "npm run clean && rollup -c",
     "build:domain": "typedoc --out ../../docs/typedoc src",
     "patch-release": "npm run build && npm version patch --force -m \"Patch release\" && npm publish && git push --follow-tags",
     "minor-release": "npm run build && npm version minor --force -m \"Minor release\" && npm publish && git push --follow-tags",
