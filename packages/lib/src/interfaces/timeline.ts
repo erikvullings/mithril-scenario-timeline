@@ -19,6 +19,10 @@ export interface ITimelineItem {
    * this represents how many of the total number of messages are completed.
    */
   completed?: number;
+  /**
+   * If true, highlight the item.
+   */
+  highlight?: boolean;
   /** IDs of the items that it depends on before it can start, i.e. these other items need to be completed */
   dependsOn?: IDependency[];
   /**

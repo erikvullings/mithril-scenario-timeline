@@ -2194,7 +2194,7 @@ exports.Layout = function () {
   return {
     view: function view(vnode) {
       return mithril_1.default('.main', [mithril_1.default('nav', mithril_1.default('.nav-wrapper', [mithril_1.default( // tslint:disable-next-line:max-line-length
-      'a.github-corner[aria-label=View source on GitHub][href=https://github.com/erikvullings/mithril-markdown]', mithril_1.default('svg[aria-hidden=true][height=80][viewBox=0 0 250 250][width=80]', {
+      'a.github-corner[aria-label=View source on GitHub][href=https://github.com/erikvullings/mithril-scenario-timeline]', mithril_1.default('svg[aria-hidden=true][height=80][viewBox=0 0 250 250][width=80]', {
         style: {
           fill: 'black',
           color: '#fff',
@@ -2240,7 +2240,7 @@ var mithril_1 = __importDefault(require("mithril"));
 exports.AboutPage = function () {
   return {
     view: function view() {
-      return mithril_1.default('.row', [mithril_1.default('h1', 'About'), mithril_1.default('h1', 'Attribution'), mithril_1.default('ul.collection', [mithril_1.default('li.collection-item', 'Logo: ideation by Vytautas Alech from the Noun Project.')])]);
+      return mithril_1.default('.row', [mithril_1.default('h1', 'About'), mithril_1.default('p', 'Created to support the DRIVER+ Trial Management Tool (scenario editor).')]);
     }
   };
 };
@@ -16195,7 +16195,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css = ".mst__container{width:100%;height:100%}.mst__container,.mst__items{position:relative}.mst__item--rect{border:2px solid #000}.mst__item--circle{background:red;border-radius:50%;line-height:.5}.mst__title{padding-left:10px}.mst__item--diamond{z-index:2;line-height:.5;width:0;height:0;border:5px solid transparent;border-bottom-color:red;top:-5px}.mst__item--diamond:after{content:\"\";position:absolute;left:-5px;top:5px;width:0;height:0;border:5px solid transparent;border-top-color:red}.mst__time-scale{color:#6b6b6b;font-size:12px;border-bottom:1px solid #cecece;background-color:#fff;box-sizing:border-box;margin:0;padding:0;position:relative}.mst__time-scale-text{position:absolute;color:#a6a6a6;display:inline-block;white-space:nowrap;overflow:hidden;text-align:center;height:100%}.mst__time-scale-marker{position:absolute;top:22px;width:1px;height:10px;color:#a6a6a6;background:#a6a6a6}.mst__time-scale-legend{text-align:right}.mst__item,.mst__link,.mst__links{position:absolute}.mst__link--vertical{background:#a6a6a6;height:0;width:2px}.mst__link--horizontal{background:#a6a6a6;width:0;height:2px}.mst__link:hover>.mst__link--vertical{width:3px}.mst__link:hover>.mst__link--horizontal{height:3px}";
+var css = ".mst__container,.mst__items{position:relative}.mst__item--rect{position:absolute;z-index:2;cursor:pointer;border:2px solid #000}.mst__item--rect:hover{border:3px solid #000}.mst__item--completed{position:absolute;opacity:.5;background:#d3d3d3}.mst__time{position:absolute;background:red}.mst__title{padding-left:10px}.mst__item--rect>.mst__title{margin-top:-1px}.mst__item--diamond{position:absolute;cursor:pointer;z-index:2;line-height:.5;width:0;height:0;border:5px solid transparent;border-bottom-color:#000;top:-5px}.mst__item--diamond:after{content:\"\";position:absolute;left:-5px;top:5px;width:0;height:0;border:5px solid transparent;border-top-color:#000}.mst__item--diamond-attention{position:absolute;cursor:pointer;z-index:2;line-height:.5;width:0;height:0;border:5px solid transparent;border-bottom-color:red;top:-5px}.mst__item--diamond-attention:after{content:\"\";position:absolute;left:-5px;top:5px;width:0;height:0;border:5px solid transparent;border-top-color:red}.mst__item--diamond-completed{position:absolute;cursor:pointer;z-index:2;line-height:.5;width:0;height:0;border:5px solid transparent;border-bottom-color:#d3d3d3;top:-5px}.mst__item--diamond-completed:after{content:\"\";position:absolute;left:-5px;top:5px;width:0;height:0;border:5px solid transparent;border-top-color:#d3d3d3}.mst__time-scale{color:#6b6b6b;font-size:12px;border-bottom:1px solid #cecece;background-color:#fff;box-sizing:border-box;margin:0;padding:0;position:relative}.mst__time-scale-text{position:absolute;color:#a6a6a6;display:inline-block;white-space:nowrap;overflow:hidden;text-align:center;height:100%}.mst__time-scale-marker{position:absolute;top:22px;width:1px;height:10px;color:#a6a6a6;background:#a6a6a6}.mst__time-scale-legend{text-align:right;padding-top:16px;font-size:.8rem}.mst__item,.mst__link,.mst__links{position:absolute}.mst__link--vertical{background:#a6a6a6;opacity:.5;height:0;width:2px}.mst__link--horizontal{background:#a6a6a6;opacity:.5;width:0;height:2px}.mst__link:hover>.mst__link--vertical{width:3px}.mst__link:hover>.mst__link--horizontal{height:3px}";
 styleInject(css);
 /**
  * Pipe multiple one-aray functions together, e.g. when supplying f1, f2 and f3,
@@ -16325,8 +16325,8 @@ var calcStartEndTimes = function (items) {
     });
 
     if (!hasChanged && keys.length) {
-      console.error(JSON.stringify(lookupMap, null, 2));
-      console.error(JSON.stringify(keys, null, 2));
+      // console.error(JSON.stringify(lookupMap, null, 2));
+      // console.error(JSON.stringify(keys, null, 2));
       throw Error('Nothing is changing anymore. Exiting!');
     }
   };
@@ -16424,11 +16424,21 @@ var extractDependencyLinks = function (items, lineHeight, scale) {
 var boundsToStyle = function (b) {
   return "top: " + b.top + "px; left: " + b.left + "px; width: " + b.width + "px; height: " + b.height + "px;";
 };
+/** Convert a bounding rectangle to a style for the completion percentage */
+
+
+var boundsToCompletionStyle = function (b, completion) {
+  if (completion === void 0) {
+    completion = 0;
+  }
+
+  return "top: 0px; left: 0px; width: " + b.width * completion + "px; height: " + (b.height - 3) + "px;";
+};
 /** Convert a bounding rectangle to a style for wrapping a circle */
 
 
 var boundsToMarkerStyle = function (b) {
-  return "top: " + b.top + "px; left: " + (b.left - 4) + "px";
+  return "top: " + (b.top + b.height / 2 - 12) + "px; left: " + (b.left - 4) + "px";
 };
 
 var range = function (s, e, step) {
@@ -16469,20 +16479,36 @@ var padLeft = function (n, width, z) {
 
 
 var ScenarioItem = function () {
-  var isInstantenaous = function (item) {
+  var state = {};
+
+  var isInstantaneous = function (item) {
     return item.endTime === item.startTime;
   };
 
   return {
+    oninit: function (_a) {
+      var _b = _a.attrs,
+          item = _b.item,
+          onClick = _b.onClick;
+      state.onclick = onClick ? function (e) {
+        onClick(item);
+        e.redraw = false;
+      } : undefined;
+    },
     view: function (_a) {
       var _b = _a.attrs,
           item = _b.item,
           bounds = _b.bounds;
-      return isInstantenaous(item) ? (0, _mithril.default)('.mst__item.mst__item--diamond', {
-        style: boundsToMarkerStyle(bounds)
-      }, (0, _mithril.default)('div.mst__title', item.title)) : (0, _mithril.default)('.mst__item.mst__item--rect', {
-        style: boundsToStyle(bounds)
-      }, (0, _mithril.default)('div.mst__title', item.title));
+      var onclick = state.onclick;
+      return (0, _mithril.default)('.mst__item', isInstantaneous(item) ? (0, _mithril.default)(item.highlight ? '.mst__item--diamond-attention' : item.completed === 1 ? '.mst__item--diamond-completed' : '.mst__item--diamond', {
+        style: boundsToMarkerStyle(bounds),
+        onclick: onclick
+      }, (0, _mithril.default)('.mst__title', item.title)) : (0, _mithril.default)('.mst__item--rect', {
+        style: boundsToStyle(bounds),
+        onclick: onclick
+      }, [(0, _mithril.default)('.mst__item--completed', {
+        style: boundsToCompletionStyle(bounds, item.completed)
+      }), (0, _mithril.default)('.mst__title', item.title)]));
     }
   };
 }; //# sourceMappingURL=scenario-item.js.map
@@ -16497,7 +16523,8 @@ var ScenarioItems = function () {
           items = _b.items,
           bounds = _b.bounds,
           scale = _b.scale,
-          lineHeight = _b.lineHeight;
+          lineHeight = _b.lineHeight,
+          onClick = _b.onClick;
 
       var getBounds = function (item, row) {
         return {
@@ -16514,7 +16541,8 @@ var ScenarioItems = function () {
         return (0, _mithril.default)(ScenarioItem, {
           item: item,
           key: item.id,
-          bounds: getBounds(item, row)
+          bounds: getBounds(item, row),
+          onClick: onClick
         });
       }));
     }
@@ -16534,10 +16562,14 @@ var TimeAxis = function () {
     return step < 60 ? [1, 'sec'] : step < 600 ? [60, 'min'] : step <= 3600 ? [3600, 'hrs'] : [5 * 3600, 'hrs'];
   };
 
-  var hour = 60 * 60 * 60;
+  var hour = 60 * 60;
 
   var formatTime = function (sf, time) {
-    return sf <= 60 ? time / 60 : padLeft(time / hour) + ":" + padLeft(time % hour);
+    return sf <= 60 ? time / 60 : padLeft(Math.round(time / hour)) + ":" + padLeft(Math.round(time % hour / 60));
+  };
+
+  var formatRealTime = function (time) {
+    return padLeft(time.getHours()) + ":" + padLeft(time.getMinutes());
   };
 
   return {
@@ -16546,7 +16578,9 @@ var TimeAxis = function () {
           bounds = _b.bounds,
           startTime = _b.startTime,
           endTime = _b.endTime,
-          scale = _b.scale;
+          scale = _b.scale,
+          scenarioStart = _b.scenarioStart;
+      var sst = scenarioStart ? scenarioStart.valueOf() : 0;
       var style = boundsToStyle(bounds);
       var step = stepSize(startTime, endTime);
 
@@ -16561,8 +16595,8 @@ var TimeAxis = function () {
           style: "left: " + scale * i + "px"
         }), (0, _mithril.default)('.mst__time-scale-text', {
           style: "left: " + (scale * i - textWidth / 2) + "px; width: " + textWidth + "px;"
-        }, formatTime(sf, i))];
-      }).concat([(0, _mithril.default)('.mst__time-scale-legend', legend)]));
+        }, sst === 0 ? formatTime(sf, i) : formatRealTime(new Date(sst + i * 1000)))];
+      }).concat([(0, _mithril.default)('.mst__time-scale-legend', sst === 0 ? legend : 'HH:mm')]));
     }
   };
 }; //# sourceMappingURL=time-axis.js.map
@@ -16616,8 +16650,8 @@ var ScenarioLinks = function () {
           bounds = _b.bounds,
           lineHeight = _b.lineHeight,
           scale = _b.scale;
-      var links = extractDependencyLinks(items, lineHeight, scale);
-      console.table(links);
+      var links = extractDependencyLinks(items, lineHeight, scale); // console.table(links);
+
       return (0, _mithril.default)('.mst__links', {
         style: boundsToStyle(bounds)
       }, links.map(function (link) {
@@ -16630,23 +16664,116 @@ var ScenarioLinks = function () {
 }; //# sourceMappingURL=scenario-links.js.map
 
 
+var ScenarioTime = function () {
+  var state = {};
+
+  var computeTime = function (time) {
+    if (typeof time === 'number') {
+      return time;
+    } else {
+      var scenarioStart = state.scenarioStart;
+
+      if (scenarioStart) {
+        return (time.valueOf() - scenarioStart.valueOf()) / 1000;
+      }
+    }
+
+    return 0;
+  };
+
+  var updateTime = function (time) {
+    state.t = computeTime(time);
+    render(); // m.redraw();
+  };
+
+  var boundsToStyle = function (b, time, scale) {
+    return "top: " + b.top + "px; left: " + (b.left + time * scale) + "px; width: 2px; height: " + b.height + "px;";
+  };
+
+  var render = function () {
+    var dom = state.dom,
+        bounds = state.bounds,
+        scale = state.scale,
+        time = state.time;
+    var t = time instanceof Function ? state.t : computeTime(time || 0);
+
+    if (t * scale > bounds.width) {
+      return;
+    }
+
+    _mithril.default.render(dom, (0, _mithril.default)('.mst__time', {
+      style: boundsToStyle(bounds, t, scale)
+    }));
+  };
+
+  return {
+    oninit: function (_a) {
+      var time = _a.attrs.time;
+
+      if (time instanceof Function) {
+        time(updateTime);
+      }
+    },
+    oncreate: function (_a) {
+      var dom = _a.dom;
+      return state.dom = dom;
+    },
+    view: function (_a) {
+      var _b = _a.attrs,
+          scale = _b.scale,
+          time = _b.time,
+          bounds = _b.bounds,
+          scenarioStart = _b.scenarioStart; // if (!scale || !time) {
+      //   return undefined;
+      // }
+
+      state.time = time;
+      state.scenarioStart = scenarioStart;
+      state.scale = scale;
+      state.bounds = bounds;
+      setTimeout(function () {
+        return render();
+      }, 0); // const t = time instanceof Function ? state.t : computeTime(time);
+      // if (t * scale > bounds.width) {
+      //   return undefined;
+      // }
+
+      return (0, _mithril.default)('div'); // return m('.mst__time', { style: boundsToStyle(bounds, t, scale) });
+    }
+  };
+}; //# sourceMappingURL=scenario-time.js.map
+
+
 var ScenarioTimeline = function () {
   var state = {};
   var gutter = 4;
   var margin = 20;
   var timeAxisHeight = 32;
+
+  var calculateScale = function (duration) {
+    return duration > 800 ? Math.floor(80000 / duration) / 100 : 1;
+  };
+
   return {
     oninit: function (_a) {
       var _b = _a.attrs,
           scale = _b.scale,
-          lineHeight = _b.lineHeight;
-      state.scale = scale || 1;
+          lineHeight = _b.lineHeight,
+          onClick = _b.onClick;
+      state.scale = scale;
       state.lineHeight = lineHeight || 28;
+      state.onClick = onClick;
     },
     view: function (_a) {
-      var timeline = _a.attrs.timeline;
-      var lineHeight = state.lineHeight,
-          scale = state.scale;
+      var _b = _a.attrs,
+          timeline = _b.timeline,
+          time = _b.time,
+          scenarioStart = _b.scenarioStart;
+
+      if (time && time instanceof Date && !scenarioStart) {
+        console.error("When time is a Date, scenarioStart must be supplied as Date too!");
+      }
+
       var items = preprocessTimeline(timeline);
       var startTime = Math.min.apply(Math, items.map(function (item) {
         return item.startTime;
@@ -16654,6 +16781,10 @@ var ScenarioTimeline = function () {
       var endTime = Math.max.apply(Math, items.map(function (item) {
         return item.endTime;
       }));
+      var lineHeight = state.lineHeight,
+          onClick = state.onClick,
+          _c = state.scale,
+          scale = _c === void 0 ? calculateScale(endTime - startTime) : _c;
       var bounds = {
         left: 0,
         top: gutter,
@@ -16662,6 +16793,7 @@ var ScenarioTimeline = function () {
       };
       console.table(items);
       return (0, _mithril.default)('.mst__container', [(0, _mithril.default)(TimeAxis, {
+        scenarioStart: scenarioStart,
         startTime: startTime,
         endTime: endTime,
         bounds: __assign({}, bounds, {
@@ -16673,13 +16805,24 @@ var ScenarioTimeline = function () {
         items: items,
         bounds: bounds,
         lineHeight: lineHeight,
-        scale: scale
+        scale: scale,
+        onClick: onClick
       }), (0, _mithril.default)(ScenarioLinks, {
         items: items,
         bounds: __assign({}, bounds, {
           top: gutter + timeAxisHeight
         }),
         lineHeight: lineHeight,
+        scale: scale
+      }), (0, _mithril.default)(ScenarioTime, {
+        scenarioStart: scenarioStart,
+        time: time,
+        bounds: {
+          left: 0,
+          width: bounds.width,
+          top: timeAxisHeight - gutter,
+          height: bounds.height + 2 * gutter
+        },
         scale: scale
       })]);
     }
@@ -16711,6 +16854,7 @@ var mithril_scenario_timeline_1 = require("mithril-scenario-timeline");
 
 exports.EditorPage = function () {
   var state = {
+    time: new Date(2019, 4, 19, 9, 20),
     timeline: [{
       id: 'a',
       title: 'A',
@@ -16720,6 +16864,7 @@ exports.EditorPage = function () {
       id: 'a.1',
       title: 'a.1',
       parentId: 'a',
+      completed: 0.5,
       delay: 40,
       isOpen: true,
       dependsOn: [{
@@ -16740,6 +16885,7 @@ exports.EditorPage = function () {
       id: 'a.1.1',
       title: 'a.1.1',
       parentId: 'a.1',
+      completed: 1,
       delay: 0,
       dependsOn: [{
         id: 'a.1',
@@ -16767,6 +16913,7 @@ exports.EditorPage = function () {
       id: 'a.1.2',
       title: 'a.1.2',
       parentId: 'a.1',
+      completed: 1,
       delay: 100,
       dependsOn: [{
         id: 'a.1.1',
@@ -16777,6 +16924,7 @@ exports.EditorPage = function () {
       title: 'a.3',
       parentId: 'a',
       delay: 140,
+      completed: 100,
       dependsOn: [{
         id: 'a.1.1',
         condition: 'finished'
@@ -16795,16 +16943,124 @@ exports.EditorPage = function () {
         id: 'b',
         condition: 'started'
       }]
+    }],
+    timeline2: [{
+      id: 'a',
+      title: 'A',
+      isOpen: true,
+      delay: 0
+    }, {
+      id: 'a.1',
+      title: 'a.1',
+      parentId: 'a',
+      delay: 400,
+      isOpen: true,
+      dependsOn: [{
+        id: 'a',
+        condition: 'started'
+      }]
+    }, {
+      id: 'a.2',
+      title: 'a.2',
+      parentId: 'a',
+      delay: 400,
+      isOpen: true,
+      dependsOn: [{
+        id: 'a.1',
+        condition: 'finished'
+      }]
+    }, {
+      id: 'a.1.1',
+      title: 'a.1.1',
+      parentId: 'a.1',
+      delay: 0,
+      dependsOn: [{
+        id: 'a.1',
+        condition: 'started'
+      }]
+    }, {
+      id: 'a.2.1',
+      title: 'a.2.1',
+      parentId: 'a.2',
+      delay: 1000,
+      highlight: true,
+      dependsOn: [{
+        id: 'a.2',
+        condition: 'started'
+      }]
+    }, {
+      id: 'a.2.2',
+      title: 'a.2.2',
+      parentId: 'a.2',
+      delay: 1500,
+      dependsOn: [{
+        id: 'a.2.1',
+        condition: 'started'
+      }]
+    }, {
+      id: 'a.1.2',
+      title: 'a.1.2',
+      parentId: 'a.1',
+      delay: 1000,
+      dependsOn: [{
+        id: 'a.1.1',
+        condition: 'finished'
+      }]
+    }, {
+      id: 'a.3',
+      title: 'a.3',
+      parentId: 'a',
+      delay: 1400,
+      highlight: true,
+      dependsOn: [{
+        id: 'a.1.1',
+        condition: 'finished'
+      }]
+    }, {
+      id: 'b',
+      title: 'B',
+      isOpen: true,
+      delay: 2000
+    }, {
+      id: 'b.1',
+      title: 'b.1',
+      parentId: 'b',
+      delay: 1500,
+      dependsOn: [{
+        id: 'b',
+        condition: 'started'
+      }]
     }]
   };
+
+  var updateTime = function updateTime(update) {
+    setInterval(function () {
+      state.time = new Date(state.time.valueOf() + 10000);
+      update(state.time);
+    }, 1000);
+  };
+
   return {
     view: function view() {
-      var timeline = state.timeline;
-      return mithril_1.default('.col.s12', [mithril_1.default('h2.header', 'ScenarioTimeline'), mithril_1.default(mithril_scenario_timeline_1.ScenarioTimeline, {
+      var timeline = state.timeline,
+          timeline2 = state.timeline2;
+
+      var onClick = function onClick(item) {
+        return console.table(item);
+      };
+
+      return mithril_1.default('.col.s12', [mithril_1.default('h2.header', 'ScenarioTimeline - completed diamonds'), mithril_1.default(mithril_scenario_timeline_1.ScenarioTimeline, {
         timeline: timeline,
-        title: 'Hello timeline'
+        time: 90,
+        onClick: onClick
+      }), mithril_1.default('h2.header', 'ScenarioTimeline - running, highlighted diamonds'), mithril_1.default(mithril_scenario_timeline_1.ScenarioTimeline, {
+        timeline: timeline2,
+        time: updateTime,
+        lineHeight: 30,
+        scenarioStart: new Date(2019, 4, 19, 9, 0),
+        onClick: onClick
       }), mithril_1.default(mithril_materialized_1.CodeBlock, {
-        code: "TODO"
+        code: "\n          const state = {\n            time: new Date(2019, 4, 19, 9, 20),\n            timeline: [\n              ...\n            ] as ITimelineItem[],\n            timeline2: [\n              ...\n            ] as ITimelineItem[],\n          };\n\n          const updateTime = (update: (t: number | Date) => void) => {\n            setInterval(() => {\n              state.time = new Date(state.time.valueOf() + 10000);\n              update(state.time);\n            }, 1000);\n          };\n\n          return {\n            view: () => {\n              const { timeline, timeline2 } = state;\n              const onClick = (item: IExecutingTimelineItem) => console.table(item);\n\n              return m('.col.s12', [\n                m('h2.header', 'ScenarioTimeline - completed diamonds'),\n\n                m(ScenarioTimeline, { timeline, time: 90, onClick }),\n\n                m('h2.header', 'ScenarioTimeline - running, highlighted diamonds'),\n\n                m(ScenarioTimeline, {\n                  timeline: timeline2,\n                  time: updateTime,\n                  lineHeight: 30,\n                  scenarioStart: new Date(2019, 4, 19, 9, 0),\n                  onClick,\n                }),\n              ]);\n            },\n          };\n        "
       })]);
     }
   };
@@ -17013,7 +17269,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53904" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52763" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

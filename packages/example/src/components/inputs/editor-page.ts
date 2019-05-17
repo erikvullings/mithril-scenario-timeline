@@ -171,6 +171,7 @@ export const EditorPage = () => {
         title: 'a.2.1',
         parentId: 'a.2',
         delay: 1000,
+        highlight: true,
         dependsOn: [
           {
             id: 'a.2',
@@ -207,6 +208,7 @@ export const EditorPage = () => {
         title: 'a.3',
         parentId: 'a',
         delay: 1400,
+        highlight: true,
         dependsOn: [
           {
             id: 'a.1.1',
@@ -235,11 +237,6 @@ export const EditorPage = () => {
     ] as ITimelineItem[],
   };
 
-  // setInterval(() => {
-  //   state.time = new Date(state.time.valueOf() + 10000);
-  //   m.redraw();
-  // }, 1000);
-
   const updateTime = (update: (t: number | Date) => void) => {
     setInterval(() => {
       state.time = new Date(state.time.valueOf() + 10000);
@@ -253,11 +250,11 @@ export const EditorPage = () => {
       const onClick = (item: IExecutingTimelineItem) => console.table(item);
 
       return m('.col.s12', [
-        m('h2.header', 'ScenarioTimeline'),
+        m('h2.header', 'ScenarioTimeline - completed diamonds'),
 
         m(ScenarioTimeline, { timeline, time: 90, onClick }),
 
-        m('h2.header', 'ScenarioTimeline 2'),
+        m('h2.header', 'ScenarioTimeline - running, highlighted diamonds'),
 
         m(ScenarioTimeline, {
           timeline: timeline2,
@@ -268,7 +265,47 @@ export const EditorPage = () => {
         }),
 
         m(CodeBlock, {
-          code: `TODO`,
+          code: `
+          const state = {
+            time: new Date(2019, 4, 19, 9, 20),
+            timeline: [
+              ...
+            ] as ITimelineItem[],
+            timeline2: [
+              ...
+            ] as ITimelineItem[],
+          };
+
+          const updateTime = (update: (t: number | Date) => void) => {
+            setInterval(() => {
+              state.time = new Date(state.time.valueOf() + 10000);
+              update(state.time);
+            }, 1000);
+          };
+
+          return {
+            view: () => {
+              const { timeline, timeline2 } = state;
+              const onClick = (item: IExecutingTimelineItem) => console.table(item);
+
+              return m('.col.s12', [
+                m('h2.header', 'ScenarioTimeline - completed diamonds'),
+
+                m(ScenarioTimeline, { timeline, time: 90, onClick }),
+
+                m('h2.header', 'ScenarioTimeline - running, highlighted diamonds'),
+
+                m(ScenarioTimeline, {
+                  timeline: timeline2,
+                  time: updateTime,
+                  lineHeight: 30,
+                  scenarioStart: new Date(2019, 4, 19, 9, 0),
+                  onClick,
+                }),
+              ]);
+            },
+          };
+        `,
         }),
       ]);
     },

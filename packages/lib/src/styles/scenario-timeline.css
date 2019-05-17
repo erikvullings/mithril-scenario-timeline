@@ -47,7 +47,7 @@
   width: 0;
   height: 0;
   border: 5px solid transparent;
-  border-bottom-color: red;
+  border-bottom-color: black;
   top: -5px;
 }
 .mst__item--diamond:after {
@@ -58,9 +58,9 @@
   width: 0;
   height: 0;
   border: 5px solid transparent;
-  border-top-color: red;
+  border-top-color: black;
 }
-.mst__item--completed_diamond {
+.mst__item--diamond-attention {
   position: absolute;
   cursor: pointer;
   z-index: 2;
@@ -68,10 +68,10 @@
   width: 0;
   height: 0;
   border: 5px solid transparent;
-  border-bottom-color: gray;
+  border-bottom-color: red;
   top: -5px;
 }
-.mst__item--completed_diamond:after {
+.mst__item--diamond-attention:after {
   content: '';
   position: absolute;
   left: -5px;
@@ -79,7 +79,28 @@
   width: 0;
   height: 0;
   border: 5px solid transparent;
-  border-top-color: gray;
+  border-top-color: red;
+}
+.mst__item--diamond-completed {
+  position: absolute;
+  cursor: pointer;
+  z-index: 2;
+  line-height: 0.5;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-bottom-color: lightgray;
+  top: -5px;
+}
+.mst__item--diamond-completed:after {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 5px;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-top-color: lightgray;
 }
 
 .mst__time-scale {
@@ -114,6 +135,8 @@
 
 .mst__time-scale-legend {
   text-align: right;
+  padding-top: 16px;
+  font-size: 0.8rem;
 }
 
 .mst__links {

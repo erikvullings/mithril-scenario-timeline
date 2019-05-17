@@ -31,7 +31,11 @@ export const ScenarioItem: FactoryComponent<IScenarioItem> = () => {
         '.mst__item',
         isInstantaneous(item)
           ? m(
-              item.completed === 1 ? '.mst__item--completed_diamond' : '.mst__item--diamond',
+              item.highlight
+                ? '.mst__item--diamond-attention'
+                : item.completed === 1
+                ? '.mst__item--diamond-completed'
+                : '.mst__item--diamond',
               { style: boundsToMarkerStyle(bounds), onclick },
               m('.mst__title', item.title)
             )
