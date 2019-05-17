@@ -1,4 +1,3 @@
-import { FactoryComponent } from 'mithril';
 import { TimelineItemState } from './timeline-state';
 import { IDependency } from './dependency';
 
