@@ -26,6 +26,11 @@
   background: lightgray;
 }
 
+.mst__time {
+  position: absolute;
+  background: red;
+}
+
 .mst__title {
   padding-left: 10px;
 }

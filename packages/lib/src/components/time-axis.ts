@@ -3,6 +3,8 @@ import { IBoundingRectangle } from '../interfaces';
 import { boundsToStyle, range, padLeft } from '../helpers';
 
 export interface ITimeAxis extends Attributes {
+  /** Start time of the scenario: if supplied, will be used as the starting point */
+  scenarioStart?: Date;
   /** Bound for the component using absolute positioning */
   bounds: IBoundingRectangle;
   /** Start time */
@@ -39,8 +41,12 @@ export const TimeAxis: FactoryComponent<ITimeAxis> = () => {
   const formatTime = (sf: number, time: number) =>
     sf <= 60 ? time / 60 : `${padLeft(Math.round(time / hour))}:${padLeft(Math.round((time % hour) / 60))}`;
 
+  const formatRealTime = (time: Date) =>
+    `${padLeft(time.getHours())}:${padLeft(time.getMinutes())}`;
+
   return {
-    view: ({ attrs: { bounds, startTime, endTime, scale } }) => {
+    view: ({ attrs: { bounds, startTime, endTime, scale, scenarioStart } }) => {
+      const sst = scenarioStart ? scenarioStart.valueOf() : 0;
       const style = boundsToStyle(bounds);
       const step = stepSize(startTime, endTime);
       const [sf, legend] = scaleFactor(step);
@@ -50,10 +56,10 @@ export const TimeAxis: FactoryComponent<ITimeAxis> = () => {
           m(
             '.mst__time-scale-text',
             { style: `left: ${scale * i - textWidth / 2}px; width: ${textWidth}px;` },
-            formatTime(sf, i)
+            sst === 0 ? formatTime(sf, i) : formatRealTime(new Date(sst + i * 1000))
           ),
         ]),
-        m('.mst__time-scale-legend', legend),
+        m('.mst__time-scale-legend', sst === 0 ? legend : 'HH:mm'),
       ]);
     },
   };

@@ -5,8 +5,13 @@ import { preprocessTimeline } from '../helpers';
 import { ScenarioItems } from './scenario-items';
 import { TimeAxis } from './time-axis';
 import { ScenarioLinks } from './scenario-links';
+import { ScenarioTime } from './scenario-time';
 
 export interface IScenarioTimeline extends Attributes {
+  /** Start time of the scenario: if supplied, will be used as the starting point */
+  scenarioStart?: Date;
+  /** Current time offset in seconds */
+  time?: number;
   /** 1 second is x pixels horizontally */
   scale?: number;
   /** Line height in pixels */
@@ -29,7 +34,7 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
   const margin = 20;
   const timeAxisHeight = 32;
 
-  const calculateScale = (duration: number) => duration > 800 ? Math.floor(80000 / duration) / 100 : 1;
+  const calculateScale = (duration: number) => (duration > 800 ? Math.floor(80000 / duration) / 100 : 1);
 
   return {
     oninit: ({ attrs: { scale, lineHeight, onClick } }) => {
@@ -37,7 +42,7 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
       state.lineHeight = lineHeight || 28;
       state.onClick = onClick;
     },
-    view: ({ attrs: { timeline } }) => {
+    view: ({ attrs: { timeline, time, scenarioStart } }) => {
       const items = preprocessTimeline(timeline);
       const startTime = Math.min(...items.map(item => item.startTime!));
       const endTime = Math.max(...items.map(item => item.endTime!));
@@ -50,9 +55,20 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
       };
       console.table(items);
       return m('.mst__container', [
-        m(TimeAxis, { startTime, endTime, bounds: { ...bounds, top: 0, height: timeAxisHeight }, scale }),
+        m(TimeAxis, {
+          scenarioStart,
+          startTime,
+          endTime,
+          bounds: { ...bounds, top: 0, height: timeAxisHeight },
+          scale,
+        }),
         m(ScenarioItems, { items, bounds, lineHeight, scale, onClick }),
         m(ScenarioLinks, { items, bounds: { ...bounds, top: gutter + timeAxisHeight }, lineHeight, scale }),
+        m(ScenarioTime, {
+          time,
+          bounds: { left: 0, width: 0, top: timeAxisHeight - gutter, height: bounds.height + 2 * gutter },
+          scale,
+        }),
       ]);
     },
   };
