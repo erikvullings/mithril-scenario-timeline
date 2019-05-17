@@ -18,7 +18,7 @@ export const ScenarioLinks: FactoryComponent<IScenarioLinks> = () => {
   return {
     view: ({ attrs: { items, bounds, lineHeight, scale } }) => {
       const links = extractDependencyLinks(items, lineHeight, scale);
-      console.table(links);
+      // console.table(links);
       return m('.mst__links', { style: boundsToStyle(bounds) }, links.map(link => m(ScenarioLink, { link })));
     },
   };

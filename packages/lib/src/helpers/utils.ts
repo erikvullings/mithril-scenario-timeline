@@ -117,8 +117,8 @@ const calcStartEndTimes = (items: ITimelineItem[]) => {
       return !(lookupMap[key].hasStartTime && lookupMap[key].hasEndTime);
     });
     if (!hasChanged && keys.length) {
-      console.error(JSON.stringify(lookupMap, null, 2));
-      console.error(JSON.stringify(keys, null, 2));
+      // console.error(JSON.stringify(lookupMap, null, 2));
+      // console.error(JSON.stringify(keys, null, 2));
       throw Error('Nothing is changing anymore. Exiting!');
     }
   } while (keys.length);
@@ -208,7 +208,8 @@ export const boundsToCompletionStyle = (b: IBoundingRectangle, completion = 0) =
   `top: 0px; left: 0px; width: ${b.width * completion}px; height: ${b.height - 3}px;`;
 
 /** Convert a bounding rectangle to a style for wrapping a circle */
-export const boundsToMarkerStyle = (b: IBoundingRectangle) => `top: ${b.top}px; left: ${b.left - 4}px`;
+export const boundsToMarkerStyle = (b: IBoundingRectangle) =>
+  `top: ${b.top + b.height / 2 - 12}px; left: ${b.left - 4}px`;
 
 export const range = (s: number, e: number, step = 1) =>
   Array.from({ length: Math.ceil((e - s) / step) }, (_, k) => k * step + s);

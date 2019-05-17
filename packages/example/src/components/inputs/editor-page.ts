@@ -4,6 +4,7 @@ import { ScenarioTimeline, ITimelineItem, IExecutingTimelineItem } from 'mithril
 
 export const EditorPage = () => {
   const state = {
+    time: new Date(2019, 4, 19, 9, 20),
     timeline: [
       {
         id: 'a',
@@ -233,6 +234,19 @@ export const EditorPage = () => {
       },
     ] as ITimelineItem[],
   };
+
+  // setInterval(() => {
+  //   state.time = new Date(state.time.valueOf() + 10000);
+  //   m.redraw();
+  // }, 1000);
+
+  const updateTime = (update: (t: number | Date) => void) => {
+    setInterval(() => {
+      state.time = new Date(state.time.valueOf() + 10000);
+      update(state.time);
+    }, 1000);
+  };
+
   return {
     view: () => {
       const { timeline, timeline2 } = state;
@@ -241,15 +255,15 @@ export const EditorPage = () => {
       return m('.col.s12', [
         m('h2.header', 'ScenarioTimeline'),
 
-        m(ScenarioTimeline, { timeline, time: 90, title: 'Hello timeline', onClick }),
+        m(ScenarioTimeline, { timeline, time: 90, onClick }),
 
         m('h2.header', 'ScenarioTimeline 2'),
 
         m(ScenarioTimeline, {
           timeline: timeline2,
-          time: 1250,
+          time: updateTime,
+          lineHeight: 30,
           scenarioStart: new Date(2019, 4, 19, 9, 0),
-          title: 'Hello timeline 2',
           onClick,
         }),
 

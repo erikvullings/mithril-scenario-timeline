@@ -7,11 +7,17 @@ import { TimeAxis } from './time-axis';
 import { ScenarioLinks } from './scenario-links';
 import { ScenarioTime } from './scenario-time';
 
+export type ScenarioTimer = (timerCb: (time: number | Date) => void) => void;
+
 export interface IScenarioTimeline extends Attributes {
   /** Start time of the scenario: if supplied, will be used as the starting point */
   scenarioStart?: Date;
-  /** Current time offset in seconds */
-  time?: number;
+  /**
+   * Current time, either as Date (requires scenarioStart) or offset in seconds.
+   * May also be a function that updates the time and invokes a callback to reduce
+   * the number of redraws.
+   */
+  time?: number | Date | ScenarioTimer;
   /** 1 second is x pixels horizontally */
   scale?: number;
   /** Line height in pixels */
@@ -43,6 +49,9 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
       state.onClick = onClick;
     },
     view: ({ attrs: { timeline, time, scenarioStart } }) => {
+      if (time && time instanceof Date && !scenarioStart) {
+        console.error(`When time is a Date, scenarioStart must be supplied as Date too!`);
+      }
       const items = preprocessTimeline(timeline);
       const startTime = Math.min(...items.map(item => item.startTime!));
       const endTime = Math.max(...items.map(item => item.endTime!));
@@ -65,8 +74,9 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
         m(ScenarioItems, { items, bounds, lineHeight, scale, onClick }),
         m(ScenarioLinks, { items, bounds: { ...bounds, top: gutter + timeAxisHeight }, lineHeight, scale }),
         m(ScenarioTime, {
+          scenarioStart,
           time,
-          bounds: { left: 0, width: 0, top: timeAxisHeight - gutter, height: bounds.height + 2 * gutter },
+          bounds: { left: 0, width: bounds.width, top: timeAxisHeight - gutter, height: bounds.height + 2 * gutter },
           scale,
         }),
       ]);
