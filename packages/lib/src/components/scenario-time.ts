@@ -37,7 +37,6 @@ export const ScenarioTime: FactoryComponent<IScenarioTime> = () => {
   const updateTime = (time: number | Date) => {
     state.t = computeTime(time);
     render();
-    // m.redraw();
   };
 
   const boundsToStyle = (b: IBoundingRectangle, time: number, scale: number) =>
@@ -46,7 +45,7 @@ export const ScenarioTime: FactoryComponent<IScenarioTime> = () => {
   const render = () => {
     const { dom, bounds, scale, time } = state;
     const t = time instanceof Function ? state.t : computeTime(time || 0);
-    if (t * scale > bounds.width) {
+    if (t * scale > bounds.width || t === 0) {
       return;
     }
     m.render(dom, m('.mst__time', { style: boundsToStyle(bounds, t, scale) }));
@@ -60,20 +59,12 @@ export const ScenarioTime: FactoryComponent<IScenarioTime> = () => {
     },
     oncreate: ({ dom }) => (state.dom = dom as HTMLDivElement),
     view: ({ attrs: { scale, time, bounds, scenarioStart } }) => {
-      // if (!scale || !time) {
-      //   return undefined;
-      // }
       state.time = time;
       state.scenarioStart = scenarioStart;
       state.scale = scale;
       state.bounds = bounds;
       setTimeout(() => render(), 0);
-      // const t = time instanceof Function ? state.t : computeTime(time);
-      // if (t * scale > bounds.width) {
-      //   return undefined;
-      // }
       return m('div');
-      // return m('.mst__time', { style: boundsToStyle(bounds, t, scale) });
     },
   };
 };
