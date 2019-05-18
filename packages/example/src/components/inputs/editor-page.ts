@@ -1,6 +1,7 @@
 import m from 'mithril';
 import { CodeBlock } from 'mithril-materialized';
 import { ScenarioTimeline, ITimelineItem, IExecutingTimelineItem } from 'mithril-scenario-timeline';
+import { timeline as tl } from './timeline-example';
 
 export const EditorPage = () => {
   const state = {
@@ -263,6 +264,10 @@ export const EditorPage = () => {
           scenarioStart: new Date(2019, 4, 19, 9, 0),
           onClick,
         }),
+
+        m('h2.header', 'ScenarioTimeline - example'),
+
+        m(ScenarioTimeline, { timeline: tl, scenarioStart: new Date(2019, 4, 19, 9, 0), onClick }),
 
         m(CodeBlock, {
           code: `
