@@ -26,6 +26,8 @@ export interface IScenarioTimeline extends Attributes {
   timeline: ITimelineItem[];
   /** Optional onclick event handler to inform you that the item has been clicked */
   onClick?: (item: IExecutingTimelineItem) => void;
+  /** Turn on debugging */
+  verbose?: boolean;
 }
 
 export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
@@ -37,10 +39,11 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
   };
 
   const gutter = 4;
-  const margin = 20;
+  const rightMargin = 100;
+  const leftMargin = 25;
   const timeAxisHeight = 32;
 
-  const calculateScale = (duration: number) => (duration > 800 ? Math.floor(80000 / duration) / 100 : 1);
+  const calculateScale = (duration: number) => Math.min(10, Math.max(0.01, 800 / duration));
 
   return {
     oninit: ({ attrs: { scale, lineHeight, onClick } }) => {
@@ -48,7 +51,7 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
       state.lineHeight = lineHeight || 28;
       state.onClick = onClick;
     },
-    view: ({ attrs: { timeline, time, scenarioStart } }) => {
+    view: ({ attrs: { timeline, time, scenarioStart, verbose } }) => {
       if (time && time instanceof Date && !scenarioStart) {
         console.error(`When time is a Date, scenarioStart must be supplied as Date too!`);
       }
@@ -57,12 +60,14 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
       const endTime = Math.max(...items.map(item => item.endTime!));
       const { lineHeight, onClick, scale = calculateScale(endTime - startTime) } = state;
       const bounds = {
-        left: 0,
+        left: leftMargin,
         top: gutter,
-        width: scale * endTime + margin,
+        width: leftMargin + scale * endTime + rightMargin,
         height: items.length * lineHeight,
       };
-      console.table(items);
+      if (verbose) {
+        console.table(items);
+      }
       return m('.mst__container', [
         m(TimeAxis, {
           scenarioStart,
@@ -76,7 +81,12 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
         m(ScenarioTime, {
           scenarioStart,
           time,
-          bounds: { left: 0, width: bounds.width, top: timeAxisHeight - gutter, height: bounds.height + 2 * gutter },
+          bounds: {
+            left: bounds.left,
+            width: bounds.width,
+            top: timeAxisHeight - gutter,
+            height: bounds.height + 2 * gutter,
+          },
           scale,
         }),
       ]);
