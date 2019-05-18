@@ -41,8 +41,8 @@ export const TimeAxis: FactoryComponent<ITimeAxis> = () => {
   const formatTime = (sf: number, time: number) =>
     sf <= 60 ? time / 60 : `${padLeft(Math.round(time / hour))}:${padLeft(Math.round((time % hour) / 60))}`;
 
-  const formatRealTime = (time: Date) =>
-    `${padLeft(time.getHours())}:${padLeft(time.getMinutes())}`;
+  const formatRealTime = (time: Date, sf: number) =>
+    `${padLeft(time.getHours())}:${padLeft(time.getMinutes())}${sf === 1 ? `.${padLeft(time.getSeconds())}` : ''}`;
 
   return {
     view: ({ attrs: { bounds, startTime, endTime, scale, scenarioStart } }) => {
@@ -56,10 +56,10 @@ export const TimeAxis: FactoryComponent<ITimeAxis> = () => {
           m(
             '.mst__time-scale-text',
             { style: `left: ${scale * i - textWidth / 2}px; width: ${textWidth}px;` },
-            sst === 0 ? formatTime(sf, i) : formatRealTime(new Date(sst + i * 1000))
+            sst === 0 ? formatTime(sf, i) : formatRealTime(new Date(sst + i * 1000), sf)
           ),
         ]),
-        m('.mst__time-scale-legend', sst === 0 ? legend : 'HH:mm'),
+        m('.mst__time-scale-legend', sst === 0 ? legend : 'time'),
       ]);
     },
   };
