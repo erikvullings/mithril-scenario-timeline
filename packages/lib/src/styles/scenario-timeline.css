@@ -34,6 +34,7 @@
 
 .mst__title {
   padding-left: 10px;
+  min-width: 400px;
 }
 
 .mst__item--rect > .mst__title {
