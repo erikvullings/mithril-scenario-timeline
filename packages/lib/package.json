@@ -1,6 +1,6 @@
 {
   "name": "mithril-scenario-timeline",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A scenario timeline component for the Mithril framework.",
   "main": "dist/mithril-scenario-timeline.js",
   "module": "dist/mithril-scenario-timeline.mjs",

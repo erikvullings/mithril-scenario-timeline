@@ -64,7 +64,11 @@ const calcStartEndTimes = (items: ITimelineItem[]) => {
 
   const resolvable = (deps: IDependency[]) =>
     deps.reduce((acc, cur) => {
-      return acc && (cur.condition === 'started' ? lookupMap[cur.id].hasStartTime : lookupMap[cur.id].hasEndTime);
+      return (
+        acc &&
+        lookupMap.hasOwnProperty(cur.id) &&
+        (cur.condition === 'started' ? lookupMap[cur.id].hasStartTime : lookupMap[cur.id].hasEndTime)
+      );
     }, true);
 
   // Resolve start/end times (and thereby duration)
@@ -119,7 +123,8 @@ const calcStartEndTimes = (items: ITimelineItem[]) => {
     if (!hasChanged && keys.length) {
       // console.error(JSON.stringify(lookupMap, null, 2));
       // console.error(JSON.stringify(keys, null, 2));
-      throw Error('Nothing is changing anymore. Exiting!');
+      keys.length = 0;
+      console.error('Cannot resolve dependencies: Exiting!');
     }
   } while (keys.length);
 
