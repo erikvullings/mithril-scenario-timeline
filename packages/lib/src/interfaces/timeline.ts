@@ -24,11 +24,13 @@ export interface ITimelineItem {
   highlight?: boolean;
   /** IDs of the items that it depends on before it can start, i.e. these other items need to be completed */
   dependsOn?: IDependency[];
-  /**
-   * IDs of the items that consider it an alternative. If all alternatives are 'used',
-   * this item can no longer be executed.
-   */
-  alternativeTo?: string[];
+  /** Additional properties you may wish to add */
+  [key: string]: any;
+  // /**
+  //  * IDs of the items that consider it an alternative. If all alternatives are 'used',
+  //  * this item can no longer be executed.
+  //  */
+  // alternativeTo?: string[];
 }
 
 export interface IExecutingTimelineItem extends ITimelineItem {

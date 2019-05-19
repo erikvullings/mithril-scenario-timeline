@@ -24,6 +24,8 @@ export interface IScenarioTimeline extends Attributes {
   lineHeight?: number;
   /** The items you want to place on the timeline */
   timeline: ITimelineItem[];
+  /** Optional component to render the item title */
+  titleView?: FactoryComponent<{ item: ITimelineItem }>;
   /** Optional onclick event handler to inform you that the item has been clicked */
   onClick?: (item: IExecutingTimelineItem) => void;
   /** Turn on debugging */
@@ -51,7 +53,7 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
       state.lineHeight = lineHeight || 28;
       state.onClick = onClick;
     },
-    view: ({ attrs: { timeline, time, scenarioStart, verbose } }) => {
+    view: ({ attrs: { timeline, time, scenarioStart, verbose, titleView } }) => {
       if (time && time instanceof Date && !scenarioStart) {
         console.error(`When time is a Date, scenarioStart must be supplied as Date too!`);
       }
@@ -76,7 +78,7 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
           bounds: { ...bounds, top: 0, height: timeAxisHeight },
           scale,
         }),
-        m(ScenarioItems, { items, bounds, lineHeight, scale, onClick }),
+        m(ScenarioItems, { items, bounds, lineHeight, scale, onClick, titleView }),
         m(ScenarioLinks, { items, bounds: { ...bounds, top: gutter + timeAxisHeight }, lineHeight, scale }),
         m(ScenarioTime, {
           scenarioStart,

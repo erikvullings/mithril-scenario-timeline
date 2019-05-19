@@ -1,5 +1,5 @@
 import m, { FactoryComponent, Attributes } from 'mithril';
-import { IBoundingRectangle, IExecutingTimelineItem } from '../interfaces';
+import { IBoundingRectangle, IExecutingTimelineItem, ITimelineItem } from '../interfaces';
 import { ScenarioItem } from './scenario-item';
 import { boundsToStyle } from '../helpers';
 
@@ -12,6 +12,8 @@ export interface IScenarioItems extends Attributes {
   scale: number;
   /** Optional onclick event handler to inform you that the item has been clicked */
   onClick?: (item: IExecutingTimelineItem) => void;
+  /** Optional component to render the item title */
+  titleView?: FactoryComponent<{ item: ITimelineItem }>;
   items: IExecutingTimelineItem[];
 }
 
@@ -20,7 +22,7 @@ export const ScenarioItems: FactoryComponent<IScenarioItems> = () => {
   const gutter = 2;
 
   return {
-    view: ({ attrs: { items, bounds, scale, lineHeight, onClick } }) => {
+    view: ({ attrs: { items, bounds, scale, lineHeight, onClick, titleView } }) => {
       const getBounds = (item: IExecutingTimelineItem, row: number) => ({
         top: bounds.top + lineHeight * row + gutter,
         left: item.startTime! * scale,
@@ -31,7 +33,9 @@ export const ScenarioItems: FactoryComponent<IScenarioItems> = () => {
       return m(
         '.mst__items',
         { style: boundsToStyle(bounds) },
-        items.map((item, row) => m(ScenarioItem, { item, key: item.id, bounds: getBounds(item, row), onClick }))
+        items.map((item, row) =>
+          m(ScenarioItem, { item, key: item.id, bounds: getBounds(item, row), onClick, titleView })
+        )
       );
     },
   };

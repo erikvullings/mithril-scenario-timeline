@@ -1,6 +1,6 @@
 import m, { FactoryComponent, Attributes } from 'mithril';
 import { IExecutingTimelineItem } from '..';
-import { IBoundingRectangle } from '../interfaces';
+import { IBoundingRectangle, ITimelineItem } from '../interfaces';
 import { boundsToStyle, boundsToMarkerStyle, boundsToCompletionStyle } from '../helpers';
 
 export interface IScenarioItem extends Attributes {
@@ -9,6 +9,8 @@ export interface IScenarioItem extends Attributes {
   /** Optional onclick event handler to inform you that the item has been clicked */
   onClick?: (item: IExecutingTimelineItem) => void;
   item: IExecutingTimelineItem;
+  /** Optional component to render the item title */
+  titleView?: FactoryComponent<{ item: ITimelineItem }>;
 }
 
 export const ScenarioItem: FactoryComponent<IScenarioItem> = () => {
@@ -25,7 +27,7 @@ export const ScenarioItem: FactoryComponent<IScenarioItem> = () => {
           }
         : undefined;
     },
-    view: ({ attrs: { item, bounds } }) => {
+    view: ({ attrs: { item, bounds, titleView } }) => {
       const { onclick } = state;
       return m(
         '.mst__item',
@@ -37,11 +39,11 @@ export const ScenarioItem: FactoryComponent<IScenarioItem> = () => {
                 ? '.mst__item--diamond-completed'
                 : '.mst__item--diamond',
               { style: boundsToMarkerStyle(bounds), onclick },
-              m('.mst__title', item.title)
+              m('.mst__title', titleView ? m(titleView, { item }) : item.title)
             )
           : m('.mst__item--rect', { style: boundsToStyle(bounds), onclick }, [
               m('.mst__item--completed', { style: boundsToCompletionStyle(bounds, item.completed) }),
-              m('.mst__title', item.title),
+              m('.mst__title', titleView ? m(titleView, { item }) : item.title),
             ])
       );
     },
