@@ -1,5 +1,5 @@
-import m from 'mithril';
-import { CodeBlock } from 'mithril-materialized';
+import m, { FactoryComponent } from 'mithril';
+import { CodeBlock, Icon } from 'mithril-materialized';
 import { ScenarioTimeline, ITimelineItem, IExecutingTimelineItem } from 'mithril-scenario-timeline';
 import { timeline as tl } from './timeline-example';
 
@@ -245,6 +245,17 @@ export const EditorPage = () => {
     }, 1000);
   };
 
+  const titleView: FactoryComponent<{ item: ITimelineItem }> = () => {
+    return {
+      view: ({ attrs: { item } }) => {
+        return m('div', { style: 'vertical-align: middle' }, [
+          m(Icon, { iconName: 'send', className: 'tiny' }),
+          m('span', `Custom title: ${item.title}`),
+        ]);
+      },
+    };
+  };
+
   return {
     view: () => {
       const { timeline, timeline2 } = state;
@@ -261,6 +272,7 @@ export const EditorPage = () => {
           timeline: timeline2,
           time: updateTime,
           lineHeight: 30,
+          titleView,
           scenarioStart: new Date(2019, 4, 19, 9, 0),
           onClick,
         }),
