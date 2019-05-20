@@ -73,7 +73,7 @@ export default {
     sourceMaps(),
     // minifies generated bundles
     production && terser({
-      sourceMap: true
+      sourcemap: true
     }),
   ],
 };

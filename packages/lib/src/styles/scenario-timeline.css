@@ -176,3 +176,19 @@
 .mst__link:hover > .mst__link--horizontal {
   height: 3px;
 }
+
+.mst__arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+.mst__arrow.mst__arrow--right {
+  border-width: 6px 0 6px 6px;
+  border-color: transparent transparent transparent #cecece;
+}
+
+.mst__arrow.mst__arrow--left {
+  border-width: 6px 6px 6px 0;
+  border-color: transparent #cecece transparent transparent;
+}

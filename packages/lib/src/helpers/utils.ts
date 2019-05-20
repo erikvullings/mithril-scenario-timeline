@@ -186,14 +186,15 @@ export const extractDependencyLinks = (items: IExecutingTimelineItem[], lineHeig
               return undefined;
             }
             const { it, index } = found;
-            const time = dep.condition === 'started' ? it.startTime! : it.endTime!;
+            const hasStartCondition = dep.condition === 'started';
+            const time = hasStartCondition ? it.startTime! : it.endTime!;
             const verOffset = it.children ? 4 : -4;
             const horOffset = item.children ? -4 : -7;
             const x1 = time * scale;
             const y1 = (index + 1) * lineHeight + verOffset;
             const x2 = item.startTime! * scale + horOffset;
             const y2 = (row + 0.5) * lineHeight + 1 + (item.startTime! === time ? -6 : 0);
-            return { x1, y1, x2, y2 };
+            return { x1, y1, x2, y2, indicator: it.children ? 'none' : hasStartCondition ? 'start' : 'end' };
           })
           .filter(Boolean) as ILink[];
         acc.push(...links);
