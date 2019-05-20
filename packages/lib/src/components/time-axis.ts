@@ -19,16 +19,26 @@ export const TimeAxis: FactoryComponent<ITimeAxis> = () => {
   const textWidth = 50;
 
   const stepSize = (s: number, e: number) => {
-    const minutes = (e - s) / 60;
-    return minutes < 1
+    const duration = e - s;
+    return duration <= 10
+      ? 1
+      : duration <= 30
+      ? 5
+      : duration <= 60
       ? 10
-      : minutes < 10
+      : duration <= 300
+      ? 30
+      : duration <= 600
       ? 60
-      : minutes < 60
+      : duration <= 900
+      ? 120
+      : duration <= 1800
       ? 300
-      : minutes < 180
+      : duration <= 3600
       ? 600
-      : minutes < 300
+      : duration <= 7200
+      ? 900
+      : duration <= 14400
       ? 1800
       : 3600;
   };
