@@ -17,7 +17,8 @@ export const ScenarioItem: FactoryComponent<IScenarioItem> = () => {
   const state = {} as {
     onclick?: (e: MouseEvent) => void;
   };
-  const isInstantaneous = (item: IExecutingTimelineItem) => item.endTime === item.startTime;
+  const isInstantaneous = (item: IExecutingTimelineItem) =>
+    (!item.children || item.children.length === 0) && item.endTime === item.startTime;
   return {
     oninit: ({ attrs: { item, onClick } }) => {
       state.onclick = onClick

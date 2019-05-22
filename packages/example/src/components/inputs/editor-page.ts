@@ -110,6 +110,20 @@ export const EditorPage = () => {
         delay: 200,
       },
       {
+        id: 'c',
+        title: 'C',
+        isOpen: true,
+        delay: 200,
+      },
+      {
+        id: 'c.1',
+        title: 'C.1',
+        isOpen: true,
+        delay: 0,
+        parentId: 'c',
+        dependsOn: [{ id: 'c', condition: 'started' }],
+      },
+      {
         id: 'b.1',
         title: 'b.1',
         parentId: 'b',
