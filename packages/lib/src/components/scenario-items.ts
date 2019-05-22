@@ -1,5 +1,5 @@
 import m, { FactoryComponent, Attributes } from 'mithril';
-import { IBoundingRectangle, IExecutingTimelineItem, ITimelineItem } from '../interfaces';
+import { IBoundingRectangle, IExecutingTimelineItem } from '../interfaces';
 import { ScenarioItem } from './scenario-item';
 import { boundsToStyle } from '../helpers';
 
@@ -13,7 +13,7 @@ export interface IScenarioItems extends Attributes {
   /** Optional onclick event handler to inform you that the item has been clicked */
   onClick?: (item: IExecutingTimelineItem) => void;
   /** Optional component to render the item title */
-  titleView?: FactoryComponent<{ item: ITimelineItem }>;
+  titleView?: FactoryComponent<{ item: IExecutingTimelineItem }>;
   items: IExecutingTimelineItem[];
 }
 

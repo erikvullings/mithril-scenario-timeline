@@ -1,6 +1,6 @@
 import m, { FactoryComponent, Attributes } from 'mithril';
 import { IExecutingTimelineItem } from '..';
-import { IBoundingRectangle, ITimelineItem } from '../interfaces';
+import { IBoundingRectangle } from '../interfaces';
 import { boundsToStyle, boundsToMarkerStyle, boundsToCompletionStyle } from '../helpers';
 
 export interface IScenarioItem extends Attributes {
@@ -10,7 +10,7 @@ export interface IScenarioItem extends Attributes {
   onClick?: (item: IExecutingTimelineItem) => void;
   item: IExecutingTimelineItem;
   /** Optional component to render the item title */
-  titleView?: FactoryComponent<{ item: ITimelineItem }>;
+  titleView?: FactoryComponent<{ item: IExecutingTimelineItem }>;
 }
 
 export const ScenarioItem: FactoryComponent<IScenarioItem> = () => {

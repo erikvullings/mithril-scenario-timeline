@@ -25,7 +25,7 @@ export interface IScenarioTimeline extends Attributes {
   /** The items you want to place on the timeline */
   timeline: ITimelineItem[];
   /** Optional component to render the item title */
-  titleView?: FactoryComponent<{ item: ITimelineItem }>;
+  titleView?: FactoryComponent<{ item: IExecutingTimelineItem }>;
   /** Optional onclick event handler to inform you that the item has been clicked */
   onClick?: (item: IExecutingTimelineItem) => void;
   /** Turn on debugging */

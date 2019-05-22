@@ -1,4 +1,6 @@
-export const timeline = [
+import { ITimelineItem } from 'mithril-scenario-timeline';
+
+export const timeline: ITimelineItem[] = [
   {
     title: 'Test',
     type: 'SCENARIO',
@@ -697,4 +699,4 @@ export const timeline2 = [
       },
     ],
   },
-];
+] as ITimelineItem[];

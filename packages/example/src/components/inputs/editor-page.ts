@@ -6,6 +6,7 @@ import { timeline as tl } from './timeline-example';
 export const EditorPage = () => {
   const state = {
     time: new Date(2019, 4, 19, 9, 20),
+    scenarioStart: new Date(2019, 4, 19, 9, 0),
     timeline: [
       {
         id: 'a',
@@ -259,12 +260,21 @@ export const EditorPage = () => {
     }, 1000);
   };
 
-  const titleView: FactoryComponent<{ item: ITimelineItem }> = () => {
+  const titleView: FactoryComponent<{ item: IExecutingTimelineItem }> = () => {
+    const { scenarioStart } = state;
+    const newTime = (timeInSec?: number) =>
+      new Date(scenarioStart.valueOf() + (timeInSec || 0) * 1000).toLocaleTimeString();
+    const tooltip = (item: IExecutingTimelineItem) =>
+      item.startTime === item.endTime
+        ? `${newTime(item.startTime)}`
+        : `${newTime(item.startTime)} - ${newTime(item.endTime)}`;
     return {
       view: ({ attrs: { item } }) => {
-        return m('div', { style: 'vertical-align: middle' }, [
+        return m('div.mst__tooltip', { style: 'vertical-align: middle' }, [
           m(Icon, { iconName: 'send', className: 'tiny' }),
-          m('span', `Custom title: ${item.title}`),
+          m('span', `My title: ${item.title}`),
+          m('span.mst__tooltiptext', tooltip(item)),
+          // m('span', `Custom title: ${item.title}`),
         ]);
       },
     };
@@ -272,7 +282,7 @@ export const EditorPage = () => {
 
   return {
     view: () => {
-      const { timeline, timeline2 } = state;
+      const { timeline, timeline2, scenarioStart } = state;
       const onClick = (item: IExecutingTimelineItem) => console.table(item);
 
       return m('.col.s12', [
@@ -287,7 +297,7 @@ export const EditorPage = () => {
           time: updateTime,
           lineHeight: 30,
           titleView,
-          scenarioStart: new Date(2019, 4, 19, 9, 0),
+          scenarioStart,
           onClick,
         }),
 
