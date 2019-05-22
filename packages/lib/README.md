@@ -1,8 +1,14 @@
 # mithril-scenario-timeline
 
-A scenario timeline component for the Mithril framework as being used in the [DRIVER+ scenario editor](https://github.com/DRIVER-EU/scenario-editor).
+A scenario timeline component for the Mithril framework as being used in the [DRIVER+ scenario editor](https://github.com/DRIVER-EU/scenario-editor). Also see the [live example](https://erikvullings.github.io/mithril-scenario-timeline).
 
 ![screenshot](img/mithril-scenario-timeline.png)
+
+## Release info
+
+### v0.0.x
+
+- Initial version
 
 ## Playground
 
