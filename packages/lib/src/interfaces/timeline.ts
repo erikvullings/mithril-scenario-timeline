@@ -36,12 +36,14 @@ export interface ITimelineItem {
 export interface IExecutingTimelineItem extends ITimelineItem {
   /** Current state of the timeline item. Only relevant during execution. */
   state?: TimelineItemState;
-  /** Calculated property: based on the delay and the start time of the related item. */
+  /**
+   * Start time in seconds, relative to the scenario start time.
+   */
   startTime?: number;
-  /** Calculated property: based on the delay and the start time of the related item. */
+  /**
+   * End time in seconds, relative to the scenario start time.
+   */
   endTime?: number;
-  /** Calculated property: Either 0 for messages, or the total delay of all of its children. */
-  duration?: number;
   /** Calculated list of child IDs */
   children?: IExecutingTimelineItem[];
 }
