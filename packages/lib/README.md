@@ -9,6 +9,9 @@ A scenario timeline component for the Mithril framework as being used in the [DR
 ### v0.0.x
 
 - Initial version
+- FIX: `onClick` did not return the most recent item
+- Returns an error (and stops rendering) when a circular dependency is encountered.
+  TODO: Need to analyse the error and return a more meaningful result.
 
 ## Playground
 
