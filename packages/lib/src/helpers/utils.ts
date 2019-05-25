@@ -1,4 +1,10 @@
-import { ITimelineItem, IExecutingTimelineItem, IBoundingRectangle } from '../interfaces';
+import {
+  ITimelineItem,
+  IExecutingTimelineItem,
+  IBoundingRectangle,
+  CircularDependencyError,
+  ICircularDependency,
+} from '../interfaces';
 import { IDependency } from '../interfaces/dependency';
 import { ILink } from '../interfaces/link';
 
@@ -71,7 +77,7 @@ const calcStartEndTimes = (items: ITimelineItem[]) => {
       );
     }, true);
 
-  // Resolve start/end times (and thereby duration)
+  // Resolve start/end times
   let keys = Object.keys(lookupMap);
   do {
     let hasChanged = false;
@@ -123,8 +129,20 @@ const calcStartEndTimes = (items: ITimelineItem[]) => {
     if (!hasChanged && keys.length) {
       // console.error(JSON.stringify(lookupMap, null, 2));
       // console.error(JSON.stringify(keys, null, 2));
-      keys.length = 0;
-      console.error('Cannot resolve dependencies: Exiting!');
+      // TODO Add error callback, and mention possible circular dependencies, e.g.
+      // Return all items that haven't been resolved
+      // Inspect those for head/tail dependencies, i.e. A waits for B to finish, while B waits for A to start.
+      // keys.length = 0; // To stop the loop
+      throw new CircularDependencyError(
+        'Cannot resolve circular dependencies',
+        keys.reduce(
+          (acc, key) => {
+            acc.push(lookupMap[key]);
+            return acc;
+          },
+          [] as ICircularDependency[]
+        )
+      );
     }
   } while (keys.length);
 
