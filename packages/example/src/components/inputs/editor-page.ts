@@ -10,9 +10,9 @@ import { timeline as tl } from './timeline-example';
 
 export const EditorPage = () => {
   const state = {
-    time: new Date(2019, 4, 19, 9, 20),
+    time: new Date(2019, 4, 19, 9, 59),
     error: undefined as undefined | CircularDependencyError,
-    scenarioStart: new Date(2019, 4, 19, 9, 0),
+    scenarioStart: new Date(2019, 4, 19, 9, 13, 42),
     timeline: [
       {
         id: 'a',
@@ -391,7 +391,7 @@ export const EditorPage = () => {
 
   const updateTime = (update: (t: number | Date) => void) => {
     setInterval(() => {
-      state.time = new Date(state.time.valueOf() + 10000);
+      state.time = new Date(state.time.valueOf() + 100000);
       update(state.time);
     }, 1000);
   };
@@ -426,7 +426,7 @@ export const EditorPage = () => {
 
         m(ScenarioTimeline, { timeline, time: 90, onClick }),
 
-        m('h2.header', 'ScenarioTimeline - running, highlighted diamonds'),
+        m('h2.header', 'ScenarioTimeline - running, fixed width, highlighted diamonds'),
 
         m(ScenarioTimeline, {
           timeline: timeline2,
@@ -434,6 +434,18 @@ export const EditorPage = () => {
           lineHeight: 30,
           titleView,
           scenarioStart,
+          onClick,
+        }),
+
+        m('h2.header', 'ScenarioTimeline - running, fixed scale'),
+
+        m(ScenarioTimeline, {
+          timeline: timeline2,
+          time: updateTime,
+          lineHeight: 30,
+          titleView,
+          scenarioStart,
+          scale: 0.1,
           onClick,
         }),
 
@@ -447,9 +459,9 @@ export const EditorPage = () => {
           time: 90,
           onClick,
           errorCallback: e => {
-            console.error(e);
+            // console.error(e);
             state.error = e;
-            m.redraw();
+            // m.redraw();
           },
         }),
 

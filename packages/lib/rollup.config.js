@@ -3,7 +3,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import sourceMaps from 'rollup-plugin-sourcemaps';
 import typescript from 'rollup-plugin-typescript2';
 import postcss from 'rollup-plugin-postcss';
-import json from 'rollup-plugin-json';
+import json from '@rollup/plugin-json';
 import simplevars from 'postcss-simple-vars';
 import nested from 'postcss-nested';
 import postcssPresetEnv from 'postcss-preset-env';

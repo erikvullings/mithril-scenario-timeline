@@ -6,6 +6,11 @@ A scenario timeline component for the Mithril framework as being used in the [DR
 
 ## Release info
 
+### v0.1.x
+
+- Using it in [scenario editor](https://github.com/driver-eu/scenario-editor)
+- Updated timeline bounds when time exceeds beyond the current time
+
 ### v0.0.x
 
 - Initial version

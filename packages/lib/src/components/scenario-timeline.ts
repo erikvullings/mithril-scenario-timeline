@@ -36,11 +36,16 @@ export interface IScenarioTimeline extends Attributes {
 }
 
 export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
-  const state = {} as {
+  const state = {
+    time: 0,
+    endTime: 0,
+  } as {
     // 1 second is x pixels
     scale?: number;
     lineHeight: number;
     onClick?: (item: ITimelineItem) => void;
+    time?: number;
+    endTime: number;
   };
 
   const gutter = 4;
@@ -63,7 +68,9 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
       try {
         const items = preprocessTimeline(timeline);
         const startTime = Math.min(...items.map(item => item.startTime!));
-        const endTime = Math.max(...items.map(item => item.endTime!));
+        const curTime = state.time || 0;
+        const endTime = Math.max(curTime, ...items.map(item => item.endTime!));
+        state.endTime = endTime;
         const { lineHeight, onClick, scale = calculateScale(endTime - startTime) } = state;
         const bounds = {
           left: leftMargin,
@@ -82,8 +89,20 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
             bounds: { ...bounds, top: 0, height: timeAxisHeight },
             scale,
           }),
-          m(ScenarioItems, { items, bounds, lineHeight, scale, onClick, titleView }),
-          m(ScenarioLinks, { items, bounds: { ...bounds, top: gutter + timeAxisHeight }, lineHeight, scale }),
+          m(ScenarioItems, {
+            items,
+            bounds,
+            lineHeight,
+            scale,
+            onClick,
+            titleView,
+          }),
+          m(ScenarioLinks, {
+            items,
+            bounds: { ...bounds, top: gutter + timeAxisHeight },
+            lineHeight,
+            scale,
+          }),
           m(ScenarioTime, {
             scenarioStart,
             time,
@@ -94,6 +113,12 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
               height: bounds.height + 2 * gutter,
             },
             scale,
+            curTime: t => {
+              state.time = t;
+              if (t > state.endTime) {
+                m.redraw();
+              }
+            },
           }),
         ]);
       } catch (e) {
