@@ -31,6 +31,6 @@
   },
   "homepage": "https://github.com/erikvullings/mithril-scenario-timeline#readme",
   "devDependencies": {
-    "lerna": "^3.13.4"
+    "lerna": "^3.19.0"
   }
 }

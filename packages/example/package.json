@@ -21,17 +21,17 @@
   "author": "Erik Vullings <erik.vullings@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "mithril": "next",
+    "mithril": "^2.0.4",
     "material-icons": "^0.3.1",
     "materialize-css": "^1.0.0",
-    "mithril-materialized": "^0.11.10"
+    "mithril-materialized": "^0.15.4"
   },
   "devDependencies": {
     "@types/materialize-css": "^1.0.6",
-    "@types/mithril": "^1.1.16",
-    "autoprefixer": "^9.5.1",
+    "@types/mithril": "^2.0.2",
+    "autoprefixer": "^9.7.2",
     "cssnano": "^4.1.10",
-    "parcel-bundler": "^1.12.3",
-    "typescript": "^3.4.5"
+    "parcel-bundler": "^1.12.4",
+    "typescript": "^3.7.2"
   }
 }
