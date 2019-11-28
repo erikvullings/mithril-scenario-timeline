@@ -422,6 +422,7 @@ export const EditorPage = () => {
       const onClick = (item: IExecutingTimelineItem) => console.table(item);
 
       return m('.col.s12', [
+        // m('input', { className: 'col s12', value: 'mithril-scenario-timeline' }),
         m('h2.header', 'ScenarioTimeline - completed diamonds'),
 
         m(ScenarioTimeline, { timeline, time: 90, onClick }),

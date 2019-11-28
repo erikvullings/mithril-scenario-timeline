@@ -17566,7 +17566,8 @@ var ScenarioTime = function () {
 var ScenarioTimeline = function () {
   var state = {
     time: 0,
-    endTime: 0
+    endTime: 0,
+    verbose: false
   };
   var gutter = 4;
   var rightMargin = 100;
@@ -17577,22 +17578,91 @@ var ScenarioTimeline = function () {
     return Math.min(10, Math.max(0.01, 800 / duration));
   };
 
+  var render = function (time, items, titleView, scenarioStart) {
+    var startTime = Math.min.apply(Math, items.map(function (item) {
+      return item.startTime;
+    }));
+    var curTime = state.time || 0;
+    var endTime = Math.max.apply(Math, __spreadArrays([curTime], items.map(function (item) {
+      return item.endTime;
+    })));
+    state.endTime = endTime;
+    var lineHeight = state.lineHeight,
+        onClick = state.onClick,
+        _a = state.scale,
+        scale = _a === void 0 ? calculateScale(endTime - startTime) : _a,
+        verbose = state.verbose;
+
+    if (verbose) {
+      console.table(items);
+    }
+
+    var bounds = {
+      left: leftMargin,
+      top: gutter,
+      width: leftMargin + scale * endTime + rightMargin,
+      height: items.length * lineHeight
+    };
+    return _mithril.default.render(state.dom, (0, _mithril.default)('.mst__container', [(0, _mithril.default)(TimeAxis, {
+      scenarioStart: scenarioStart,
+      startTime: startTime,
+      endTime: endTime,
+      bounds: __assign(__assign({}, bounds), {
+        top: 0,
+        height: timeAxisHeight
+      }),
+      scale: scale
+    }), (0, _mithril.default)(ScenarioItems, {
+      items: items,
+      bounds: bounds,
+      lineHeight: lineHeight,
+      scale: scale,
+      onClick: onClick,
+      titleView: titleView
+    }), (0, _mithril.default)(ScenarioLinks, {
+      items: items,
+      bounds: __assign(__assign({}, bounds), {
+        top: gutter + timeAxisHeight
+      }),
+      lineHeight: lineHeight,
+      scale: scale
+    }), (0, _mithril.default)(ScenarioTime, {
+      scenarioStart: scenarioStart,
+      time: time,
+      bounds: {
+        left: bounds.left,
+        width: bounds.width,
+        top: timeAxisHeight - gutter,
+        height: bounds.height + 2 * gutter
+      },
+      scale: scale,
+      curTime: function (t) {
+        state.time = t;
+
+        if (t > state.endTime) {
+          render(time, items, titleView, scenarioStart);
+        }
+      }
+    })]));
+  };
+
   return {
     oninit: function (_a) {
       var _b = _a.attrs,
           scale = _b.scale,
           lineHeight = _b.lineHeight,
-          onClick = _b.onClick;
+          onClick = _b.onClick,
+          verbose = _b.verbose;
       state.scale = scale;
       state.lineHeight = lineHeight || 28;
       state.onClick = onClick;
+      state.verbose = verbose;
     },
     view: function (_a) {
       var _b = _a.attrs,
           timeline = _b.timeline,
           time = _b.time,
           scenarioStart = _b.scenarioStart,
-          verbose = _b.verbose,
           titleView = _b.titleView,
           errorCallback = _b.errorCallback;
 
@@ -17601,71 +17671,11 @@ var ScenarioTimeline = function () {
       }
 
       try {
-        var items = preprocessTimeline(timeline);
-        var startTime = Math.min.apply(Math, items.map(function (item) {
-          return item.startTime;
-        }));
-        var curTime = state.time || 0;
-        var endTime = Math.max.apply(Math, __spreadArrays([curTime], items.map(function (item) {
-          return item.endTime;
-        })));
-        state.endTime = endTime;
-        var lineHeight = state.lineHeight,
-            onClick = state.onClick,
-            _c = state.scale,
-            scale = _c === void 0 ? calculateScale(endTime - startTime) : _c;
-        var bounds = {
-          left: leftMargin,
-          top: gutter,
-          width: leftMargin + scale * endTime + rightMargin,
-          height: items.length * lineHeight
-        };
-
-        if (verbose) {
-          console.table(items);
-        }
-
-        return (0, _mithril.default)('.mst__container', [(0, _mithril.default)(TimeAxis, {
-          scenarioStart: scenarioStart,
-          startTime: startTime,
-          endTime: endTime,
-          bounds: __assign(__assign({}, bounds), {
-            top: 0,
-            height: timeAxisHeight
-          }),
-          scale: scale
-        }), (0, _mithril.default)(ScenarioItems, {
-          items: items,
-          bounds: bounds,
-          lineHeight: lineHeight,
-          scale: scale,
-          onClick: onClick,
-          titleView: titleView
-        }), (0, _mithril.default)(ScenarioLinks, {
-          items: items,
-          bounds: __assign(__assign({}, bounds), {
-            top: gutter + timeAxisHeight
-          }),
-          lineHeight: lineHeight,
-          scale: scale
-        }), (0, _mithril.default)(ScenarioTime, {
-          scenarioStart: scenarioStart,
-          time: time,
-          bounds: {
-            left: bounds.left,
-            width: bounds.width,
-            top: timeAxisHeight - gutter,
-            height: bounds.height + 2 * gutter
-          },
-          scale: scale,
-          curTime: function (t) {
-            state.time = t;
-
-            if (t > state.endTime) {
-              _mithril.default.redraw();
-            }
-          }
-        })]);
+        var items_1 = preprocessTimeline(timeline);
+        setTimeout(function () {
+          return render(time, items_1, titleView, scenarioStart);
+        }, 0);
+        return (0, _mithril.default)('.mst__container');
       } catch (e) {
         if (errorCallback) {
           errorCallback(e);
@@ -17673,6 +17683,10 @@ var ScenarioTimeline = function () {
 
         return undefined;
       }
+    },
+    oncreate: function (_a) {
+      var dom = _a.dom;
+      return state.dom = dom;
     }
   };
 };
@@ -18631,7 +18645,8 @@ exports.EditorPage = function () {
         return console.table(item);
       };
 
-      return mithril_1.default('.col.s12', [mithril_1.default('h2.header', 'ScenarioTimeline - completed diamonds'), mithril_1.default(mithril_scenario_timeline_1.ScenarioTimeline, {
+      return mithril_1.default('.col.s12', [// m('input', { className: 'col s12', value: 'mithril-scenario-timeline' }),
+      mithril_1.default('h2.header', 'ScenarioTimeline - completed diamonds'), mithril_1.default(mithril_scenario_timeline_1.ScenarioTimeline, {
         timeline: timeline,
         time: 90,
         onClick: onClick
@@ -18872,7 +18887,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62473" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54242" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
