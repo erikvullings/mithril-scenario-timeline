@@ -117,7 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"node_modules/.registry.npmjs.org/parcel-bundler/1.12.3/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+})({"node_modules/.pnpm/registry.npmjs.org/parcel-bundler/1.12.4/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -149,7 +149,7 @@ function getBaseURL(url) {
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],"node_modules/.registry.npmjs.org/parcel-bundler/1.12.3/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+},{}],"node_modules/.pnpm/registry.npmjs.org/parcel-bundler/1.12.4/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -184,65 +184,65 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"node_modules/.registry.npmjs.org/parcel-bundler/1.12.3/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"node_modules/materialize-css/dist/css/materialize.min.css":[function(require,module,exports) {
+},{"./bundle-url":"node_modules/.pnpm/registry.npmjs.org/parcel-bundler/1.12.4/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"node_modules/materialize-css/dist/css/materialize.min.css":[function(require,module,exports) {
 
         var reloadCSS = require('_css_loader');
         module.hot.dispose(reloadCSS);
         module.hot.accept(reloadCSS);
       
-},{"_css_loader":"node_modules/.registry.npmjs.org/parcel-bundler/1.12.3/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/material-icons/iconfont/material-icons.css":[function(require,module,exports) {
+},{"_css_loader":"node_modules/.pnpm/registry.npmjs.org/parcel-bundler/1.12.4/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/material-icons/iconfont/material-icons.css":[function(require,module,exports) {
 
         var reloadCSS = require('_css_loader');
         module.hot.dispose(reloadCSS);
         module.hot.accept(reloadCSS);
       
-},{"./MaterialIcons-Regular.eot":[["MaterialIcons-Regular.bcffbc15.eot","node_modules/material-icons/iconfont/MaterialIcons-Regular.eot"],"node_modules/material-icons/iconfont/MaterialIcons-Regular.eot"],"./MaterialIcons-Regular.woff2":[["MaterialIcons-Regular.11799939.woff2","node_modules/material-icons/iconfont/MaterialIcons-Regular.woff2"],"node_modules/material-icons/iconfont/MaterialIcons-Regular.woff2"],"./MaterialIcons-Regular.woff":[["MaterialIcons-Regular.6924d4ac.woff","node_modules/material-icons/iconfont/MaterialIcons-Regular.woff"],"node_modules/material-icons/iconfont/MaterialIcons-Regular.woff"],"./MaterialIcons-Regular.ttf":[["MaterialIcons-Regular.a71f6b9a.ttf","node_modules/material-icons/iconfont/MaterialIcons-Regular.ttf"],"node_modules/material-icons/iconfont/MaterialIcons-Regular.ttf"],"_css_loader":"node_modules/.registry.npmjs.org/parcel-bundler/1.12.3/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/mithril/mithril.mjs":[function(require,module,exports) {
-var global = arguments[3];
-"use strict";
+},{"./MaterialIcons-Regular.eot":[["MaterialIcons-Regular.bcffbc15.eot","node_modules/material-icons/iconfont/MaterialIcons-Regular.eot"],"node_modules/material-icons/iconfont/MaterialIcons-Regular.eot"],"./MaterialIcons-Regular.woff2":[["MaterialIcons-Regular.11799939.woff2","node_modules/material-icons/iconfont/MaterialIcons-Regular.woff2"],"node_modules/material-icons/iconfont/MaterialIcons-Regular.woff2"],"./MaterialIcons-Regular.woff":[["MaterialIcons-Regular.6924d4ac.woff","node_modules/material-icons/iconfont/MaterialIcons-Regular.woff"],"node_modules/material-icons/iconfont/MaterialIcons-Regular.woff"],"./MaterialIcons-Regular.ttf":[["MaterialIcons-Regular.a71f6b9a.ttf","node_modules/material-icons/iconfont/MaterialIcons-Regular.ttf"],"node_modules/material-icons/iconfont/MaterialIcons-Regular.ttf"],"_css_loader":"node_modules/.pnpm/registry.npmjs.org/parcel-bundler/1.12.4/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/mithril/render/vnode.js":[function(require,module,exports) {
+"use strict"
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.PromisePolyfill = exports.vnode = exports.version = exports.buildQueryString = exports.parseQueryString = exports.jsonp = exports.request = exports.redraw = exports.render = exports.route = exports.mount = exports.fragment = exports.trust = exports.m = exports.default = void 0;
-
-function Vnode(tag, key, attrs0, children0, text, dom) {
-  return {
-    tag: tag,
-    key: key,
-    attrs: attrs0,
-    children: children0,
-    text: text,
-    dom: dom,
-    domSize: undefined,
-    state: undefined,
-    events: undefined,
-    instance: undefined
-  };
+function Vnode(tag, key, attrs, children, text, dom) {
+	return {tag: tag, key: key, attrs: attrs, children: children, text: text, dom: dom, domSize: undefined, state: undefined, events: undefined, instance: undefined}
+}
+Vnode.normalize = function(node) {
+	if (Array.isArray(node)) return Vnode("[", undefined, undefined, Vnode.normalizeChildren(node), undefined, undefined)
+	if (node == null || typeof node === "boolean") return null
+	if (typeof node === "object") return node
+	return Vnode("#", undefined, undefined, String(node), undefined, undefined)
+}
+Vnode.normalizeChildren = function(input) {
+	var children = []
+	if (input.length) {
+		var isKeyed = input[0] != null && input[0].key != null
+		// Note: this is a *very* perf-sensitive check.
+		// Fun fact: merging the loop like this is somehow faster than splitting
+		// it, noticeably so.
+		for (var i = 1; i < input.length; i++) {
+			if ((input[i] != null && input[i].key != null) !== isKeyed) {
+				throw new TypeError("Vnodes must either always have keys or never have keys!")
+			}
+		}
+		for (var i = 0; i < input.length; i++) {
+			children[i] = Vnode.normalize(input[i])
+		}
+	}
+	return children
 }
 
-Vnode.normalize = function (node) {
-  if (Array.isArray(node)) return Vnode("[", undefined, undefined, Vnode.normalizeChildren(node), undefined, undefined);
-  if (node != null && typeof node !== "object") return Vnode("#", undefined, undefined, node === false ? "" : node, undefined, undefined);
-  return node;
-};
+module.exports = Vnode
 
-Vnode.normalizeChildren = function (input) {
-  var children0 = [];
+},{}],"node_modules/mithril/render/hyperscriptVnode.js":[function(require,module,exports) {
+"use strict"
 
-  for (var i = 0; i < input.length; i++) {
-    children0[i] = Vnode.normalize(input[i]);
-  }
+var Vnode = require("../render/vnode")
 
-  return children0;
-}; // Call via `hyperscriptVnode0.apply(startOffset, arguments)`
+// Call via `hyperscriptVnode.apply(startOffset, arguments)`
 //
 // The reason I do it this way, forwarding the arguments and passing the start
 // offset in `this`, is so I don't have to create a temporary array in a
 // performance-critical path.
 //
 // In native ES6, I'd instead add a final `...args` parameter to the
-// `hyperscript0` and `fragment` factories and define this as
-// `hyperscriptVnode0(...args)`, since modern engines do optimize that away. But
+// `hyperscript` and `fragment` factories and define this as
+// `hyperscriptVnode(...args)`, since modern engines do optimize that away. But
 // ES5 (what Mithril requires thanks to IE support) doesn't give me that luxury,
 // and engines aren't nearly intelligent enough to do either of these:
 //
@@ -252,1924 +252,2050 @@ Vnode.normalizeChildren = function (input) {
 //    than `Function.prototype.apply` or `Reflect.apply`.
 //
 // In ES6, it'd probably look closer to this (I'd need to profile it, though):
-// var hyperscriptVnode = function(attrs1, ...children1) {
-//     if (attrs1 == null || typeof attrs1 === "object" && attrs1.tag == null && !Array.isArray(attrs1)) {
-//         if (children1.length === 1 && Array.isArray(children1[0])) children1 = children1[0]
+// module.exports = function(attrs, ...children) {
+//     if (attrs == null || typeof attrs === "object" && attrs.tag == null && !Array.isArray(attrs)) {
+//         if (children.length === 1 && Array.isArray(children[0])) children = children[0]
 //     } else {
-//         children1 = children1.length === 0 && Array.isArray(attrs1) ? attrs1 : [attrs1, ...children1]
-//         attrs1 = undefined
+//         children = children.length === 0 && Array.isArray(attrs) ? attrs : [attrs, ...children]
+//         attrs = undefined
 //     }
 //
-//     if (attrs1 == null) attrs1 = {}
-//     return Vnode("", attrs1.key, attrs1, children1)
+//     if (attrs == null) attrs = {}
+//     return Vnode("", attrs.key, attrs, children)
 // }
+module.exports = function() {
+	var attrs = arguments[this], start = this + 1, children
 
+	if (attrs == null) {
+		attrs = {}
+	} else if (typeof attrs !== "object" || attrs.tag != null || Array.isArray(attrs)) {
+		attrs = {}
+		start = this
+	}
 
-var hyperscriptVnode = function () {
-  var attrs1 = arguments[this],
-      start = this + 1,
-      children1;
+	if (arguments.length === start + 1) {
+		children = arguments[start]
+		if (!Array.isArray(children)) children = [children]
+	} else {
+		children = []
+		while (start < arguments.length) children.push(arguments[start++])
+	}
 
-  if (attrs1 == null) {
-    attrs1 = {};
-  } else if (typeof attrs1 !== "object" || attrs1.tag != null || Array.isArray(attrs1)) {
-    attrs1 = {};
-    start = this;
-  }
+	return Vnode("", attrs.key, attrs, children)
+}
 
-  if (arguments.length === start + 1) {
-    children1 = arguments[start];
-    if (!Array.isArray(children1)) children1 = [children1];
-  } else {
-    children1 = [];
+},{"../render/vnode":"node_modules/mithril/render/vnode.js"}],"node_modules/mithril/render/hyperscript.js":[function(require,module,exports) {
+"use strict"
 
-    while (start < arguments.length) children1.push(arguments[start++]);
-  }
+var Vnode = require("../render/vnode")
+var hyperscriptVnode = require("./hyperscriptVnode")
 
-  return Vnode("", attrs1.key, attrs1, children1);
-};
-
-var selectorParser = /(?:(^|#|\.)([^#\.\[\]]+))|(\[(.+?)(?:\s*=\s*("|'|)((?:\\["'\]]|.)*?)\5)?\])/g;
-var selectorCache = {};
-var hasOwn = {}.hasOwnProperty;
+var selectorParser = /(?:(^|#|\.)([^#\.\[\]]+))|(\[(.+?)(?:\s*=\s*("|'|)((?:\\["'\]]|.)*?)\5)?\])/g
+var selectorCache = {}
+var hasOwn = {}.hasOwnProperty
 
 function isEmpty(object) {
-  for (var key in object) if (hasOwn.call(object, key)) return false;
-
-  return true;
+	for (var key in object) if (hasOwn.call(object, key)) return false
+	return true
 }
 
 function compileSelector(selector) {
-  var match,
-      tag = "div",
-      classes = [],
-      attrs = {};
-
-  while (match = selectorParser.exec(selector)) {
-    var type = match[1],
-        value = match[2];
-    if (type === "" && value !== "") tag = value;else if (type === "#") attrs.id = value;else if (type === ".") classes.push(value);else if (match[3][0] === "[") {
-      var attrValue = match[6];
-      if (attrValue) attrValue = attrValue.replace(/\\(["'])/g, "$1").replace(/\\\\/g, "\\");
-      if (match[4] === "class") classes.push(attrValue);else attrs[match[4]] = attrValue === "" ? attrValue : attrValue || true;
-    }
-  }
-
-  if (classes.length > 0) attrs.className = classes.join(" ");
-  return selectorCache[selector] = {
-    tag: tag,
-    attrs: attrs
-  };
+	var match, tag = "div", classes = [], attrs = {}
+	while (match = selectorParser.exec(selector)) {
+		var type = match[1], value = match[2]
+		if (type === "" && value !== "") tag = value
+		else if (type === "#") attrs.id = value
+		else if (type === ".") classes.push(value)
+		else if (match[3][0] === "[") {
+			var attrValue = match[6]
+			if (attrValue) attrValue = attrValue.replace(/\\(["'])/g, "$1").replace(/\\\\/g, "\\")
+			if (match[4] === "class") classes.push(attrValue)
+			else attrs[match[4]] = attrValue === "" ? attrValue : attrValue || true
+		}
+	}
+	if (classes.length > 0) attrs.className = classes.join(" ")
+	return selectorCache[selector] = {tag: tag, attrs: attrs}
 }
 
 function execSelector(state, vnode) {
-  var attrs = vnode.attrs;
-  var children = Vnode.normalizeChildren(vnode.children);
-  var hasClass = hasOwn.call(attrs, "class");
-  var className = hasClass ? attrs.class : attrs.className;
-  vnode.tag = state.tag;
-  vnode.attrs = null;
-  vnode.children = undefined;
+	var attrs = vnode.attrs
+	var children = Vnode.normalizeChildren(vnode.children)
+	var hasClass = hasOwn.call(attrs, "class")
+	var className = hasClass ? attrs.class : attrs.className
 
-  if (!isEmpty(state.attrs) && !isEmpty(attrs)) {
-    var newAttrs = {};
+	vnode.tag = state.tag
+	vnode.attrs = null
+	vnode.children = undefined
 
-    for (var key in attrs) {
-      if (hasOwn.call(attrs, key)) newAttrs[key] = attrs[key];
-    }
+	if (!isEmpty(state.attrs) && !isEmpty(attrs)) {
+		var newAttrs = {}
 
-    attrs = newAttrs;
-  }
+		for (var key in attrs) {
+			if (hasOwn.call(attrs, key)) newAttrs[key] = attrs[key]
+		}
 
-  for (var key in state.attrs) {
-    if (hasOwn.call(state.attrs, key) && key !== "className" && !hasOwn.call(attrs, key)) {
-      attrs[key] = state.attrs[key];
-    }
-  }
+		attrs = newAttrs
+	}
 
-  if (className != null || state.attrs.className != null) attrs.className = className != null ? state.attrs.className != null ? String(state.attrs.className) + " " + String(className) : className : state.attrs.className != null ? state.attrs.className : null;
-  if (hasClass) attrs.class = null;
+	for (var key in state.attrs) {
+		if (hasOwn.call(state.attrs, key) && key !== "className" && !hasOwn.call(attrs, key)){
+			attrs[key] = state.attrs[key]
+		}
+	}
+	if (className != null || state.attrs.className != null) attrs.className =
+		className != null
+			? state.attrs.className != null
+				? String(state.attrs.className) + " " + String(className)
+				: className
+			: state.attrs.className != null
+				? state.attrs.className
+				: null
 
-  for (var key in attrs) {
-    if (hasOwn.call(attrs, key) && key !== "key") {
-      vnode.attrs = attrs;
-      break;
-    }
-  }
+	if (hasClass) attrs.class = null
 
-  if (Array.isArray(children) && children.length === 1 && children[0] != null && children[0].tag === "#") {
-    vnode.text = children[0].children;
-  } else {
-    vnode.children = children;
-  }
+	for (var key in attrs) {
+		if (hasOwn.call(attrs, key) && key !== "key") {
+			vnode.attrs = attrs
+			break
+		}
+	}
 
-  return vnode;
+	if (Array.isArray(children) && children.length === 1 && children[0] != null && children[0].tag === "#") {
+		vnode.text = children[0].children
+	} else {
+		vnode.children = children
+	}
+
+	return vnode
 }
 
 function hyperscript(selector) {
-  if (selector == null || typeof selector !== "string" && typeof selector !== "function" && typeof selector.view !== "function") {
-    throw Error("The selector must be either a string or a component.");
-  }
+	if (selector == null || typeof selector !== "string" && typeof selector !== "function" && typeof selector.view !== "function") {
+		throw Error("The selector must be either a string or a component.");
+	}
 
-  var vnode = hyperscriptVnode.apply(1, arguments);
+	var vnode = hyperscriptVnode.apply(1, arguments)
 
-  if (typeof selector === "string") {
-    vnode.children = Vnode.normalizeChildren(vnode.children);
-    if (selector !== "[") return execSelector(selectorCache[selector] || compileSelector(selector), vnode);
-  }
+	if (typeof selector === "string") {
+		vnode.children = Vnode.normalizeChildren(vnode.children)
+		if (selector !== "[") return execSelector(selectorCache[selector] || compileSelector(selector), vnode)
+	}
 
-  vnode.tag = selector;
-  return vnode;
+	vnode.tag = selector
+	return vnode
 }
 
-hyperscript.trust = function (html) {
-  if (html == null) html = "";
-  return Vnode("<", undefined, undefined, html, undefined, undefined);
-};
+module.exports = hyperscript
 
-hyperscript.fragment = function () {
-  var vnode2 = hyperscriptVnode.apply(0, arguments);
-  vnode2.tag = "[";
-  vnode2.children = Vnode.normalizeChildren(vnode2.children);
-  return vnode2;
-};
+},{"../render/vnode":"node_modules/mithril/render/vnode.js","./hyperscriptVnode":"node_modules/mithril/render/hyperscriptVnode.js"}],"node_modules/mithril/render/trust.js":[function(require,module,exports) {
+"use strict"
 
-var m = function m() {
-  return hyperscript.apply(this, arguments);
-};
+var Vnode = require("../render/vnode")
 
-m.m = hyperscript;
-m.trust = hyperscript.trust;
-m.fragment = hyperscript.fragment;
+module.exports = function(html) {
+	if (html == null) html = ""
+	return Vnode("<", undefined, undefined, html, undefined, undefined)
+}
+
+},{"../render/vnode":"node_modules/mithril/render/vnode.js"}],"node_modules/mithril/render/fragment.js":[function(require,module,exports) {
+"use strict"
+
+var Vnode = require("../render/vnode")
+var hyperscriptVnode = require("./hyperscriptVnode")
+
+module.exports = function() {
+	var vnode = hyperscriptVnode.apply(0, arguments)
+
+	vnode.tag = "["
+	vnode.children = Vnode.normalizeChildren(vnode.children)
+	return vnode
+}
+
+},{"../render/vnode":"node_modules/mithril/render/vnode.js","./hyperscriptVnode":"node_modules/mithril/render/hyperscriptVnode.js"}],"node_modules/mithril/hyperscript.js":[function(require,module,exports) {
+"use strict"
+
+var hyperscript = require("./render/hyperscript")
+
+hyperscript.trust = require("./render/trust")
+hyperscript.fragment = require("./render/fragment")
+
+module.exports = hyperscript
+
+},{"./render/hyperscript":"node_modules/mithril/render/hyperscript.js","./render/trust":"node_modules/mithril/render/trust.js","./render/fragment":"node_modules/mithril/render/fragment.js"}],"node_modules/mithril/promise/polyfill.js":[function(require,module,exports) {
+"use strict"
 /** @constructor */
+var PromisePolyfill = function(executor) {
+	if (!(this instanceof PromisePolyfill)) throw new Error("Promise must be called with `new`")
+	if (typeof executor !== "function") throw new TypeError("executor must be a function")
 
-var PromisePolyfill = function (executor) {
-  if (!(this instanceof PromisePolyfill)) throw new Error("Promise must be called with `new`");
-  if (typeof executor !== "function") throw new TypeError("executor must be a function");
-  var self = this,
-      resolvers = [],
-      rejectors = [],
-      resolveCurrent = handler(resolvers, true),
-      rejectCurrent = handler(rejectors, false);
-  var instance = self._instance = {
-    resolvers: resolvers,
-    rejectors: rejectors
-  };
-  var callAsync = typeof setImmediate === "function" ? setImmediate : setTimeout;
+	var self = this, resolvers = [], rejectors = [], resolveCurrent = handler(resolvers, true), rejectCurrent = handler(rejectors, false)
+	var instance = self._instance = {resolvers: resolvers, rejectors: rejectors}
+	var callAsync = typeof setImmediate === "function" ? setImmediate : setTimeout
+	function handler(list, shouldAbsorb) {
+		return function execute(value) {
+			var then
+			try {
+				if (shouldAbsorb && value != null && (typeof value === "object" || typeof value === "function") && typeof (then = value.then) === "function") {
+					if (value === self) throw new TypeError("Promise can't be resolved w/ itself")
+					executeOnce(then.bind(value))
+				}
+				else {
+					callAsync(function() {
+						if (!shouldAbsorb && list.length === 0) console.error("Possible unhandled promise rejection:", value)
+						for (var i = 0; i < list.length; i++) list[i](value)
+						resolvers.length = 0, rejectors.length = 0
+						instance.state = shouldAbsorb
+						instance.retry = function() {execute(value)}
+					})
+				}
+			}
+			catch (e) {
+				rejectCurrent(e)
+			}
+		}
+	}
+	function executeOnce(then) {
+		var runs = 0
+		function run(fn) {
+			return function(value) {
+				if (runs++ > 0) return
+				fn(value)
+			}
+		}
+		var onerror = run(rejectCurrent)
+		try {then(run(resolveCurrent), onerror)} catch (e) {onerror(e)}
+	}
 
-  function handler(list, shouldAbsorb) {
-    return function execute(value) {
-      var then;
+	executeOnce(executor)
+}
+PromisePolyfill.prototype.then = function(onFulfilled, onRejection) {
+	var self = this, instance = self._instance
+	function handle(callback, list, next, state) {
+		list.push(function(value) {
+			if (typeof callback !== "function") next(value)
+			else try {resolveNext(callback(value))} catch (e) {if (rejectNext) rejectNext(e)}
+		})
+		if (typeof instance.retry === "function" && state === instance.state) instance.retry()
+	}
+	var resolveNext, rejectNext
+	var promise = new PromisePolyfill(function(resolve, reject) {resolveNext = resolve, rejectNext = reject})
+	handle(onFulfilled, instance.resolvers, resolveNext, true), handle(onRejection, instance.rejectors, rejectNext, false)
+	return promise
+}
+PromisePolyfill.prototype.catch = function(onRejection) {
+	return this.then(null, onRejection)
+}
+PromisePolyfill.prototype.finally = function(callback) {
+	return this.then(
+		function(value) {
+			return PromisePolyfill.resolve(callback()).then(function() {
+				return value
+			})
+		},
+		function(reason) {
+			return PromisePolyfill.resolve(callback()).then(function() {
+				return PromisePolyfill.reject(reason);
+			})
+		}
+	)
+}
+PromisePolyfill.resolve = function(value) {
+	if (value instanceof PromisePolyfill) return value
+	return new PromisePolyfill(function(resolve) {resolve(value)})
+}
+PromisePolyfill.reject = function(value) {
+	return new PromisePolyfill(function(resolve, reject) {reject(value)})
+}
+PromisePolyfill.all = function(list) {
+	return new PromisePolyfill(function(resolve, reject) {
+		var total = list.length, count = 0, values = []
+		if (list.length === 0) resolve([])
+		else for (var i = 0; i < list.length; i++) {
+			(function(i) {
+				function consume(value) {
+					count++
+					values[i] = value
+					if (count === total) resolve(values)
+				}
+				if (list[i] != null && (typeof list[i] === "object" || typeof list[i] === "function") && typeof list[i].then === "function") {
+					list[i].then(consume, reject)
+				}
+				else consume(list[i])
+			})(i)
+		}
+	})
+}
+PromisePolyfill.race = function(list) {
+	return new PromisePolyfill(function(resolve, reject) {
+		for (var i = 0; i < list.length; i++) {
+			list[i].then(resolve, reject)
+		}
+	})
+}
 
-      try {
-        if (shouldAbsorb && value != null && (typeof value === "object" || typeof value === "function") && typeof (then = value.then) === "function") {
-          if (value === self) throw new TypeError("Promise can't be resolved w/ itself");
-          executeOnce(then.bind(value));
-        } else {
-          callAsync(function () {
-            if (!shouldAbsorb && list.length === 0) console.error("Possible unhandled promise rejection:", value);
+module.exports = PromisePolyfill
 
-            for (var i = 0; i < list.length; i++) list[i](value);
+},{}],"node_modules/mithril/promise/promise.js":[function(require,module,exports) {
+var global = arguments[3];
+"use strict"
 
-            resolvers.length = 0, rejectors.length = 0;
-            instance.state = shouldAbsorb;
-
-            instance.retry = function () {
-              execute(value);
-            };
-          });
-        }
-      } catch (e) {
-        rejectCurrent(e);
-      }
-    };
-  }
-
-  function executeOnce(then) {
-    var runs = 0;
-
-    function run(fn) {
-      return function (value) {
-        if (runs++ > 0) return;
-        fn(value);
-      };
-    }
-
-    var onerror = run(rejectCurrent);
-
-    try {
-      then(run(resolveCurrent), onerror);
-    } catch (e) {
-      onerror(e);
-    }
-  }
-
-  executeOnce(executor);
-};
-
-PromisePolyfill.prototype.then = function (onFulfilled, onRejection) {
-  var self = this,
-      instance = self._instance;
-
-  function handle(callback, list, next, state) {
-    list.push(function (value) {
-      if (typeof callback !== "function") next(value);else try {
-        resolveNext(callback(value));
-      } catch (e) {
-        if (rejectNext) rejectNext(e);
-      }
-    });
-    if (typeof instance.retry === "function" && state === instance.state) instance.retry();
-  }
-
-  var resolveNext, rejectNext;
-  var promise = new PromisePolyfill(function (resolve, reject) {
-    resolveNext = resolve, rejectNext = reject;
-  });
-  handle(onFulfilled, instance.resolvers, resolveNext, true), handle(onRejection, instance.rejectors, rejectNext, false);
-  return promise;
-};
-
-PromisePolyfill.prototype.catch = function (onRejection) {
-  return this.then(null, onRejection);
-};
-
-PromisePolyfill.prototype.finally = function (callback) {
-  return this.then(function (value) {
-    return PromisePolyfill.resolve(callback()).then(function () {
-      return value;
-    });
-  }, function (reason) {
-    return PromisePolyfill.resolve(callback()).then(function () {
-      return PromisePolyfill.reject(reason);
-    });
-  });
-};
-
-PromisePolyfill.resolve = function (value) {
-  if (value instanceof PromisePolyfill) return value;
-  return new PromisePolyfill(function (resolve) {
-    resolve(value);
-  });
-};
-
-PromisePolyfill.reject = function (value) {
-  return new PromisePolyfill(function (resolve, reject) {
-    reject(value);
-  });
-};
-
-PromisePolyfill.all = function (list) {
-  return new PromisePolyfill(function (resolve, reject) {
-    var total = list.length,
-        count = 0,
-        values = [];
-    if (list.length === 0) resolve([]);else for (var i = 0; i < list.length; i++) {
-      (function (i) {
-        function consume(value) {
-          count++;
-          values[i] = value;
-          if (count === total) resolve(values);
-        }
-
-        if (list[i] != null && (typeof list[i] === "object" || typeof list[i] === "function") && typeof list[i].then === "function") {
-          list[i].then(consume, reject);
-        } else consume(list[i]);
-      })(i);
-    }
-  });
-};
-
-PromisePolyfill.race = function (list) {
-  return new PromisePolyfill(function (resolve, reject) {
-    for (var i = 0; i < list.length; i++) {
-      list[i].then(resolve, reject);
-    }
-  });
-};
+var PromisePolyfill = require("./polyfill")
 
 if (typeof window !== "undefined") {
-  if (typeof window.Promise === "undefined") {
-    window.Promise = PromisePolyfill;
-  } else if (!window.Promise.prototype.finally) {
-    window.Promise.prototype.finally = PromisePolyfill.prototype.finally;
-  }
-
-  var PromisePolyfill = window.Promise;
+	if (typeof window.Promise === "undefined") {
+		window.Promise = PromisePolyfill
+	} else if (!window.Promise.prototype.finally) {
+		window.Promise.prototype.finally = PromisePolyfill.prototype.finally
+	}
+	module.exports = window.Promise
 } else if (typeof global !== "undefined") {
-  if (typeof global.Promise === "undefined") {
-    global.Promise = PromisePolyfill;
-  } else if (!global.Promise.prototype.finally) {
-    global.Promise.prototype.finally = PromisePolyfill.prototype.finally;
-  }
-
-  var PromisePolyfill = global.Promise;
-} else {}
-
-var buildQueryString = function (object) {
-  if (Object.prototype.toString.call(object) !== "[object Object]") return "";
-  var args = [];
-
-  for (var key in object) {
-    destructure(key, object[key]);
-  }
-
-  return args.join("&");
-
-  function destructure(key, value) {
-    if (Array.isArray(value)) {
-      for (var i = 0; i < value.length; i++) {
-        destructure(key + "[" + i + "]", value[i]);
-      }
-    } else if (Object.prototype.toString.call(value) === "[object Object]") {
-      for (var i in value) {
-        destructure(key + "[" + i + "]", value[i]);
-      }
-    } else args.push(encodeURIComponent(key) + (value != null && value !== "" ? "=" + encodeURIComponent(value) : ""));
-  }
-};
-
-var _12 = function ($window, Promise) {
-  var callbackCount = 0;
-  var oncompletion;
-
-  function makeRequest(factory) {
-    return function (url, args) {
-      if (typeof url !== "string") {
-        args = url;
-        url = url.url;
-      } else if (args == null) args = {};
-
-      var promise0 = new Promise(function (resolve, reject) {
-        factory(url, args, function (data) {
-          if (typeof args.type === "function") {
-            if (Array.isArray(data)) {
-              for (var i = 0; i < data.length; i++) {
-                data[i] = new args.type(data[i]);
-              }
-            } else data = new args.type(data);
-          }
-
-          resolve(data);
-        }, reject);
-      });
-      if (args.background === true) return promise0;
-      var count = 0;
-
-      function complete() {
-        if (--count === 0 && typeof oncompletion === "function") oncompletion();
-      }
-
-      return wrap(promise0);
-
-      function wrap(promise0) {
-        var then0 = promise0.then;
-
-        promise0.then = function () {
-          count++;
-          var next = then0.apply(promise0, arguments);
-          next.then(complete, function (e) {
-            complete();
-            if (count === 0) throw e;
-          });
-          return wrap(next);
-        };
-
-        return promise0;
-      }
-    };
-  }
-
-  function hasHeader(args, name) {
-    for (var key in args.headers) {
-      if ({}.hasOwnProperty.call(args.headers, key) && name.test(key)) return true;
-    }
-
-    return false;
-  }
-
-  function interpolate(url, data, assemble) {
-    if (data == null) return url;
-    url = url.replace(/:([^\/]+)/gi, function (m0, key) {
-      return data[key] != null ? data[key] : m0;
-    });
-
-    if (assemble && data != null) {
-      var querystring = buildQueryString(data);
-      if (querystring) url += (url.indexOf("?") < 0 ? "?" : "&") + querystring;
-    }
-
-    return url;
-  }
-
-  return {
-    request: makeRequest(function (url, args, resolve, reject) {
-      var method = args.method != null ? args.method.toUpperCase() : "GET";
-      var useBody = method !== "GET" && method !== "TRACE" && (typeof args.useBody !== "boolean" || args.useBody);
-      var data = args.data;
-      var assumeJSON = (args.serialize == null || args.serialize === JSON.serialize) && !(data instanceof $window.FormData);
-
-      if (useBody) {
-        if (typeof args.serialize === "function") data = args.serialize(data);else if (!(data instanceof $window.FormData)) data = JSON.stringify(data);
-      }
-
-      var xhr = new $window.XMLHttpRequest(),
-          aborted = false,
-          _abort = xhr.abort;
-
-      xhr.abort = function abort() {
-        aborted = true;
-
-        _abort.call(xhr);
-      };
-
-      xhr.open(method, interpolate(url, args.data, !useBody), typeof args.async !== "boolean" || args.async, typeof args.user === "string" ? args.user : undefined, typeof args.password === "string" ? args.password : undefined);
-
-      if (assumeJSON && useBody && !hasHeader(args, /^content-type0$/i)) {
-        xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-      }
-
-      if (typeof args.deserialize !== "function" && !hasHeader(args, /^accept$/i)) {
-        xhr.setRequestHeader("Accept", "application/json, text/*");
-      }
-
-      if (args.withCredentials) xhr.withCredentials = args.withCredentials;
-      if (args.timeout) xhr.timeout = args.timeout;
-      if (args.responseType) xhr.responseType = args.responseType;
-
-      for (var key in args.headers) {
-        if ({}.hasOwnProperty.call(args.headers, key)) {
-          xhr.setRequestHeader(key, args.headers[key]);
-        }
-      }
-
-      if (typeof args.config === "function") xhr = args.config(xhr, args) || xhr;
-
-      xhr.onreadystatechange = function () {
-        // Don't throw errors on xhr.abort().
-        if (aborted) return;
-
-        if (xhr.readyState === 4) {
-          try {
-            var success = xhr.status >= 200 && xhr.status < 300 || xhr.status === 304 || /^file:\/\//i.test(url);
-            var response = xhr.responseText;
-
-            if (typeof args.extract === "function") {
-              response = args.extract(xhr, args);
-              success = true;
-            } else if (typeof args.deserialize === "function") {
-              response = args.deserialize(response);
-            } else {
-              try {
-                response = response ? JSON.parse(response) : null;
-              } catch (e) {
-                throw new Error("Invalid JSON: " + response);
-              }
-            }
-
-            if (success) resolve(response);else {
-              var error = new Error(xhr.responseText);
-              error.code = xhr.status;
-              error.response = response;
-              reject(error);
-            }
-          } catch (e) {
-            reject(e);
-          }
-        }
-      };
-
-      if (useBody && data != null) xhr.send(data);else xhr.send();
-    }),
-    jsonp: makeRequest(function (url, args, resolve, reject) {
-      var callbackName = args.callbackName || "_mithril_" + Math.round(Math.random() * 1e16) + "_" + callbackCount++;
-      var script = $window.document.createElement("script");
-
-      $window[callbackName] = function (data) {
-        script.parentNode.removeChild(script);
-        resolve(data);
-        delete $window[callbackName];
-      };
-
-      script.onerror = function () {
-        script.parentNode.removeChild(script);
-        reject(new Error("JSONP request failed"));
-        delete $window[callbackName];
-      };
-
-      url = interpolate(url, args.data, true);
-      script.src = url + (url.indexOf("?") < 0 ? "?" : "&") + encodeURIComponent(args.callbackKey || "callback") + "=" + encodeURIComponent(callbackName);
-      $window.document.documentElement.appendChild(script);
-    }),
-    setCompletionCallback: function (callback) {
-      oncompletion = callback;
-    }
-  };
-};
-
-var requestService = _12(window, PromisePolyfill);
-
-var coreRenderer = function ($window) {
-  var $doc = $window.document;
-  var nameSpace = {
-    svg: "http://www.w3.org/2000/svg",
-    math: "http://www.w3.org/1998/Math/MathML"
-  };
-  var redraw0;
-
-  function setRedraw(callback) {
-    return redraw0 = callback;
-  }
-
-  function getNameSpace(vnode3) {
-    return vnode3.attrs && vnode3.attrs.xmlns || nameSpace[vnode3.tag];
-  } //sanity check to discourage people from doing `vnode3.state = ...`
-
-
-  function checkState(vnode3, original) {
-    if (vnode3.state !== original) throw new Error("`vnode.state` must not be modified");
-  } //Note: the hook is passed as the `this` argument to allow proxying the
-  //arguments without requiring a full array allocation to do so. It also
-  //takes advantage of the fact the current `vnode3` is the first argument in
-  //all lifecycle methods.
-
-
-  function callHook(vnode3) {
-    var original = vnode3.state;
-
-    try {
-      return this.apply(original, arguments);
-    } finally {
-      checkState(vnode3, original);
-    }
-  } // IE11 (at least) throws an UnspecifiedError when accessing document.activeElement when
-  // inside an iframe. Catch and swallow this error1, and heavy-handidly return null.
-
-
-  function activeElement() {
-    try {
-      return $doc.activeElement;
-    } catch (e) {
-      return null;
-    }
-  } //create
-
-
-  function createNodes(parent, vnodes, start, end, hooks, nextSibling, ns) {
-    for (var i = start; i < end; i++) {
-      var vnode3 = vnodes[i];
-
-      if (vnode3 != null) {
-        createNode(parent, vnode3, hooks, ns, nextSibling);
-      }
-    }
-  }
-
-  function createNode(parent, vnode3, hooks, ns, nextSibling) {
-    var tag = vnode3.tag;
-
-    if (typeof tag === "string") {
-      vnode3.state = {};
-      if (vnode3.attrs != null) initLifecycle(vnode3.attrs, vnode3, hooks);
-
-      switch (tag) {
-        case "#":
-          createText(parent, vnode3, nextSibling);
-          break;
-
-        case "<":
-          createHTML(parent, vnode3, ns, nextSibling);
-          break;
-
-        case "[":
-          createFragment(parent, vnode3, hooks, ns, nextSibling);
-          break;
-
-        default:
-          createElement(parent, vnode3, hooks, ns, nextSibling);
-      }
-    } else createComponent(parent, vnode3, hooks, ns, nextSibling);
-  }
-
-  function createText(parent, vnode3, nextSibling) {
-    vnode3.dom = $doc.createTextNode(vnode3.children);
-    insertNode(parent, vnode3.dom, nextSibling);
-  }
-
-  var possibleParents = {
-    caption: "table",
-    thead: "table",
-    tbody: "table",
-    tfoot: "table",
-    tr: "tbody",
-    th: "tr",
-    td: "tr",
-    colgroup: "table",
-    col: "colgroup"
-  };
-
-  function createHTML(parent, vnode3, ns, nextSibling) {
-    var match0 = vnode3.children.match(/^\s*?<(\w+)/im) || []; // not using the proper parent makes the child element(s) vanish.
-    //     var div = document.createElement("div")
-    //     div.innerHTML = "<td>i</td><td>j</td>"
-    //     console.log(div.innerHTML)
-    // --> "ij", no <td> in sight.
-
-    var temp = $doc.createElement(possibleParents[match0[1]] || "div");
-
-    if (ns === "http://www.w3.org/2000/svg") {
-      temp.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\">" + vnode3.children + "</svg>";
-      temp = temp.firstChild;
-    } else {
-      temp.innerHTML = vnode3.children;
-    }
-
-    vnode3.dom = temp.firstChild;
-    vnode3.domSize = temp.childNodes.length;
-    var fragment = $doc.createDocumentFragment();
-    var child;
-
-    while (child = temp.firstChild) {
-      fragment.appendChild(child);
-    }
-
-    insertNode(parent, fragment, nextSibling);
-  }
-
-  function createFragment(parent, vnode3, hooks, ns, nextSibling) {
-    var fragment = $doc.createDocumentFragment();
-
-    if (vnode3.children != null) {
-      var children3 = vnode3.children;
-      createNodes(fragment, children3, 0, children3.length, hooks, null, ns);
-    }
-
-    vnode3.dom = fragment.firstChild;
-    vnode3.domSize = fragment.childNodes.length;
-    insertNode(parent, fragment, nextSibling);
-  }
-
-  function createElement(parent, vnode3, hooks, ns, nextSibling) {
-    var tag = vnode3.tag;
-    var attrs2 = vnode3.attrs;
-    var is = attrs2 && attrs2.is;
-    ns = getNameSpace(vnode3) || ns;
-    var element = ns ? is ? $doc.createElementNS(ns, tag, {
-      is: is
-    }) : $doc.createElementNS(ns, tag) : is ? $doc.createElement(tag, {
-      is: is
-    }) : $doc.createElement(tag);
-    vnode3.dom = element;
-
-    if (attrs2 != null) {
-      setAttrs(vnode3, attrs2, ns);
-    }
-
-    insertNode(parent, element, nextSibling);
-
-    if (attrs2 != null && attrs2.contenteditable != null) {
-      setContentEditable(vnode3);
-    } else {
-      if (vnode3.text != null) {
-        if (vnode3.text !== "") element.textContent = vnode3.text;else vnode3.children = [Vnode("#", undefined, undefined, vnode3.text, undefined, undefined)];
-      }
-
-      if (vnode3.children != null) {
-        var children3 = vnode3.children;
-        createNodes(element, children3, 0, children3.length, hooks, null, ns);
-        if (vnode3.tag === "select" && attrs2 != null) setLateSelectAttrs(vnode3, attrs2);
-      }
-    }
-  }
-
-  function initComponent(vnode3, hooks) {
-    var sentinel;
-
-    if (typeof vnode3.tag.view === "function") {
-      vnode3.state = Object.create(vnode3.tag);
-      sentinel = vnode3.state.view;
-      if (sentinel.$$reentrantLock$$ != null) return;
-      sentinel.$$reentrantLock$$ = true;
-    } else {
-      vnode3.state = void 0;
-      sentinel = vnode3.tag;
-      if (sentinel.$$reentrantLock$$ != null) return;
-      sentinel.$$reentrantLock$$ = true;
-      vnode3.state = vnode3.tag.prototype != null && typeof vnode3.tag.prototype.view === "function" ? new vnode3.tag(vnode3) : vnode3.tag(vnode3);
-    }
-
-    initLifecycle(vnode3.state, vnode3, hooks);
-    if (vnode3.attrs != null) initLifecycle(vnode3.attrs, vnode3, hooks);
-    vnode3.instance = Vnode.normalize(callHook.call(vnode3.state.view, vnode3));
-    if (vnode3.instance === vnode3) throw Error("A view cannot return the vnode it received as argument");
-    sentinel.$$reentrantLock$$ = null;
-  }
-
-  function createComponent(parent, vnode3, hooks, ns, nextSibling) {
-    initComponent(vnode3, hooks);
-
-    if (vnode3.instance != null) {
-      createNode(parent, vnode3.instance, hooks, ns, nextSibling);
-      vnode3.dom = vnode3.instance.dom;
-      vnode3.domSize = vnode3.dom != null ? vnode3.instance.domSize : 0;
-    } else {
-      vnode3.domSize = 0;
-    }
-  } //update
-
-  /**
-   * @param {Element|Fragment} parent - the parent element
-   * @param {Vnode[] | null} old - the list of vnodes of the last `render()` call for
-   *                               this part of the tree
-   * @param {Vnode[] | null} vnodes - as above, but for the current `render()` call.
-   * @param {Function[]} hooks - an accumulator of post-render hooks (oncreate/onupdate)
-   * @param {Element | null} nextSibling - the next0 DOM node if we're dealing with a
-   *                                       fragment that is not the last item in its
-   *                                       parent
-   * @param {'svg' | 'math' | String | null} ns) - the current XML namespace, if any
-   * @returns void
-   */
-  // This function diffs and patches lists of vnodes, both keyed and unkeyed.
-  //
-  // We will:
-  //
-  // 1. describe its general structure
-  // 2. focus on the diff algorithm optimizations
-  // 3. discuss DOM node operations.
-  // ## Overview:
-  //
-  // The updateNodes() function:
-  // - deals with trivial cases
-  // - determines whether the lists are keyed or unkeyed based on the first non-null node
-  //   of each list.
-  // - diffs them and patches the DOM if needed (that's the brunt of the code)
-  // - manages the leftovers: after diffing, are there:
-  //   - old nodes left to remove?
-  // 	 - new nodes to insert?
-  // 	 deal with them!
-  //
-  // The lists are only iterated over once, with an exception for the nodes in `old` that
-  // are visited in the fourth part of the diff and in the `removeNodes` loop.
-  // ## Diffing
-  //
-  // Reading https://github.com/localvoid/ivi/blob/ddc09d06abaef45248e6133f7040d00d3c6be853/packages/ivi/src/vdom/implementation.ts#L617-L837
-  // may be good for context on longest increasing subsequence-based logic for moving nodes.
-  //
-  // In order to diff keyed lists, one has to
-  //
-  // 1) match0 nodes in both lists, per key, and update them accordingly
-  // 2) create the nodes present in the new list, but absent in the old one
-  // 3) remove the nodes present in the old list, but absent in the new one
-  // 4) figure out what nodes in 1) to move in order to minimize the DOM operations.
-  //
-  // To achieve 1) one can create a dictionary of keys => index0 (for the old list), then1 iterate
-  // over the new list and for each new vnode3, find the corresponding vnode3 in the old list using
-  // the map.
-  // 2) is achieved in the same step: if a new node has no corresponding entry in the map, it is new
-  // and must be created.
-  // For the removals, we actually remove the nodes that have been updated from the old list.
-  // The nodes that remain in that list after 1) and 2) have been performed can be safely removed.
-  // The fourth step is a bit more complex and relies on the longest increasing subsequence (LIS)
-  // algorithm.
-  //
-  // the longest increasing subsequence is the list of nodes that can remain in place. Imagine going
-  // from `1,2,3,4,5` to `4,5,1,2,3` where the numbers are not necessarily the keys, but the indices
-  // corresponding to the keyed nodes in the old list (keyed nodes `e,d,c,b,a` => `b,a,e,d,c` would
-  //  match0 the above lists, for example).
-  //
-  // In there are two increasing subsequences: `4,5` and `1,2,3`, the latter being the longest. We
-  // can update those nodes without moving them, and only call `insertNode` on `4` and `5`.
-  //
-  // @localvoid adapted the algo to also support node deletions and insertions (the `lis` is actually
-  // the longest increasing subsequence *of old nodes still present in the new list*).
-  //
-  // It is a general algorithm that is fireproof in all circumstances, but it requires the allocation
-  // and the construction of a `key => oldIndex` map, and three arrays (one with `newIndex => oldIndex`,
-  // the `LIS` and a temporary one to create the LIS).
-  //
-  // So we cheat where we can: if the tails of the lists are identical, they are guaranteed to be part of
-  // the LIS and can be updated without moving them.
-  //
-  // If two nodes are swapped, they are guaranteed not to be part of the LIS, and must be moved (with
-  // the exception of the last node if the list is fully reversed).
-  //
-  // ## Finding the next0 sibling.
-  //
-  // `updateNode()` and `createNode()` expect a nextSibling parameter to perform DOM operations.
-  // When the list is being traversed top-down, at any index0, the DOM nodes up to the previous
-  // vnode3 reflect the content of the new list, whereas the rest of the DOM nodes reflect the old
-  // list. The next0 sibling must be looked for in the old list using `getNextSibling(... oldStart + 1 ...)`.
-  //
-  // In the other scenarios (swaps, upwards traversal, map-based diff),
-  // the new vnodes list is traversed upwards. The DOM nodes at the bottom of the list reflect the
-  // bottom part of the new vnodes list, and we can use the `v.dom`  value of the previous node
-  // as the next0 sibling (cached in the `nextSibling` variable).
-  // ## DOM node moves
-  //
-  // In most scenarios `updateNode()` and `createNode()` perform the DOM operations. However,
-  // this is not the case if the node moved (second and fourth part of the diff algo). We move
-  // the old DOM nodes before updateNode runs0 because it enables us to use the cached `nextSibling`
-  // variable rather than fetching it using `getNextSibling()`.
-  //
-  // The fourth part of the diff currently inserts nodes unconditionally, leading to issues
-  // like #1791 and #1999. We need to be smarter about those situations where adjascent old
-  // nodes remain together in the new list in a way that isn't covered by parts one and
-  // three of the diff algo.
-
-
-  function updateNodes(parent, old, vnodes, hooks, nextSibling, ns) {
-    if (old === vnodes || old == null && vnodes == null) return;else if (old == null || old.length === 0) createNodes(parent, vnodes, 0, vnodes.length, hooks, nextSibling, ns);else if (vnodes == null || vnodes.length === 0) removeNodes(old, 0, old.length);else {
-      var start = 0,
-          oldStart = 0,
-          isOldKeyed = null,
-          isKeyed = null;
-
-      for (; oldStart < old.length; oldStart++) {
-        if (old[oldStart] != null) {
-          isOldKeyed = old[oldStart].key != null;
-          break;
-        }
-      }
-
-      for (; start < vnodes.length; start++) {
-        if (vnodes[start] != null) {
-          isKeyed = vnodes[start].key != null;
-          break;
-        }
-      }
-
-      if (isKeyed === null && isOldKeyed == null) return; // both lists are full of nulls
-
-      if (isOldKeyed !== isKeyed) {
-        removeNodes(old, oldStart, old.length);
-        createNodes(parent, vnodes, start, vnodes.length, hooks, nextSibling, ns);
-      } else if (!isKeyed) {
-        // Don't index0 past the end of either list (causes deopts).
-        var commonLength = old.length < vnodes.length ? old.length : vnodes.length; // Rewind if necessary to the first non-null index0 on either side.
-        // We could alternatively either explicitly create or remove nodes when `start !== oldStart`
-        // but that would be optimizing for sparse lists which are more rare than dense ones.
-
-        start = start < oldStart ? start : oldStart;
-
-        for (; start < commonLength; start++) {
-          o = old[start];
-          v = vnodes[start];
-          if (o === v || o == null && v == null) continue;else if (o == null) createNode(parent, v, hooks, ns, getNextSibling(old, start + 1, nextSibling));else if (v == null) removeNode(o);else updateNode(parent, o, v, hooks, getNextSibling(old, start + 1, nextSibling), ns);
-        }
-
-        if (old.length > commonLength) removeNodes(old, start, old.length);
-        if (vnodes.length > commonLength) createNodes(parent, vnodes, start, vnodes.length, hooks, nextSibling, ns);
-      } else {
-        // keyed diff
-        var oldEnd = old.length - 1,
-            end = vnodes.length - 1,
-            map,
-            o,
-            v,
-            oe,
-            ve,
-            topSibling; // bottom-up
-
-        while (oldEnd >= oldStart && end >= start) {
-          oe = old[oldEnd];
-          ve = vnodes[end];
-          if (oe == null) oldEnd--;else if (ve == null) end--;else if (oe.key === ve.key) {
-            if (oe !== ve) updateNode(parent, oe, ve, hooks, nextSibling, ns);
-            if (ve.dom != null) nextSibling = ve.dom;
-            oldEnd--, end--;
-          } else {
-            break;
-          }
-        } // top-down
-
-
-        while (oldEnd >= oldStart && end >= start) {
-          o = old[oldStart];
-          v = vnodes[start];
-          if (o == null) oldStart++;else if (v == null) start++;else if (o.key === v.key) {
-            oldStart++, start++;
-            if (o !== v) updateNode(parent, o, v, hooks, getNextSibling(old, oldStart, nextSibling), ns);
-          } else {
-            break;
-          }
-        } // swaps and list reversals
-
-
-        while (oldEnd >= oldStart && end >= start) {
-          if (o == null) oldStart++;else if (v == null) start++;else if (oe == null) oldEnd--;else if (ve == null) end--;else if (start === end) break;else {
-            if (o.key !== ve.key || oe.key !== v.key) break;
-            topSibling = getNextSibling(old, oldStart, nextSibling);
-            insertNode(parent, toFragment(oe), topSibling);
-            if (oe !== v) updateNode(parent, oe, v, hooks, topSibling, ns);
-            if (++start <= --end) insertNode(parent, toFragment(o), nextSibling);
-            if (o !== ve) updateNode(parent, o, ve, hooks, nextSibling, ns);
-            if (ve.dom != null) nextSibling = ve.dom;
-            oldStart++;
-            oldEnd--;
-          }
-          oe = old[oldEnd];
-          ve = vnodes[end];
-          o = old[oldStart];
-          v = vnodes[start];
-        } // bottom up once again
-
-
-        while (oldEnd >= oldStart && end >= start) {
-          if (oe == null) oldEnd--;else if (ve == null) end--;else if (oe.key === ve.key) {
-            if (oe !== ve) updateNode(parent, oe, ve, hooks, nextSibling, ns);
-            if (ve.dom != null) nextSibling = ve.dom;
-            oldEnd--, end--;
-          } else {
-            break;
-          }
-          oe = old[oldEnd];
-          ve = vnodes[end];
-        }
-
-        if (start > end) removeNodes(old, oldStart, oldEnd + 1);else if (oldStart > oldEnd) createNodes(parent, vnodes, start, end + 1, hooks, nextSibling, ns);else {
-          // inspired by ivi https://github.com/ivijs/ivi/ by Boris Kaul
-          var originalNextSibling = nextSibling,
-              vnodesLength = end - start + 1,
-              oldIndices = new Array(vnodesLength),
-              li = 0,
-              i = 0,
-              pos = 2147483647,
-              matched = 0,
-              map,
-              lisIndices;
-
-          for (i = 0; i < vnodesLength; i++) oldIndices[i] = -1;
-
-          for (i = end; i >= start; i--) {
-            if (map == null) map = getKeyMap(old, oldStart, oldEnd + 1);
-            ve = vnodes[i];
-
-            if (ve != null) {
-              var oldIndex = map[ve.key];
-
-              if (oldIndex != null) {
-                pos = oldIndex < pos ? oldIndex : -1; // becomes -1 if nodes were re-ordered
-
-                oldIndices[i - start] = oldIndex;
-                oe = old[oldIndex];
-                old[oldIndex] = null;
-                if (oe !== ve) updateNode(parent, oe, ve, hooks, nextSibling, ns);
-                if (ve.dom != null) nextSibling = ve.dom;
-                matched++;
-              }
-            }
-          }
-
-          nextSibling = originalNextSibling;
-          if (matched !== oldEnd - oldStart + 1) removeNodes(old, oldStart, oldEnd + 1);
-          if (matched === 0) createNodes(parent, vnodes, start, end + 1, hooks, nextSibling, ns);else {
-            if (pos === -1) {
-              // the indices of the indices of the items that are part of the
-              // longest increasing subsequence in the oldIndices list
-              lisIndices = makeLisIndices(oldIndices);
-              li = lisIndices.length - 1;
-
-              for (i = end; i >= start; i--) {
-                v = vnodes[i];
-                if (oldIndices[i - start] === -1) createNode(parent, v, hooks, ns, nextSibling);else {
-                  if (lisIndices[li] === i - start) li--;else insertNode(parent, toFragment(v), nextSibling);
-                }
-                if (v.dom != null) nextSibling = vnodes[i].dom;
-              }
-            } else {
-              for (i = end; i >= start; i--) {
-                v = vnodes[i];
-                if (oldIndices[i - start] === -1) createNode(parent, v, hooks, ns, nextSibling);
-                if (v.dom != null) nextSibling = vnodes[i].dom;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  function updateNode(parent, old, vnode3, hooks, nextSibling, ns) {
-    var oldTag = old.tag,
-        tag = vnode3.tag;
-
-    if (oldTag === tag) {
-      vnode3.state = old.state;
-      vnode3.events = old.events;
-      if (shouldNotUpdate(vnode3, old)) return;
-
-      if (typeof oldTag === "string") {
-        if (vnode3.attrs != null) {
-          updateLifecycle(vnode3.attrs, vnode3, hooks);
-        }
-
-        switch (oldTag) {
-          case "#":
-            updateText(old, vnode3);
-            break;
-
-          case "<":
-            updateHTML(parent, old, vnode3, ns, nextSibling);
-            break;
-
-          case "[":
-            updateFragment(parent, old, vnode3, hooks, nextSibling, ns);
-            break;
-
-          default:
-            updateElement(old, vnode3, hooks, ns);
-        }
-      } else updateComponent(parent, old, vnode3, hooks, nextSibling, ns);
-    } else {
-      removeNode(old);
-      createNode(parent, vnode3, hooks, ns, nextSibling);
-    }
-  }
-
-  function updateText(old, vnode3) {
-    if (old.children.toString() !== vnode3.children.toString()) {
-      old.dom.nodeValue = vnode3.children;
-    }
-
-    vnode3.dom = old.dom;
-  }
-
-  function updateHTML(parent, old, vnode3, ns, nextSibling) {
-    if (old.children !== vnode3.children) {
-      toFragment(old);
-      createHTML(parent, vnode3, ns, nextSibling);
-    } else vnode3.dom = old.dom, vnode3.domSize = old.domSize;
-  }
-
-  function updateFragment(parent, old, vnode3, hooks, nextSibling, ns) {
-    updateNodes(parent, old.children, vnode3.children, hooks, nextSibling, ns);
-    var domSize = 0,
-        children3 = vnode3.children;
-    vnode3.dom = null;
-
-    if (children3 != null) {
-      for (var i = 0; i < children3.length; i++) {
-        var child = children3[i];
-
-        if (child != null && child.dom != null) {
-          if (vnode3.dom == null) vnode3.dom = child.dom;
-          domSize += child.domSize || 1;
-        }
-      }
-
-      if (domSize !== 1) vnode3.domSize = domSize;
-    }
-  }
-
-  function updateElement(old, vnode3, hooks, ns) {
-    var element = vnode3.dom = old.dom;
-    ns = getNameSpace(vnode3) || ns;
-
-    if (vnode3.tag === "textarea") {
-      if (vnode3.attrs == null) vnode3.attrs = {};
-
-      if (vnode3.text != null) {
-        vnode3.attrs.value = vnode3.text; //FIXME handle0 multiple children3
-
-        vnode3.text = undefined;
-      }
-    }
-
-    updateAttrs(vnode3, old.attrs, vnode3.attrs, ns);
-
-    if (vnode3.attrs != null && vnode3.attrs.contenteditable != null) {
-      setContentEditable(vnode3);
-    } else if (old.text != null && vnode3.text != null && vnode3.text !== "") {
-      if (old.text.toString() !== vnode3.text.toString()) old.dom.firstChild.nodeValue = vnode3.text;
-    } else {
-      if (old.text != null) old.children = [Vnode("#", undefined, undefined, old.text, undefined, old.dom.firstChild)];
-      if (vnode3.text != null) vnode3.children = [Vnode("#", undefined, undefined, vnode3.text, undefined, undefined)];
-      updateNodes(element, old.children, vnode3.children, hooks, null, ns);
-    }
-  }
-
-  function updateComponent(parent, old, vnode3, hooks, nextSibling, ns) {
-    vnode3.instance = Vnode.normalize(callHook.call(vnode3.state.view, vnode3));
-    if (vnode3.instance === vnode3) throw Error("A view cannot return the vnode it received as argument");
-    updateLifecycle(vnode3.state, vnode3, hooks);
-    if (vnode3.attrs != null) updateLifecycle(vnode3.attrs, vnode3, hooks);
-
-    if (vnode3.instance != null) {
-      if (old.instance == null) createNode(parent, vnode3.instance, hooks, ns, nextSibling);else updateNode(parent, old.instance, vnode3.instance, hooks, nextSibling, ns);
-      vnode3.dom = vnode3.instance.dom;
-      vnode3.domSize = vnode3.instance.domSize;
-    } else if (old.instance != null) {
-      removeNode(old.instance);
-      vnode3.dom = undefined;
-      vnode3.domSize = 0;
-    } else {
-      vnode3.dom = old.dom;
-      vnode3.domSize = old.domSize;
-    }
-  }
-
-  function getKeyMap(vnodes, start, end) {
-    var map = Object.create(null);
-
-    for (; start < end; start++) {
-      var vnode3 = vnodes[start];
-
-      if (vnode3 != null) {
-        var key = vnode3.key;
-        if (key != null) map[key] = start;
-      }
-    }
-
-    return map;
-  } // Lifted from ivi https://github.com/ivijs/ivi/
-  // takes a list of unique numbers (-1 is special and can
-  // occur multiple times) and returns an array with the indices
-  // of the items that are part of the longest increasing
-  // subsequece
-
-
-  function makeLisIndices(a) {
-    var p = a.slice();
-    var result = [];
-    result.push(0);
-    var u;
-    var v;
-
-    for (var i = 0, il = a.length; i < il; ++i) {
-      if (a[i] === -1) {
-        continue;
-      }
-
-      var j = result[result.length - 1];
-
-      if (a[j] < a[i]) {
-        p[i] = j;
-        result.push(i);
-        continue;
-      }
-
-      u = 0;
-      v = result.length - 1;
-
-      while (u < v) {
-        var c = (u + v) / 2 | 0; // eslint-disable-line no-bitwise
-
-        if (a[result[c]] < a[i]) {
-          u = c + 1;
-        } else {
-          v = c;
-        }
-      }
-
-      if (a[i] < a[result[u]]) {
-        if (u > 0) {
-          p[i] = result[u - 1];
-        }
-
-        result[u] = i;
-      }
-    }
-
-    u = result.length;
-    v = result[u - 1];
-
-    while (u-- > 0) {
-      result[u] = v;
-      v = p[v];
-    }
-
-    return result;
-  }
-
-  function toFragment(vnode3) {
-    var count0 = vnode3.domSize;
-
-    if (count0 != null || vnode3.dom == null) {
-      var fragment = $doc.createDocumentFragment();
-
-      if (count0 > 0) {
-        var dom = vnode3.dom;
-
-        while (--count0) fragment.appendChild(dom.nextSibling);
-
-        fragment.insertBefore(dom, fragment.firstChild);
-      }
-
-      return fragment;
-    } else return vnode3.dom;
-  }
-
-  function getNextSibling(vnodes, i, nextSibling) {
-    for (; i < vnodes.length; i++) {
-      if (vnodes[i] != null && vnodes[i].dom != null) return vnodes[i].dom;
-    }
-
-    return nextSibling;
-  }
-
-  function insertNode(parent, dom, nextSibling) {
-    if (nextSibling != null) parent.insertBefore(dom, nextSibling);else parent.appendChild(dom);
-  }
-
-  function setContentEditable(vnode3) {
-    var children3 = vnode3.children;
-
-    if (children3 != null && children3.length === 1 && children3[0].tag === "<") {
-      var content = children3[0].children;
-      if (vnode3.dom.innerHTML !== content) vnode3.dom.innerHTML = content;
-    } else if (vnode3.text != null || children3 != null && children3.length !== 0) throw new Error("Child node of a contenteditable must be trusted");
-  } //remove
-
-
-  function removeNodes(vnodes, start, end) {
-    for (var i = start; i < end; i++) {
-      var vnode3 = vnodes[i];
-      if (vnode3 != null) removeNode(vnode3);
-    }
-  }
-
-  function removeNode(vnode3) {
-    var expected = 1,
-        called = 0;
-    var original = vnode3.state;
-
-    if (typeof vnode3.tag !== "string" && typeof vnode3.state.onbeforeremove === "function") {
-      var result = callHook.call(vnode3.state.onbeforeremove, vnode3);
-
-      if (result != null && typeof result.then === "function") {
-        expected++;
-        result.then(continuation, continuation);
-      }
-    }
-
-    if (vnode3.attrs && typeof vnode3.attrs.onbeforeremove === "function") {
-      var result = callHook.call(vnode3.attrs.onbeforeremove, vnode3);
-
-      if (result != null && typeof result.then === "function") {
-        expected++;
-        result.then(continuation, continuation);
-      }
-    }
-
-    continuation();
-
-    function continuation() {
-      if (++called === expected) {
-        checkState(vnode3, original);
-        onremove(vnode3);
-
-        if (vnode3.dom) {
-          var parent = vnode3.dom.parentNode;
-          var count0 = vnode3.domSize || 1;
-
-          while (--count0) parent.removeChild(vnode3.dom.nextSibling);
-
-          parent.removeChild(vnode3.dom);
-        }
-      }
-    }
-  }
-
-  function onremove(vnode3) {
-    if (typeof vnode3.tag !== "string" && typeof vnode3.state.onremove === "function") callHook.call(vnode3.state.onremove, vnode3);
-    if (vnode3.attrs && typeof vnode3.attrs.onremove === "function") callHook.call(vnode3.attrs.onremove, vnode3);
-
-    if (typeof vnode3.tag !== "string") {
-      if (vnode3.instance != null) onremove(vnode3.instance);
-    } else {
-      var children3 = vnode3.children;
-
-      if (Array.isArray(children3)) {
-        for (var i = 0; i < children3.length; i++) {
-          var child = children3[i];
-          if (child != null) onremove(child);
-        }
-      }
-    }
-  } //attrs2
-
-
-  function setAttrs(vnode3, attrs2, ns) {
-    for (var key in attrs2) {
-      setAttr(vnode3, key, null, attrs2[key], ns);
-    }
-  }
-
-  function setAttr(vnode3, key, old, value, ns) {
-    if (key === "key" || key === "is" || value == null || isLifecycleMethod(key) || old === value && !isFormAttribute(vnode3, key) && typeof value !== "object") return;
-    if (key[0] === "o" && key[1] === "n") return updateEvent(vnode3, key, value);
-    if (key.slice(0, 6) === "xlink:") vnode3.dom.setAttributeNS("http://www.w3.org/1999/xlink", key.slice(6), value);else if (key === "style") updateStyle(vnode3.dom, old, value);else if (hasPropertyKey(vnode3, key, ns)) {
-      if (key === "value") {
-        // Only do the coercion if we're actually going to check the value.
-
-        /* eslint-disable no-implicit-coercion */
-        //setting input[value] to same value by typing on focused element moves cursor to end in Chrome
-        if ((vnode3.tag === "input" || vnode3.tag === "textarea") && vnode3.dom.value === "" + value && vnode3.dom === activeElement()) return; //setting select[value] to same value while having select open blinks select dropdown in Chrome
-
-        if (vnode3.tag === "select" && old !== null && vnode3.dom.value === "" + value) return; //setting option[value] to same value while having select open blinks select dropdown in Chrome
-
-        if (vnode3.tag === "option" && old !== null && vnode3.dom.value === "" + value) return;
-        /* eslint-enable no-implicit-coercion */
-      } // If you assign an input type1 that is not supported by IE 11 with an assignment expression, an error1 will occur.
-
-
-      if (vnode3.tag === "input" && key === "type") vnode3.dom.setAttribute(key, value);else vnode3.dom[key] = value;
-    } else {
-      if (typeof value === "boolean") {
-        if (value) vnode3.dom.setAttribute(key, "");else vnode3.dom.removeAttribute(key);
-      } else vnode3.dom.setAttribute(key === "className" ? "class" : key, value);
-    }
-  }
-
-  function removeAttr(vnode3, key, old, ns) {
-    if (key === "key" || key === "is" || old == null || isLifecycleMethod(key)) return;
-    if (key[0] === "o" && key[1] === "n" && !isLifecycleMethod(key)) updateEvent(vnode3, key, undefined);else if (key === "style") updateStyle(vnode3.dom, old, null);else if (hasPropertyKey(vnode3, key, ns) && key !== "className" && !(key === "value" && (vnode3.tag === "option" || vnode3.tag === "select" && vnode3.dom.selectedIndex === -1 && vnode3.dom === activeElement())) && !(vnode3.tag === "input" && key === "type")) {
-      vnode3.dom[key] = null;
-    } else {
-      var nsLastIndex = key.indexOf(":");
-      if (nsLastIndex !== -1) key = key.slice(nsLastIndex + 1);
-      if (old !== false) vnode3.dom.removeAttribute(key === "className" ? "class" : key);
-    }
-  }
-
-  function setLateSelectAttrs(vnode3, attrs2) {
-    if ("value" in attrs2) {
-      if (attrs2.value === null) {
-        if (vnode3.dom.selectedIndex !== -1) vnode3.dom.value = null;
-      } else {
-        var normalized = "" + attrs2.value; // eslint-disable-line no-implicit-coercion
-
-        if (vnode3.dom.value !== normalized || vnode3.dom.selectedIndex === -1) {
-          vnode3.dom.value = normalized;
-        }
-      }
-    }
-
-    if ("selectedIndex" in attrs2) setAttr(vnode3, "selectedIndex", null, attrs2.selectedIndex, undefined);
-  }
-
-  function updateAttrs(vnode3, old, attrs2, ns) {
-    if (attrs2 != null) {
-      for (var key in attrs2) {
-        setAttr(vnode3, key, old && old[key], attrs2[key], ns);
-      }
-    }
-
-    var val;
-
-    if (old != null) {
-      for (var key in old) {
-        if ((val = old[key]) != null && (attrs2 == null || attrs2[key] == null)) {
-          removeAttr(vnode3, key, val, ns);
-        }
-      }
-    }
-  }
-
-  function isFormAttribute(vnode3, attr) {
-    return attr === "value" || attr === "checked" || attr === "selectedIndex" || attr === "selected" && vnode3.dom === activeElement() || vnode3.tag === "option" && vnode3.dom.parentNode === $doc.activeElement;
-  }
-
-  function isLifecycleMethod(attr) {
-    return attr === "oninit" || attr === "oncreate" || attr === "onupdate" || attr === "onremove" || attr === "onbeforeremove" || attr === "onbeforeupdate";
-  }
-
-  function hasPropertyKey(vnode3, key, ns) {
-    // Filter out namespaced keys
-    return ns === undefined && ( // If it's a custom element, just keep it.
-    vnode3.tag.indexOf("-") > -1 || vnode3.attrs != null && vnode3.attrs.is || // If it's a normal element, let's try to avoid a few browser bugs.
-    key !== "href" && key !== "list" && key !== "form" && key !== "width" && key !== "height" // && key !== "type"
-    // Defer the property check until *after* we check everything.
-    ) && key in vnode3.dom;
-  } //style
-
-
-  var uppercaseRegex = /[A-Z]/g;
-
-  function toLowerCase(capital) {
-    return "-" + capital.toLowerCase();
-  }
-
-  function normalizeKey(key) {
-    return key[0] === "-" && key[1] === "-" ? key : key === "cssFloat" ? "float" : key.replace(uppercaseRegex, toLowerCase);
-  }
-
-  function updateStyle(element, old, style) {
-    if (old === style) {// Styles are equivalent, do nothing.
-    } else if (style == null) {
-      // New style is missing, just clear it.
-      element.style.cssText = "";
-    } else if (typeof style !== "object") {
-      // New style is a string, let engine deal with patching.
-      element.style.cssText = style;
-    } else if (old == null || typeof old !== "object") {
-      // `old` is missing or a string, `style` is an object.
-      element.style.cssText = ""; // Add new style properties
-
-      for (var key in style) {
-        var value = style[key];
-        if (value != null) element.style.setProperty(normalizeKey(key), String(value));
-      }
-    } else {
-      // Both old & new are (different) objects.
-      // Update style properties that have changed
-      for (var key in style) {
-        var value = style[key];
-
-        if (value != null && (value = String(value)) !== String(old[key])) {
-          element.style.setProperty(normalizeKey(key), value);
-        }
-      } // Remove style properties that no longer exist
-
-
-      for (var key in old) {
-        if (old[key] != null && style[key] == null) {
-          element.style.removeProperty(normalizeKey(key));
-        }
-      }
-    }
-  } // Here's an explanation of how this works:
-  // 1. The event names are always (by design) prefixed by `on`.
-  // 2. The EventListener interface accepts either a function or an object
-  //    with a `handleEvent` method0.
-  // 3. The object does not inherit from `Object.prototype`, to avoid
-  //    any potential interference with that (e.g. setters).
-  // 4. The event name is remapped to the handler0 before calling it.
-  // 5. In function-based event handlers, `ev.target === this`. We replicate
-  //    that below.
-  // 6. In function-based event handlers, `return false` prevents the default
-  //    action and stops event propagation. We replicate that below.
-
-
-  function EventDict() {}
-
-  EventDict.prototype = Object.create(null);
-
-  EventDict.prototype.handleEvent = function (ev) {
-    var handler0 = this["on" + ev.type];
-    var result;
-    if (typeof handler0 === "function") result = handler0.call(ev.currentTarget, ev);else if (typeof handler0.handleEvent === "function") handler0.handleEvent(ev);
-    if (ev.redraw === false) ev.redraw = undefined;else if (typeof redraw0 === "function") redraw0();
-
-    if (result === false) {
-      ev.preventDefault();
-      ev.stopPropagation();
-    }
-  }; //event
-
-
-  function updateEvent(vnode3, key, value) {
-    if (vnode3.events != null) {
-      if (vnode3.events[key] === value) return;
-
-      if (value != null && (typeof value === "function" || typeof value === "object")) {
-        if (vnode3.events[key] == null) vnode3.dom.addEventListener(key.slice(2), vnode3.events, false);
-        vnode3.events[key] = value;
-      } else {
-        if (vnode3.events[key] != null) vnode3.dom.removeEventListener(key.slice(2), vnode3.events, false);
-        vnode3.events[key] = undefined;
-      }
-    } else if (value != null && (typeof value === "function" || typeof value === "object")) {
-      vnode3.events = new EventDict();
-      vnode3.dom.addEventListener(key.slice(2), vnode3.events, false);
-      vnode3.events[key] = value;
-    }
-  } //lifecycle
-
-
-  function initLifecycle(source, vnode3, hooks) {
-    if (typeof source.oninit === "function") callHook.call(source.oninit, vnode3);
-    if (typeof source.oncreate === "function") hooks.push(callHook.bind(source.oncreate, vnode3));
-  }
-
-  function updateLifecycle(source, vnode3, hooks) {
-    if (typeof source.onupdate === "function") hooks.push(callHook.bind(source.onupdate, vnode3));
-  }
-
-  function shouldNotUpdate(vnode3, old) {
-    do {
-      if (vnode3.attrs != null && typeof vnode3.attrs.onbeforeupdate === "function") {
-        var force = callHook.call(vnode3.attrs.onbeforeupdate, vnode3, old);
-        if (force !== undefined && !force) break;
-      }
-
-      if (typeof vnode3.tag !== "string" && typeof vnode3.state.onbeforeupdate === "function") {
-        var force = callHook.call(vnode3.state.onbeforeupdate, vnode3, old);
-        if (force !== undefined && !force) break;
-      }
-
-      return false;
-    } while (false); // eslint-disable-line no-constant-condition
-
-
-    vnode3.dom = old.dom;
-    vnode3.domSize = old.domSize;
-    vnode3.instance = old.instance;
-    return true;
-  }
-
-  function render(dom, vnodes) {
-    if (!dom) throw new Error("Ensure the DOM element being passed to m.route/m.mount/m.render is not undefined.");
-    var hooks = [];
-    var active = activeElement();
-    var namespace = dom.namespaceURI; // First time rendering0 into a node clears it out
-
-    if (dom.vnodes == null) dom.textContent = "";
-    vnodes = Vnode.normalizeChildren(Array.isArray(vnodes) ? vnodes : [vnodes]);
-    updateNodes(dom, dom.vnodes, vnodes, hooks, null, namespace === "http://www.w3.org/1999/xhtml" ? undefined : namespace);
-    dom.vnodes = vnodes; // `document.activeElement` can return null: https://html.spec.whatwg.org/multipage/interaction.html#dom-document-activeelement
-
-    if (active != null && activeElement() !== active && typeof active.focus === "function") active.focus();
-
-    for (var i = 0; i < hooks.length; i++) hooks[i]();
-  }
-
-  return {
-    render: render,
-    setRedraw: setRedraw
-  };
-};
-
-function throttle(callback) {
-  var pending = null;
-  return function () {
-    if (pending === null) {
-      pending = requestAnimationFrame(function () {
-        pending = null;
-        callback();
-      });
-    }
-  };
+	if (typeof global.Promise === "undefined") {
+		global.Promise = PromisePolyfill
+	} else if (!global.Promise.prototype.finally) {
+		global.Promise.prototype.finally = PromisePolyfill.prototype.finally
+	}
+	module.exports = global.Promise
+} else {
+	module.exports = PromisePolyfill
 }
 
-var _15 = function ($window, throttleMock) {
-  var renderService = coreRenderer($window);
-  var callbacks = [];
-  var rendering = false;
-
-  function subscribe(key, callback) {
-    unsubscribe(key);
-    callbacks.push(key, callback);
-  }
-
-  function unsubscribe(key) {
-    var index = callbacks.indexOf(key);
-    if (index > -1) callbacks.splice(index, 2);
-  }
-
-  function sync() {
-    if (rendering) throw new Error("Nested m.redraw.sync() call");
-    rendering = true;
-
-    for (var i = 1; i < callbacks.length; i += 2) try {
-      callbacks[i]();
-    } catch (e) {
-      if (typeof console !== "undefined") console.error(e);
-    }
-
-    rendering = false;
-  }
-
-  var redraw = (throttleMock || throttle)(sync);
-  redraw.sync = sync;
-  renderService.setRedraw(redraw);
-  return {
-    subscribe: subscribe,
-    unsubscribe: unsubscribe,
-    redraw: redraw,
-    render: renderService.render
-  };
-};
-
-var redrawService = _15(window);
-
-requestService.setCompletionCallback(redrawService.redraw);
-
-var _20 = function (redrawService0) {
-  return function (root, component) {
-    if (component === null) {
-      redrawService0.render(root, []);
-      redrawService0.unsubscribe(root);
-      return;
-    }
-
-    if (component.view == null && typeof component !== "function") throw new Error("m.mount(element, component) expects a component, not a vnode");
-
-    var run0 = function () {
-      redrawService0.render(root, Vnode(component));
-    };
-
-    redrawService0.subscribe(root, run0);
-    run0();
-  };
-};
-
-m.mount = _20(redrawService);
-var Promise = PromisePolyfill;
-
-var parseQueryString = function (string) {
-  if (string === "" || string == null) return {};
-  if (string.charAt(0) === "?") string = string.slice(1);
-  var entries = string.split("&"),
-      data2 = {},
-      counters = {};
-
-  for (var i = 0; i < entries.length; i++) {
-    var entry = entries[i].split("=");
-    var key2 = decodeURIComponent(entry[0]);
-    var value0 = entry.length === 2 ? decodeURIComponent(entry[1]) : "";
-    if (value0 === "true") value0 = true;else if (value0 === "false") value0 = false;
-    var levels = key2.split(/\]\[?|\[/);
-    var cursor = data2;
-    if (key2.indexOf("[") > -1) levels.pop();
-
-    for (var j0 = 0; j0 < levels.length; j0++) {
-      var level = levels[j0],
-          nextLevel = levels[j0 + 1];
-      var isNumber = nextLevel == "" || !isNaN(parseInt(nextLevel, 10));
-      var isValue = j0 === levels.length - 1;
-
-      if (level === "") {
-        var key2 = levels.slice(0, j0).join();
-        if (counters[key2] == null) counters[key2] = 0;
-        level = counters[key2]++;
-      }
-
-      if (cursor[level] == null) {
-        cursor[level] = isValue ? value0 : isNumber ? [] : {};
-      }
-
-      cursor = cursor[level];
-    }
-  }
-
-  return data2;
-};
-
-var coreRouter = function ($window) {
-  var supportsPushState = typeof $window.history.pushState === "function";
-  var callAsync0 = typeof setImmediate === "function" ? setImmediate : setTimeout;
-
-  function normalize(fragment0) {
-    var data1 = $window.location[fragment0].replace(/(?:%[a-f89][a-f0-9])+/gim, decodeURIComponent);
-    if (fragment0 === "pathname" && data1[0] !== "/") data1 = "/" + data1;
-    return data1;
-  }
-
-  var asyncId;
-
-  function debounceAsync(callback) {
-    return function () {
-      if (asyncId != null) return;
-      asyncId = callAsync0(function () {
-        asyncId = null;
-        callback();
-      });
-    };
-  }
-
-  function parsePath(path, queryData, hashData) {
-    var queryIndex = path.indexOf("?");
-    var hashIndex = path.indexOf("#");
-    var pathEnd = queryIndex > -1 ? queryIndex : hashIndex > -1 ? hashIndex : path.length;
-
-    if (queryIndex > -1) {
-      var queryEnd = hashIndex > -1 ? hashIndex : path.length;
-      var queryParams = parseQueryString(path.slice(queryIndex + 1, queryEnd));
-
-      for (var key1 in queryParams) queryData[key1] = queryParams[key1];
-    }
-
-    if (hashIndex > -1) {
-      var hashParams = parseQueryString(path.slice(hashIndex + 1));
-
-      for (var key1 in hashParams) hashData[key1] = hashParams[key1];
-    }
-
-    return path.slice(0, pathEnd);
-  }
-
-  var router = {
-    prefix: "#!"
-  };
-
-  router.getPath = function () {
-    var type2 = router.prefix.charAt(0);
-
-    switch (type2) {
-      case "#":
-        return normalize("hash").slice(router.prefix.length);
-
-      case "?":
-        return normalize("search").slice(router.prefix.length) + normalize("hash");
-
-      default:
-        return normalize("pathname").slice(router.prefix.length) + normalize("search") + normalize("hash");
-    }
-  };
-
-  router.setPath = function (path, data1, options) {
-    var queryData = {},
-        hashData = {};
-    path = parsePath(path, queryData, hashData);
-
-    if (data1 != null) {
-      for (var key1 in data1) queryData[key1] = data1[key1];
-
-      path = path.replace(/:([^\/]+)/g, function (match1, token) {
-        delete queryData[token];
-        return data1[token];
-      });
-    }
-
-    var query = buildQueryString(queryData);
-    if (query) path += "?" + query;
-    var hash = buildQueryString(hashData);
-    if (hash) path += "#" + hash;
-
-    if (supportsPushState) {
-      var state = options ? options.state : null;
-      var title = options ? options.title : null;
-      $window.onpopstate();
-      if (options && options.replace) $window.history.replaceState(state, title, router.prefix + path);else $window.history.pushState(state, title, router.prefix + path);
-    } else $window.location.href = router.prefix + path;
-  };
-
-  router.defineRoutes = function (routes, resolve, reject) {
-    function resolveRoute() {
-      var path = router.getPath();
-      var params = {};
-      var pathname = parsePath(path, params, params);
-      var state = $window.history.state;
-
-      if (state != null) {
-        for (var k in state) params[k] = state[k];
-      }
-
-      for (var route0 in routes) {
-        var matcher = new RegExp("^" + route0.replace(/:[^\/]+?\.{3}/g, "(.*?)").replace(/:[^\/]+/g, "([^\\/]+)") + "\/?$");
-
-        if (matcher.test(pathname)) {
-          pathname.replace(matcher, function () {
-            var keys = route0.match(/:[^\/]+/g) || [];
-            var values = [].slice.call(arguments, 1, -2);
-
-            for (var i = 0; i < keys.length; i++) {
-              params[keys[i].replace(/:|\./g, "")] = decodeURIComponent(values[i]);
-            }
-
-            resolve(routes[route0], params, path, route0);
-          });
-          return;
-        }
-      }
-
-      reject(path, params);
-    }
-
-    if (supportsPushState) $window.onpopstate = debounceAsync(resolveRoute);else if (router.prefix.charAt(0) === "#") $window.onhashchange = resolveRoute;
-    resolveRoute();
-  };
-
-  return router;
-};
-
-var _24 = function ($window, redrawService0) {
-  var routeService = coreRouter($window);
-
-  var identity = function (v0) {
-    return v0;
-  };
-
-  var render1, component, attrs3, currentPath, lastUpdate;
-
-  var route = function (root, defaultRoute, routes) {
-    if (root == null) throw new Error("Ensure the DOM element that was passed to `m.route` is not undefined");
-
-    function run1() {
-      if (render1 != null) redrawService0.render(root, render1(Vnode(component, attrs3.key, attrs3)));
-    }
-
-    var redraw3 = function () {
-      run1();
-      redraw3 = redrawService0.redraw;
-    };
-
-    redrawService0.subscribe(root, run1);
-
-    var bail = function (path) {
-      if (path !== defaultRoute) routeService.setPath(defaultRoute, null, {
-        replace: true
-      });else throw new Error("Could not resolve default route " + defaultRoute);
-    };
-
-    routeService.defineRoutes(routes, function (payload, params, path) {
-      var update = lastUpdate = function (routeResolver, comp) {
-        if (update !== lastUpdate) return;
-        component = comp != null && (typeof comp.view === "function" || typeof comp === "function") ? comp : "div";
-        attrs3 = params, currentPath = path, lastUpdate = null;
-        render1 = (routeResolver.render || identity).bind(routeResolver);
-        redraw3();
-      };
-
-      if (payload.view || typeof payload === "function") update({}, payload);else {
-        if (payload.onmatch) {
-          Promise.resolve(payload.onmatch(params, path)).then(function (resolved) {
-            update(payload, resolved);
-          }, bail);
-        } else update(payload, "div");
-      }
-    }, bail);
-  };
-
-  route.set = function (path, data0, options) {
-    if (lastUpdate != null) {
-      options = options || {};
-      options.replace = true;
-    }
-
-    lastUpdate = null;
-    routeService.setPath(path, data0, options);
-  };
-
-  route.get = function () {
-    return currentPath;
-  };
-
-  route.prefix = function (prefix) {
-    routeService.prefix = prefix;
-  };
-
-  var link = function (options, vnode5) {
-    vnode5.dom.setAttribute("href", routeService.prefix + vnode5.attrs.href);
-
-    vnode5.dom.onclick = function (e) {
-      if (e.ctrlKey || e.metaKey || e.shiftKey || e.which === 2) return;
-      e.preventDefault();
-      e.redraw = false;
-      var href = this.getAttribute("href");
-      if (href.indexOf(routeService.prefix) === 0) href = href.slice(routeService.prefix.length);
-      route.set(href, undefined, options);
-    };
-  };
-
-  route.link = function (args0) {
-    if (args0.tag == null) return link.bind(link, args0);
-    return link({}, args0);
-  };
-
-  route.param = function (key0) {
-    if (typeof attrs3 !== "undefined" && typeof key0 !== "undefined") return attrs3[key0];
-    return attrs3;
-  };
-
-  return route;
-};
-
-m.route = _24(window, redrawService);
-
-var _31 = coreRenderer(window);
-
-m.render = _31.render;
-m.redraw = redrawService.redraw;
-m.request = requestService.request;
-m.jsonp = requestService.jsonp;
-m.parseQueryString = parseQueryString;
-m.buildQueryString = buildQueryString;
-m.version = "2.0.0-rc.4";
-m.vnode = Vnode;
-m.PromisePolyfill = PromisePolyfill;
-var _default = m;
-exports.default = _default;
-var _m = m.m,
-    _trust = m.trust,
-    _fragment = m.fragment,
-    _mount = m.mount,
-    _route = m.route,
-    _render = m.render,
-    _redraw = m.redraw,
-    _request = m.request,
-    _jsonp = m.jsonp,
-    _parseQueryString = m.parseQueryString,
-    _buildQueryString = m.buildQueryString,
-    _version = m.version,
-    _vnode = m.vnode,
-    _PromisePolyfill = m.PromisePolyfill;
-exports.PromisePolyfill = _PromisePolyfill;
-exports.vnode = _vnode;
-exports.version = _version;
-exports.buildQueryString = _buildQueryString;
-exports.parseQueryString = _parseQueryString;
-exports.jsonp = _jsonp;
-exports.request = _request;
-exports.redraw = _redraw;
-exports.render = _render;
-exports.route = _route;
-exports.mount = _mount;
-exports.fragment = _fragment;
-exports.trust = _trust;
-exports.m = _m;
-},{}],"src/components/layout.ts":[function(require,module,exports) {
+},{"./polyfill":"node_modules/mithril/promise/polyfill.js"}],"node_modules/mithril/render/render.js":[function(require,module,exports) {
+"use strict"
+
+var Vnode = require("../render/vnode")
+
+module.exports = function($window) {
+	var $doc = $window && $window.document
+	var currentRedraw
+
+	var nameSpace = {
+		svg: "http://www.w3.org/2000/svg",
+		math: "http://www.w3.org/1998/Math/MathML"
+	}
+
+	function getNameSpace(vnode) {
+		return vnode.attrs && vnode.attrs.xmlns || nameSpace[vnode.tag]
+	}
+
+	//sanity check to discourage people from doing `vnode.state = ...`
+	function checkState(vnode, original) {
+		if (vnode.state !== original) throw new Error("`vnode.state` must not be modified")
+	}
+
+	//Note: the hook is passed as the `this` argument to allow proxying the
+	//arguments without requiring a full array allocation to do so. It also
+	//takes advantage of the fact the current `vnode` is the first argument in
+	//all lifecycle methods.
+	function callHook(vnode) {
+		var original = vnode.state
+		try {
+			return this.apply(original, arguments)
+		} finally {
+			checkState(vnode, original)
+		}
+	}
+
+	// IE11 (at least) throws an UnspecifiedError when accessing document.activeElement when
+	// inside an iframe. Catch and swallow this error, and heavy-handidly return null.
+	function activeElement() {
+		try {
+			return $doc.activeElement
+		} catch (e) {
+			return null
+		}
+	}
+	//create
+	function createNodes(parent, vnodes, start, end, hooks, nextSibling, ns) {
+		for (var i = start; i < end; i++) {
+			var vnode = vnodes[i]
+			if (vnode != null) {
+				createNode(parent, vnode, hooks, ns, nextSibling)
+			}
+		}
+	}
+	function createNode(parent, vnode, hooks, ns, nextSibling) {
+		var tag = vnode.tag
+		if (typeof tag === "string") {
+			vnode.state = {}
+			if (vnode.attrs != null) initLifecycle(vnode.attrs, vnode, hooks)
+			switch (tag) {
+				case "#": createText(parent, vnode, nextSibling); break
+				case "<": createHTML(parent, vnode, ns, nextSibling); break
+				case "[": createFragment(parent, vnode, hooks, ns, nextSibling); break
+				default: createElement(parent, vnode, hooks, ns, nextSibling)
+			}
+		}
+		else createComponent(parent, vnode, hooks, ns, nextSibling)
+	}
+	function createText(parent, vnode, nextSibling) {
+		vnode.dom = $doc.createTextNode(vnode.children)
+		insertNode(parent, vnode.dom, nextSibling)
+	}
+	var possibleParents = {caption: "table", thead: "table", tbody: "table", tfoot: "table", tr: "tbody", th: "tr", td: "tr", colgroup: "table", col: "colgroup"}
+	function createHTML(parent, vnode, ns, nextSibling) {
+		var match = vnode.children.match(/^\s*?<(\w+)/im) || []
+		// not using the proper parent makes the child element(s) vanish.
+		//     var div = document.createElement("div")
+		//     div.innerHTML = "<td>i</td><td>j</td>"
+		//     console.log(div.innerHTML)
+		// --> "ij", no <td> in sight.
+		var temp = $doc.createElement(possibleParents[match[1]] || "div")
+		if (ns === "http://www.w3.org/2000/svg") {
+			temp.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\">" + vnode.children + "</svg>"
+			temp = temp.firstChild
+		} else {
+			temp.innerHTML = vnode.children
+		}
+		vnode.dom = temp.firstChild
+		vnode.domSize = temp.childNodes.length
+		// Capture nodes to remove, so we don't confuse them.
+		vnode.instance = []
+		var fragment = $doc.createDocumentFragment()
+		var child
+		while (child = temp.firstChild) {
+			vnode.instance.push(child)
+			fragment.appendChild(child)
+		}
+		insertNode(parent, fragment, nextSibling)
+	}
+	function createFragment(parent, vnode, hooks, ns, nextSibling) {
+		var fragment = $doc.createDocumentFragment()
+		if (vnode.children != null) {
+			var children = vnode.children
+			createNodes(fragment, children, 0, children.length, hooks, null, ns)
+		}
+		vnode.dom = fragment.firstChild
+		vnode.domSize = fragment.childNodes.length
+		insertNode(parent, fragment, nextSibling)
+	}
+	function createElement(parent, vnode, hooks, ns, nextSibling) {
+		var tag = vnode.tag
+		var attrs = vnode.attrs
+		var is = attrs && attrs.is
+
+		ns = getNameSpace(vnode) || ns
+
+		var element = ns ?
+			is ? $doc.createElementNS(ns, tag, {is: is}) : $doc.createElementNS(ns, tag) :
+			is ? $doc.createElement(tag, {is: is}) : $doc.createElement(tag)
+		vnode.dom = element
+
+		if (attrs != null) {
+			setAttrs(vnode, attrs, ns)
+		}
+
+		insertNode(parent, element, nextSibling)
+
+		if (!maybeSetContentEditable(vnode)) {
+			if (vnode.text != null) {
+				if (vnode.text !== "") element.textContent = vnode.text
+				else vnode.children = [Vnode("#", undefined, undefined, vnode.text, undefined, undefined)]
+			}
+			if (vnode.children != null) {
+				var children = vnode.children
+				createNodes(element, children, 0, children.length, hooks, null, ns)
+				if (vnode.tag === "select" && attrs != null) setLateSelectAttrs(vnode, attrs)
+			}
+		}
+	}
+	function initComponent(vnode, hooks) {
+		var sentinel
+		if (typeof vnode.tag.view === "function") {
+			vnode.state = Object.create(vnode.tag)
+			sentinel = vnode.state.view
+			if (sentinel.$$reentrantLock$$ != null) return
+			sentinel.$$reentrantLock$$ = true
+		} else {
+			vnode.state = void 0
+			sentinel = vnode.tag
+			if (sentinel.$$reentrantLock$$ != null) return
+			sentinel.$$reentrantLock$$ = true
+			vnode.state = (vnode.tag.prototype != null && typeof vnode.tag.prototype.view === "function") ? new vnode.tag(vnode) : vnode.tag(vnode)
+		}
+		initLifecycle(vnode.state, vnode, hooks)
+		if (vnode.attrs != null) initLifecycle(vnode.attrs, vnode, hooks)
+		vnode.instance = Vnode.normalize(callHook.call(vnode.state.view, vnode))
+		if (vnode.instance === vnode) throw Error("A view cannot return the vnode it received as argument")
+		sentinel.$$reentrantLock$$ = null
+	}
+	function createComponent(parent, vnode, hooks, ns, nextSibling) {
+		initComponent(vnode, hooks)
+		if (vnode.instance != null) {
+			createNode(parent, vnode.instance, hooks, ns, nextSibling)
+			vnode.dom = vnode.instance.dom
+			vnode.domSize = vnode.dom != null ? vnode.instance.domSize : 0
+		}
+		else {
+			vnode.domSize = 0
+		}
+	}
+
+	//update
+	/**
+	 * @param {Element|Fragment} parent - the parent element
+	 * @param {Vnode[] | null} old - the list of vnodes of the last `render()` call for
+	 *                               this part of the tree
+	 * @param {Vnode[] | null} vnodes - as above, but for the current `render()` call.
+	 * @param {Function[]} hooks - an accumulator of post-render hooks (oncreate/onupdate)
+	 * @param {Element | null} nextSibling - the next DOM node if we're dealing with a
+	 *                                       fragment that is not the last item in its
+	 *                                       parent
+	 * @param {'svg' | 'math' | String | null} ns) - the current XML namespace, if any
+	 * @returns void
+	 */
+	// This function diffs and patches lists of vnodes, both keyed and unkeyed.
+	//
+	// We will:
+	//
+	// 1. describe its general structure
+	// 2. focus on the diff algorithm optimizations
+	// 3. discuss DOM node operations.
+
+	// ## Overview:
+	//
+	// The updateNodes() function:
+	// - deals with trivial cases
+	// - determines whether the lists are keyed or unkeyed based on the first non-null node
+	//   of each list.
+	// - diffs them and patches the DOM if needed (that's the brunt of the code)
+	// - manages the leftovers: after diffing, are there:
+	//   - old nodes left to remove?
+	// 	 - new nodes to insert?
+	// 	 deal with them!
+	//
+	// The lists are only iterated over once, with an exception for the nodes in `old` that
+	// are visited in the fourth part of the diff and in the `removeNodes` loop.
+
+	// ## Diffing
+	//
+	// Reading https://github.com/localvoid/ivi/blob/ddc09d06abaef45248e6133f7040d00d3c6be853/packages/ivi/src/vdom/implementation.ts#L617-L837
+	// may be good for context on longest increasing subsequence-based logic for moving nodes.
+	//
+	// In order to diff keyed lists, one has to
+	//
+	// 1) match nodes in both lists, per key, and update them accordingly
+	// 2) create the nodes present in the new list, but absent in the old one
+	// 3) remove the nodes present in the old list, but absent in the new one
+	// 4) figure out what nodes in 1) to move in order to minimize the DOM operations.
+	//
+	// To achieve 1) one can create a dictionary of keys => index (for the old list), then iterate
+	// over the new list and for each new vnode, find the corresponding vnode in the old list using
+	// the map.
+	// 2) is achieved in the same step: if a new node has no corresponding entry in the map, it is new
+	// and must be created.
+	// For the removals, we actually remove the nodes that have been updated from the old list.
+	// The nodes that remain in that list after 1) and 2) have been performed can be safely removed.
+	// The fourth step is a bit more complex and relies on the longest increasing subsequence (LIS)
+	// algorithm.
+	//
+	// the longest increasing subsequence is the list of nodes that can remain in place. Imagine going
+	// from `1,2,3,4,5` to `4,5,1,2,3` where the numbers are not necessarily the keys, but the indices
+	// corresponding to the keyed nodes in the old list (keyed nodes `e,d,c,b,a` => `b,a,e,d,c` would
+	//  match the above lists, for example).
+	//
+	// In there are two increasing subsequences: `4,5` and `1,2,3`, the latter being the longest. We
+	// can update those nodes without moving them, and only call `insertNode` on `4` and `5`.
+	//
+	// @localvoid adapted the algo to also support node deletions and insertions (the `lis` is actually
+	// the longest increasing subsequence *of old nodes still present in the new list*).
+	//
+	// It is a general algorithm that is fireproof in all circumstances, but it requires the allocation
+	// and the construction of a `key => oldIndex` map, and three arrays (one with `newIndex => oldIndex`,
+	// the `LIS` and a temporary one to create the LIS).
+	//
+	// So we cheat where we can: if the tails of the lists are identical, they are guaranteed to be part of
+	// the LIS and can be updated without moving them.
+	//
+	// If two nodes are swapped, they are guaranteed not to be part of the LIS, and must be moved (with
+	// the exception of the last node if the list is fully reversed).
+	//
+	// ## Finding the next sibling.
+	//
+	// `updateNode()` and `createNode()` expect a nextSibling parameter to perform DOM operations.
+	// When the list is being traversed top-down, at any index, the DOM nodes up to the previous
+	// vnode reflect the content of the new list, whereas the rest of the DOM nodes reflect the old
+	// list. The next sibling must be looked for in the old list using `getNextSibling(... oldStart + 1 ...)`.
+	//
+	// In the other scenarios (swaps, upwards traversal, map-based diff),
+	// the new vnodes list is traversed upwards. The DOM nodes at the bottom of the list reflect the
+	// bottom part of the new vnodes list, and we can use the `v.dom`  value of the previous node
+	// as the next sibling (cached in the `nextSibling` variable).
+
+
+	// ## DOM node moves
+	//
+	// In most scenarios `updateNode()` and `createNode()` perform the DOM operations. However,
+	// this is not the case if the node moved (second and fourth part of the diff algo). We move
+	// the old DOM nodes before updateNode runs because it enables us to use the cached `nextSibling`
+	// variable rather than fetching it using `getNextSibling()`.
+	//
+	// The fourth part of the diff currently inserts nodes unconditionally, leading to issues
+	// like #1791 and #1999. We need to be smarter about those situations where adjascent old
+	// nodes remain together in the new list in a way that isn't covered by parts one and
+	// three of the diff algo.
+
+	function updateNodes(parent, old, vnodes, hooks, nextSibling, ns) {
+		if (old === vnodes || old == null && vnodes == null) return
+		else if (old == null || old.length === 0) createNodes(parent, vnodes, 0, vnodes.length, hooks, nextSibling, ns)
+		else if (vnodes == null || vnodes.length === 0) removeNodes(parent, old, 0, old.length)
+		else {
+			var isOldKeyed = old[0] != null && old[0].key != null
+			var isKeyed = vnodes[0] != null && vnodes[0].key != null
+			var start = 0, oldStart = 0
+			if (!isOldKeyed) while (oldStart < old.length && old[oldStart] == null) oldStart++
+			if (!isKeyed) while (start < vnodes.length && vnodes[start] == null) start++
+			if (isKeyed === null && isOldKeyed == null) return // both lists are full of nulls
+			if (isOldKeyed !== isKeyed) {
+				removeNodes(parent, old, oldStart, old.length)
+				createNodes(parent, vnodes, start, vnodes.length, hooks, nextSibling, ns)
+			} else if (!isKeyed) {
+				// Don't index past the end of either list (causes deopts).
+				var commonLength = old.length < vnodes.length ? old.length : vnodes.length
+				// Rewind if necessary to the first non-null index on either side.
+				// We could alternatively either explicitly create or remove nodes when `start !== oldStart`
+				// but that would be optimizing for sparse lists which are more rare than dense ones.
+				start = start < oldStart ? start : oldStart
+				for (; start < commonLength; start++) {
+					o = old[start]
+					v = vnodes[start]
+					if (o === v || o == null && v == null) continue
+					else if (o == null) createNode(parent, v, hooks, ns, getNextSibling(old, start + 1, nextSibling))
+					else if (v == null) removeNode(parent, o)
+					else updateNode(parent, o, v, hooks, getNextSibling(old, start + 1, nextSibling), ns)
+				}
+				if (old.length > commonLength) removeNodes(parent, old, start, old.length)
+				if (vnodes.length > commonLength) createNodes(parent, vnodes, start, vnodes.length, hooks, nextSibling, ns)
+			} else {
+				// keyed diff
+				var oldEnd = old.length - 1, end = vnodes.length - 1, map, o, v, oe, ve, topSibling
+
+				// bottom-up
+				while (oldEnd >= oldStart && end >= start) {
+					oe = old[oldEnd]
+					ve = vnodes[end]
+					if (oe.key !== ve.key) break
+					if (oe !== ve) updateNode(parent, oe, ve, hooks, nextSibling, ns)
+					if (ve.dom != null) nextSibling = ve.dom
+					oldEnd--, end--
+				}
+				// top-down
+				while (oldEnd >= oldStart && end >= start) {
+					o = old[oldStart]
+					v = vnodes[start]
+					if (o.key !== v.key) break
+					oldStart++, start++
+					if (o !== v) updateNode(parent, o, v, hooks, getNextSibling(old, oldStart, nextSibling), ns)
+				}
+				// swaps and list reversals
+				while (oldEnd >= oldStart && end >= start) {
+					if (start === end) break
+					if (o.key !== ve.key || oe.key !== v.key) break
+					topSibling = getNextSibling(old, oldStart, nextSibling)
+					moveNodes(parent, oe, topSibling)
+					if (oe !== v) updateNode(parent, oe, v, hooks, topSibling, ns)
+					if (++start <= --end) moveNodes(parent, o, nextSibling)
+					if (o !== ve) updateNode(parent, o, ve, hooks, nextSibling, ns)
+					if (ve.dom != null) nextSibling = ve.dom
+					oldStart++; oldEnd--
+					oe = old[oldEnd]
+					ve = vnodes[end]
+					o = old[oldStart]
+					v = vnodes[start]
+				}
+				// bottom up once again
+				while (oldEnd >= oldStart && end >= start) {
+					if (oe.key !== ve.key) break
+					if (oe !== ve) updateNode(parent, oe, ve, hooks, nextSibling, ns)
+					if (ve.dom != null) nextSibling = ve.dom
+					oldEnd--, end--
+					oe = old[oldEnd]
+					ve = vnodes[end]
+				}
+				if (start > end) removeNodes(parent, old, oldStart, oldEnd + 1)
+				else if (oldStart > oldEnd) createNodes(parent, vnodes, start, end + 1, hooks, nextSibling, ns)
+				else {
+					// inspired by ivi https://github.com/ivijs/ivi/ by Boris Kaul
+					var originalNextSibling = nextSibling, vnodesLength = end - start + 1, oldIndices = new Array(vnodesLength), li=0, i=0, pos = 2147483647, matched = 0, map, lisIndices
+					for (i = 0; i < vnodesLength; i++) oldIndices[i] = -1
+					for (i = end; i >= start; i--) {
+						if (map == null) map = getKeyMap(old, oldStart, oldEnd + 1)
+						ve = vnodes[i]
+						var oldIndex = map[ve.key]
+						if (oldIndex != null) {
+							pos = (oldIndex < pos) ? oldIndex : -1 // becomes -1 if nodes were re-ordered
+							oldIndices[i-start] = oldIndex
+							oe = old[oldIndex]
+							old[oldIndex] = null
+							if (oe !== ve) updateNode(parent, oe, ve, hooks, nextSibling, ns)
+							if (ve.dom != null) nextSibling = ve.dom
+							matched++
+						}
+					}
+					nextSibling = originalNextSibling
+					if (matched !== oldEnd - oldStart + 1) removeNodes(parent, old, oldStart, oldEnd + 1)
+					if (matched === 0) createNodes(parent, vnodes, start, end + 1, hooks, nextSibling, ns)
+					else {
+						if (pos === -1) {
+							// the indices of the indices of the items that are part of the
+							// longest increasing subsequence in the oldIndices list
+							lisIndices = makeLisIndices(oldIndices)
+							li = lisIndices.length - 1
+							for (i = end; i >= start; i--) {
+								v = vnodes[i]
+								if (oldIndices[i-start] === -1) createNode(parent, v, hooks, ns, nextSibling)
+								else {
+									if (lisIndices[li] === i - start) li--
+									else moveNodes(parent, v, nextSibling)
+								}
+								if (v.dom != null) nextSibling = vnodes[i].dom
+							}
+						} else {
+							for (i = end; i >= start; i--) {
+								v = vnodes[i]
+								if (oldIndices[i-start] === -1) createNode(parent, v, hooks, ns, nextSibling)
+								if (v.dom != null) nextSibling = vnodes[i].dom
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	function updateNode(parent, old, vnode, hooks, nextSibling, ns) {
+		var oldTag = old.tag, tag = vnode.tag
+		if (oldTag === tag) {
+			vnode.state = old.state
+			vnode.events = old.events
+			if (shouldNotUpdate(vnode, old)) return
+			if (typeof oldTag === "string") {
+				if (vnode.attrs != null) {
+					updateLifecycle(vnode.attrs, vnode, hooks)
+				}
+				switch (oldTag) {
+					case "#": updateText(old, vnode); break
+					case "<": updateHTML(parent, old, vnode, ns, nextSibling); break
+					case "[": updateFragment(parent, old, vnode, hooks, nextSibling, ns); break
+					default: updateElement(old, vnode, hooks, ns)
+				}
+			}
+			else updateComponent(parent, old, vnode, hooks, nextSibling, ns)
+		}
+		else {
+			removeNode(parent, old)
+			createNode(parent, vnode, hooks, ns, nextSibling)
+		}
+	}
+	function updateText(old, vnode) {
+		if (old.children.toString() !== vnode.children.toString()) {
+			old.dom.nodeValue = vnode.children
+		}
+		vnode.dom = old.dom
+	}
+	function updateHTML(parent, old, vnode, ns, nextSibling) {
+		if (old.children !== vnode.children) {
+			removeHTML(parent, old)
+			createHTML(parent, vnode, ns, nextSibling)
+		}
+		else {
+			vnode.dom = old.dom
+			vnode.domSize = old.domSize
+			vnode.instance = old.instance
+		}
+	}
+	function updateFragment(parent, old, vnode, hooks, nextSibling, ns) {
+		updateNodes(parent, old.children, vnode.children, hooks, nextSibling, ns)
+		var domSize = 0, children = vnode.children
+		vnode.dom = null
+		if (children != null) {
+			for (var i = 0; i < children.length; i++) {
+				var child = children[i]
+				if (child != null && child.dom != null) {
+					if (vnode.dom == null) vnode.dom = child.dom
+					domSize += child.domSize || 1
+				}
+			}
+			if (domSize !== 1) vnode.domSize = domSize
+		}
+	}
+	function updateElement(old, vnode, hooks, ns) {
+		var element = vnode.dom = old.dom
+		ns = getNameSpace(vnode) || ns
+
+		if (vnode.tag === "textarea") {
+			if (vnode.attrs == null) vnode.attrs = {}
+			if (vnode.text != null) {
+				vnode.attrs.value = vnode.text //FIXME handle multiple children
+				vnode.text = undefined
+			}
+		}
+		updateAttrs(vnode, old.attrs, vnode.attrs, ns)
+		if (!maybeSetContentEditable(vnode)) {
+			if (old.text != null && vnode.text != null && vnode.text !== "") {
+				if (old.text.toString() !== vnode.text.toString()) old.dom.firstChild.nodeValue = vnode.text
+			}
+			else {
+				if (old.text != null) old.children = [Vnode("#", undefined, undefined, old.text, undefined, old.dom.firstChild)]
+				if (vnode.text != null) vnode.children = [Vnode("#", undefined, undefined, vnode.text, undefined, undefined)]
+				updateNodes(element, old.children, vnode.children, hooks, null, ns)
+			}
+		}
+	}
+	function updateComponent(parent, old, vnode, hooks, nextSibling, ns) {
+		vnode.instance = Vnode.normalize(callHook.call(vnode.state.view, vnode))
+		if (vnode.instance === vnode) throw Error("A view cannot return the vnode it received as argument")
+		updateLifecycle(vnode.state, vnode, hooks)
+		if (vnode.attrs != null) updateLifecycle(vnode.attrs, vnode, hooks)
+		if (vnode.instance != null) {
+			if (old.instance == null) createNode(parent, vnode.instance, hooks, ns, nextSibling)
+			else updateNode(parent, old.instance, vnode.instance, hooks, nextSibling, ns)
+			vnode.dom = vnode.instance.dom
+			vnode.domSize = vnode.instance.domSize
+		}
+		else if (old.instance != null) {
+			removeNode(parent, old.instance)
+			vnode.dom = undefined
+			vnode.domSize = 0
+		}
+		else {
+			vnode.dom = old.dom
+			vnode.domSize = old.domSize
+		}
+	}
+	function getKeyMap(vnodes, start, end) {
+		var map = Object.create(null)
+		for (; start < end; start++) {
+			var vnode = vnodes[start]
+			if (vnode != null) {
+				var key = vnode.key
+				if (key != null) map[key] = start
+			}
+		}
+		return map
+	}
+	// Lifted from ivi https://github.com/ivijs/ivi/
+	// takes a list of unique numbers (-1 is special and can
+	// occur multiple times) and returns an array with the indices
+	// of the items that are part of the longest increasing
+	// subsequece
+	var lisTemp = []
+	function makeLisIndices(a) {
+		var result = [0]
+		var u = 0, v = 0, i = 0
+		var il = lisTemp.length = a.length
+		for (var i = 0; i < il; i++) lisTemp[i] = a[i]
+		for (var i = 0; i < il; ++i) {
+			if (a[i] === -1) continue
+			var j = result[result.length - 1]
+			if (a[j] < a[i]) {
+				lisTemp[i] = j
+				result.push(i)
+				continue
+			}
+			u = 0
+			v = result.length - 1
+			while (u < v) {
+				// Fast integer average without overflow.
+				// eslint-disable-next-line no-bitwise
+				var c = (u >>> 1) + (v >>> 1) + (u & v & 1)
+				if (a[result[c]] < a[i]) {
+					u = c + 1
+				}
+				else {
+					v = c
+				}
+			}
+			if (a[i] < a[result[u]]) {
+				if (u > 0) lisTemp[i] = result[u - 1]
+				result[u] = i
+			}
+		}
+		u = result.length
+		v = result[u - 1]
+		while (u-- > 0) {
+			result[u] = v
+			v = lisTemp[v]
+		}
+		lisTemp.length = 0
+		return result
+	}
+
+	function getNextSibling(vnodes, i, nextSibling) {
+		for (; i < vnodes.length; i++) {
+			if (vnodes[i] != null && vnodes[i].dom != null) return vnodes[i].dom
+		}
+		return nextSibling
+	}
+
+	// This covers a really specific edge case:
+	// - Parent node is keyed and contains child
+	// - Child is removed, returns unresolved promise in `onbeforeremove`
+	// - Parent node is moved in keyed diff
+	// - Remaining children still need moved appropriately
+	//
+	// Ideally, I'd track removed nodes as well, but that introduces a lot more
+	// complexity and I'm not exactly interested in doing that.
+	function moveNodes(parent, vnode, nextSibling) {
+		var frag = $doc.createDocumentFragment()
+		moveChildToFrag(parent, frag, vnode)
+		insertNode(parent, frag, nextSibling)
+	}
+	function moveChildToFrag(parent, frag, vnode) {
+		// Dodge the recursion overhead in a few of the most common cases.
+		while (vnode.dom != null && vnode.dom.parentNode === parent) {
+			if (typeof vnode.tag !== "string") {
+				vnode = vnode.instance
+				if (vnode != null) continue
+			} else if (vnode.tag === "<") {
+				for (var i = 0; i < vnode.instance.length; i++) {
+					frag.appendChild(vnode.instance[i])
+				}
+			} else if (vnode.tag !== "[") {
+				// Don't recurse for text nodes *or* elements, just fragments
+				frag.appendChild(vnode.dom)
+			} else if (vnode.children.length === 1) {
+				vnode = vnode.children[0]
+				if (vnode != null) continue
+			} else {
+				for (var i = 0; i < vnode.children.length; i++) {
+					var child = vnode.children[i]
+					if (child != null) moveChildToFrag(parent, frag, child)
+				}
+			}
+			break
+		}
+	}
+
+	function insertNode(parent, dom, nextSibling) {
+		if (nextSibling != null) parent.insertBefore(dom, nextSibling)
+		else parent.appendChild(dom)
+	}
+
+	function maybeSetContentEditable(vnode) {
+		if (vnode.attrs == null || (
+			vnode.attrs.contenteditable == null && // attribute
+			vnode.attrs.contentEditable == null // property
+		)) return false
+		var children = vnode.children
+		if (children != null && children.length === 1 && children[0].tag === "<") {
+			var content = children[0].children
+			if (vnode.dom.innerHTML !== content) vnode.dom.innerHTML = content
+		}
+		else if (vnode.text != null || children != null && children.length !== 0) throw new Error("Child node of a contenteditable must be trusted")
+		return true
+	}
+
+	//remove
+	function removeNodes(parent, vnodes, start, end) {
+		for (var i = start; i < end; i++) {
+			var vnode = vnodes[i]
+			if (vnode != null) removeNode(parent, vnode)
+		}
+	}
+	function removeNode(parent, vnode) {
+		var mask = 0
+		var original = vnode.state
+		var stateResult, attrsResult
+		if (typeof vnode.tag !== "string" && typeof vnode.state.onbeforeremove === "function") {
+			var result = callHook.call(vnode.state.onbeforeremove, vnode)
+			if (result != null && typeof result.then === "function") {
+				mask = 1
+				stateResult = result
+			}
+		}
+		if (vnode.attrs && typeof vnode.attrs.onbeforeremove === "function") {
+			var result = callHook.call(vnode.attrs.onbeforeremove, vnode)
+			if (result != null && typeof result.then === "function") {
+				// eslint-disable-next-line no-bitwise
+				mask |= 2
+				attrsResult = result
+			}
+		}
+		checkState(vnode, original)
+
+		// If we can, try to fast-path it and avoid all the overhead of awaiting
+		if (!mask) {
+			onremove(vnode)
+			removeChild(parent, vnode)
+		} else {
+			if (stateResult != null) {
+				var next = function () {
+					// eslint-disable-next-line no-bitwise
+					if (mask & 1) { mask &= 2; if (!mask) reallyRemove() }
+				}
+				stateResult.then(next, next)
+			}
+			if (attrsResult != null) {
+				var next = function () {
+					// eslint-disable-next-line no-bitwise
+					if (mask & 2) { mask &= 1; if (!mask) reallyRemove() }
+				}
+				attrsResult.then(next, next)
+			}
+		}
+
+		function reallyRemove() {
+			checkState(vnode, original)
+			onremove(vnode)
+			removeChild(parent, vnode)
+		}
+	}
+	function removeHTML(parent, vnode) {
+		for (var i = 0; i < vnode.instance.length; i++) {
+			parent.removeChild(vnode.instance[i])
+		}
+	}
+	function removeChild(parent, vnode) {
+		// Dodge the recursion overhead in a few of the most common cases.
+		while (vnode.dom != null && vnode.dom.parentNode === parent) {
+			if (typeof vnode.tag !== "string") {
+				vnode = vnode.instance
+				if (vnode != null) continue
+			} else if (vnode.tag === "<") {
+				removeHTML(parent, vnode)
+			} else {
+				if (vnode.tag !== "[") {
+					parent.removeChild(vnode.dom)
+					if (!Array.isArray(vnode.children)) break
+				}
+				if (vnode.children.length === 1) {
+					vnode = vnode.children[0]
+					if (vnode != null) continue
+				} else {
+					for (var i = 0; i < vnode.children.length; i++) {
+						var child = vnode.children[i]
+						if (child != null) removeChild(parent, child)
+					}
+				}
+			}
+			break
+		}
+	}
+	function onremove(vnode) {
+		if (typeof vnode.tag !== "string" && typeof vnode.state.onremove === "function") callHook.call(vnode.state.onremove, vnode)
+		if (vnode.attrs && typeof vnode.attrs.onremove === "function") callHook.call(vnode.attrs.onremove, vnode)
+		if (typeof vnode.tag !== "string") {
+			if (vnode.instance != null) onremove(vnode.instance)
+		} else {
+			var children = vnode.children
+			if (Array.isArray(children)) {
+				for (var i = 0; i < children.length; i++) {
+					var child = children[i]
+					if (child != null) onremove(child)
+				}
+			}
+		}
+	}
+
+	//attrs
+	function setAttrs(vnode, attrs, ns) {
+		for (var key in attrs) {
+			setAttr(vnode, key, null, attrs[key], ns)
+		}
+	}
+	function setAttr(vnode, key, old, value, ns) {
+		if (key === "key" || key === "is" || value == null || isLifecycleMethod(key) || (old === value && !isFormAttribute(vnode, key)) && typeof value !== "object") return
+		if (key[0] === "o" && key[1] === "n") return updateEvent(vnode, key, value)
+		if (key.slice(0, 6) === "xlink:") vnode.dom.setAttributeNS("http://www.w3.org/1999/xlink", key.slice(6), value)
+		else if (key === "style") updateStyle(vnode.dom, old, value)
+		else if (hasPropertyKey(vnode, key, ns)) {
+			if (key === "value") {
+				// Only do the coercion if we're actually going to check the value.
+				/* eslint-disable no-implicit-coercion */
+				//setting input[value] to same value by typing on focused element moves cursor to end in Chrome
+				if ((vnode.tag === "input" || vnode.tag === "textarea") && vnode.dom.value === "" + value && vnode.dom === activeElement()) return
+				//setting select[value] to same value while having select open blinks select dropdown in Chrome
+				if (vnode.tag === "select" && old !== null && vnode.dom.value === "" + value) return
+				//setting option[value] to same value while having select open blinks select dropdown in Chrome
+				if (vnode.tag === "option" && old !== null && vnode.dom.value === "" + value) return
+				/* eslint-enable no-implicit-coercion */
+			}
+			// If you assign an input type that is not supported by IE 11 with an assignment expression, an error will occur.
+			if (vnode.tag === "input" && key === "type") vnode.dom.setAttribute(key, value)
+			else vnode.dom[key] = value
+		} else {
+			if (typeof value === "boolean") {
+				if (value) vnode.dom.setAttribute(key, "")
+				else vnode.dom.removeAttribute(key)
+			}
+			else vnode.dom.setAttribute(key === "className" ? "class" : key, value)
+		}
+	}
+	function removeAttr(vnode, key, old, ns) {
+		if (key === "key" || key === "is" || old == null || isLifecycleMethod(key)) return
+		if (key[0] === "o" && key[1] === "n" && !isLifecycleMethod(key)) updateEvent(vnode, key, undefined)
+		else if (key === "style") updateStyle(vnode.dom, old, null)
+		else if (
+			hasPropertyKey(vnode, key, ns)
+			&& key !== "className"
+			&& !(key === "value" && (
+				vnode.tag === "option"
+				|| vnode.tag === "select" && vnode.dom.selectedIndex === -1 && vnode.dom === activeElement()
+			))
+			&& !(vnode.tag === "input" && key === "type")
+		) {
+			vnode.dom[key] = null
+		} else {
+			var nsLastIndex = key.indexOf(":")
+			if (nsLastIndex !== -1) key = key.slice(nsLastIndex + 1)
+			if (old !== false) vnode.dom.removeAttribute(key === "className" ? "class" : key)
+		}
+	}
+	function setLateSelectAttrs(vnode, attrs) {
+		if ("value" in attrs) {
+			if(attrs.value === null) {
+				if (vnode.dom.selectedIndex !== -1) vnode.dom.value = null
+			} else {
+				var normalized = "" + attrs.value // eslint-disable-line no-implicit-coercion
+				if (vnode.dom.value !== normalized || vnode.dom.selectedIndex === -1) {
+					vnode.dom.value = normalized
+				}
+			}
+		}
+		if ("selectedIndex" in attrs) setAttr(vnode, "selectedIndex", null, attrs.selectedIndex, undefined)
+	}
+	function updateAttrs(vnode, old, attrs, ns) {
+		if (attrs != null) {
+			for (var key in attrs) {
+				setAttr(vnode, key, old && old[key], attrs[key], ns)
+			}
+		}
+		var val
+		if (old != null) {
+			for (var key in old) {
+				if (((val = old[key]) != null) && (attrs == null || attrs[key] == null)) {
+					removeAttr(vnode, key, val, ns)
+				}
+			}
+		}
+	}
+	function isFormAttribute(vnode, attr) {
+		return attr === "value" || attr === "checked" || attr === "selectedIndex" || attr === "selected" && vnode.dom === activeElement() || vnode.tag === "option" && vnode.dom.parentNode === $doc.activeElement
+	}
+	function isLifecycleMethod(attr) {
+		return attr === "oninit" || attr === "oncreate" || attr === "onupdate" || attr === "onremove" || attr === "onbeforeremove" || attr === "onbeforeupdate"
+	}
+	function hasPropertyKey(vnode, key, ns) {
+		// Filter out namespaced keys
+		return ns === undefined && (
+			// If it's a custom element, just keep it.
+			vnode.tag.indexOf("-") > -1 || vnode.attrs != null && vnode.attrs.is ||
+			// If it's a normal element, let's try to avoid a few browser bugs.
+			key !== "href" && key !== "list" && key !== "form" && key !== "width" && key !== "height"// && key !== "type"
+			// Defer the property check until *after* we check everything.
+		) && key in vnode.dom
+	}
+
+	//style
+	var uppercaseRegex = /[A-Z]/g
+	function toLowerCase(capital) { return "-" + capital.toLowerCase() }
+	function normalizeKey(key) {
+		return key[0] === "-" && key[1] === "-" ? key :
+			key === "cssFloat" ? "float" :
+				key.replace(uppercaseRegex, toLowerCase)
+	}
+	function updateStyle(element, old, style) {
+		if (old === style) {
+			// Styles are equivalent, do nothing.
+		} else if (style == null) {
+			// New style is missing, just clear it.
+			element.style.cssText = ""
+		} else if (typeof style !== "object") {
+			// New style is a string, let engine deal with patching.
+			element.style.cssText = style
+		} else if (old == null || typeof old !== "object") {
+			// `old` is missing or a string, `style` is an object.
+			element.style.cssText = ""
+			// Add new style properties
+			for (var key in style) {
+				var value = style[key]
+				if (value != null) element.style.setProperty(normalizeKey(key), String(value))
+			}
+		} else {
+			// Both old & new are (different) objects.
+			// Update style properties that have changed
+			for (var key in style) {
+				var value = style[key]
+				if (value != null && (value = String(value)) !== String(old[key])) {
+					element.style.setProperty(normalizeKey(key), value)
+				}
+			}
+			// Remove style properties that no longer exist
+			for (var key in old) {
+				if (old[key] != null && style[key] == null) {
+					element.style.removeProperty(normalizeKey(key))
+				}
+			}
+		}
+	}
+
+	// Here's an explanation of how this works:
+	// 1. The event names are always (by design) prefixed by `on`.
+	// 2. The EventListener interface accepts either a function or an object
+	//    with a `handleEvent` method.
+	// 3. The object does not inherit from `Object.prototype`, to avoid
+	//    any potential interference with that (e.g. setters).
+	// 4. The event name is remapped to the handler before calling it.
+	// 5. In function-based event handlers, `ev.target === this`. We replicate
+	//    that below.
+	// 6. In function-based event handlers, `return false` prevents the default
+	//    action and stops event propagation. We replicate that below.
+	function EventDict() {
+		// Save this, so the current redraw is correctly tracked.
+		this._ = currentRedraw
+	}
+	EventDict.prototype = Object.create(null)
+	EventDict.prototype.handleEvent = function (ev) {
+		var handler = this["on" + ev.type]
+		var result
+		if (typeof handler === "function") result = handler.call(ev.currentTarget, ev)
+		else if (typeof handler.handleEvent === "function") handler.handleEvent(ev)
+		if (this._ && ev.redraw !== false) (0, this._)()
+		if (result === false) {
+			ev.preventDefault()
+			ev.stopPropagation()
+		}
+	}
+
+	//event
+	function updateEvent(vnode, key, value) {
+		if (vnode.events != null) {
+			if (vnode.events[key] === value) return
+			if (value != null && (typeof value === "function" || typeof value === "object")) {
+				if (vnode.events[key] == null) vnode.dom.addEventListener(key.slice(2), vnode.events, false)
+				vnode.events[key] = value
+			} else {
+				if (vnode.events[key] != null) vnode.dom.removeEventListener(key.slice(2), vnode.events, false)
+				vnode.events[key] = undefined
+			}
+		} else if (value != null && (typeof value === "function" || typeof value === "object")) {
+			vnode.events = new EventDict()
+			vnode.dom.addEventListener(key.slice(2), vnode.events, false)
+			vnode.events[key] = value
+		}
+	}
+
+	//lifecycle
+	function initLifecycle(source, vnode, hooks) {
+		if (typeof source.oninit === "function") callHook.call(source.oninit, vnode)
+		if (typeof source.oncreate === "function") hooks.push(callHook.bind(source.oncreate, vnode))
+	}
+	function updateLifecycle(source, vnode, hooks) {
+		if (typeof source.onupdate === "function") hooks.push(callHook.bind(source.onupdate, vnode))
+	}
+	function shouldNotUpdate(vnode, old) {
+		do {
+			if (vnode.attrs != null && typeof vnode.attrs.onbeforeupdate === "function") {
+				var force = callHook.call(vnode.attrs.onbeforeupdate, vnode, old)
+				if (force !== undefined && !force) break
+			}
+			if (typeof vnode.tag !== "string" && typeof vnode.state.onbeforeupdate === "function") {
+				var force = callHook.call(vnode.state.onbeforeupdate, vnode, old)
+				if (force !== undefined && !force) break
+			}
+			return false
+		} while (false); // eslint-disable-line no-constant-condition
+		vnode.dom = old.dom
+		vnode.domSize = old.domSize
+		vnode.instance = old.instance
+		// One would think having the actual latest attributes would be ideal,
+		// but it doesn't let us properly diff based on our current internal
+		// representation. We have to save not only the old DOM info, but also
+		// the attributes used to create it, as we diff *that*, not against the
+		// DOM directly (with a few exceptions in `setAttr`). And, of course, we
+		// need to save the children and text as they are conceptually not
+		// unlike special "attributes" internally.
+		vnode.attrs = old.attrs
+		vnode.children = old.children
+		vnode.text = old.text
+		return true
+	}
+
+	return function(dom, vnodes, redraw) {
+		if (!dom) throw new TypeError("Ensure the DOM element being passed to m.route/m.mount/m.render is not undefined.")
+		var hooks = []
+		var active = activeElement()
+		var namespace = dom.namespaceURI
+
+		// First time rendering into a node clears it out
+		if (dom.vnodes == null) dom.textContent = ""
+
+		vnodes = Vnode.normalizeChildren(Array.isArray(vnodes) ? vnodes : [vnodes])
+		var prevRedraw = currentRedraw
+		try {
+			currentRedraw = typeof redraw === "function" ? redraw : undefined
+			updateNodes(dom, dom.vnodes, vnodes, hooks, null, namespace === "http://www.w3.org/1999/xhtml" ? undefined : namespace)
+		} finally {
+			currentRedraw = prevRedraw
+		}
+		dom.vnodes = vnodes
+		// `document.activeElement` can return null: https://html.spec.whatwg.org/multipage/interaction.html#dom-document-activeelement
+		if (active != null && activeElement() !== active && typeof active.focus === "function") active.focus()
+		for (var i = 0; i < hooks.length; i++) hooks[i]()
+	}
+}
+
+},{"../render/vnode":"node_modules/mithril/render/vnode.js"}],"node_modules/mithril/render.js":[function(require,module,exports) {
+"use strict"
+
+module.exports = require("./render/render")(window)
+
+},{"./render/render":"node_modules/mithril/render/render.js"}],"node_modules/mithril/api/mount-redraw.js":[function(require,module,exports) {
+"use strict"
+
+var Vnode = require("../render/vnode")
+
+module.exports = function(render, schedule, console) {
+	var subscriptions = []
+	var rendering = false
+	var pending = false
+
+	function sync() {
+		if (rendering) throw new Error("Nested m.redraw.sync() call")
+		rendering = true
+		for (var i = 0; i < subscriptions.length; i += 2) {
+			try { render(subscriptions[i], Vnode(subscriptions[i + 1]), redraw) }
+			catch (e) { console.error(e) }
+		}
+		rendering = false
+	}
+
+	function redraw() {
+		if (!pending) {
+			pending = true
+			schedule(function() {
+				pending = false
+				sync()
+			})
+		}
+	}
+
+	redraw.sync = sync
+
+	function mount(root, component) {
+		if (component != null && component.view == null && typeof component !== "function") {
+			throw new TypeError("m.mount(element, component) expects a component, not a vnode")
+		}
+
+		var index = subscriptions.indexOf(root)
+		if (index >= 0) {
+			subscriptions.splice(index, 2)
+			render(root, [], redraw)
+		}
+
+		if (component != null) {
+			subscriptions.push(root, component)
+			render(root, Vnode(component), redraw)
+		}
+	}
+
+	return {mount: mount, redraw: redraw}
+}
+
+},{"../render/vnode":"node_modules/mithril/render/vnode.js"}],"node_modules/mithril/mount-redraw.js":[function(require,module,exports) {
+"use strict"
+
+var render = require("./render")
+
+module.exports = require("./api/mount-redraw")(render, requestAnimationFrame, console)
+
+},{"./render":"node_modules/mithril/render.js","./api/mount-redraw":"node_modules/mithril/api/mount-redraw.js"}],"node_modules/mithril/querystring/build.js":[function(require,module,exports) {
+"use strict"
+
+module.exports = function(object) {
+	if (Object.prototype.toString.call(object) !== "[object Object]") return ""
+
+	var args = []
+	for (var key in object) {
+		destructure(key, object[key])
+	}
+
+	return args.join("&")
+
+	function destructure(key, value) {
+		if (Array.isArray(value)) {
+			for (var i = 0; i < value.length; i++) {
+				destructure(key + "[" + i + "]", value[i])
+			}
+		}
+		else if (Object.prototype.toString.call(value) === "[object Object]") {
+			for (var i in value) {
+				destructure(key + "[" + i + "]", value[i])
+			}
+		}
+		else args.push(encodeURIComponent(key) + (value != null && value !== "" ? "=" + encodeURIComponent(value) : ""))
+	}
+}
+
+},{}],"node_modules/mithril/pathname/assign.js":[function(require,module,exports) {
+"use strict"
+
+module.exports = Object.assign || function(target, source) {
+	if(source) Object.keys(source).forEach(function(key) { target[key] = source[key] })
+}
+
+},{}],"node_modules/mithril/pathname/build.js":[function(require,module,exports) {
+"use strict"
+
+var buildQueryString = require("../querystring/build")
+var assign = require("./assign")
+
+// Returns `path` from `template` + `params`
+module.exports = function(template, params) {
+	if ((/:([^\/\.-]+)(\.{3})?:/).test(template)) {
+		throw new SyntaxError("Template parameter names *must* be separated")
+	}
+	if (params == null) return template
+	var queryIndex = template.indexOf("?")
+	var hashIndex = template.indexOf("#")
+	var queryEnd = hashIndex < 0 ? template.length : hashIndex
+	var pathEnd = queryIndex < 0 ? queryEnd : queryIndex
+	var path = template.slice(0, pathEnd)
+	var query = {}
+
+	assign(query, params)
+
+	var resolved = path.replace(/:([^\/\.-]+)(\.{3})?/g, function(m, key, variadic) {
+		delete query[key]
+		// If no such parameter exists, don't interpolate it.
+		if (params[key] == null) return m
+		// Escape normal parameters, but not variadic ones.
+		return variadic ? params[key] : encodeURIComponent(String(params[key]))
+	})
+
+	// In case the template substitution adds new query/hash parameters.
+	var newQueryIndex = resolved.indexOf("?")
+	var newHashIndex = resolved.indexOf("#")
+	var newQueryEnd = newHashIndex < 0 ? resolved.length : newHashIndex
+	var newPathEnd = newQueryIndex < 0 ? newQueryEnd : newQueryIndex
+	var result = resolved.slice(0, newPathEnd)
+
+	if (queryIndex >= 0) result += template.slice(queryIndex, queryEnd)
+	if (newQueryIndex >= 0) result += (queryIndex < 0 ? "?" : "&") + resolved.slice(newQueryIndex, newQueryEnd)
+	var querystring = buildQueryString(query)
+	if (querystring) result += (queryIndex < 0 && newQueryIndex < 0 ? "?" : "&") + querystring
+	if (hashIndex >= 0) result += template.slice(hashIndex)
+	if (newHashIndex >= 0) result += (hashIndex < 0 ? "" : "&") + resolved.slice(newHashIndex)
+	return result
+}
+
+},{"../querystring/build":"node_modules/mithril/querystring/build.js","./assign":"node_modules/mithril/pathname/assign.js"}],"node_modules/mithril/request/request.js":[function(require,module,exports) {
+"use strict"
+
+var buildPathname = require("../pathname/build")
+
+module.exports = function($window, Promise, oncompletion) {
+	var callbackCount = 0
+
+	function PromiseProxy(executor) {
+		return new Promise(executor)
+	}
+
+	// In case the global Promise is some userland library's where they rely on
+	// `foo instanceof this.constructor`, `this.constructor.resolve(value)`, or
+	// similar. Let's *not* break them.
+	PromiseProxy.prototype = Promise.prototype
+	PromiseProxy.__proto__ = Promise // eslint-disable-line no-proto
+
+	function makeRequest(factory) {
+		return function(url, args) {
+			if (typeof url !== "string") { args = url; url = url.url }
+			else if (args == null) args = {}
+			var promise = new Promise(function(resolve, reject) {
+				factory(buildPathname(url, args.params), args, function (data) {
+					if (typeof args.type === "function") {
+						if (Array.isArray(data)) {
+							for (var i = 0; i < data.length; i++) {
+								data[i] = new args.type(data[i])
+							}
+						}
+						else data = new args.type(data)
+					}
+					resolve(data)
+				}, reject)
+			})
+			if (args.background === true) return promise
+			var count = 0
+			function complete() {
+				if (--count === 0 && typeof oncompletion === "function") oncompletion()
+			}
+
+			return wrap(promise)
+
+			function wrap(promise) {
+				var then = promise.then
+				// Set the constructor, so engines know to not await or resolve
+				// this as a native promise. At the time of writing, this is
+				// only necessary for V8, but their behavior is the correct
+				// behavior per spec. See this spec issue for more details:
+				// https://github.com/tc39/ecma262/issues/1577. Also, see the
+				// corresponding comment in `request/tests/test-request.js` for
+				// a bit more background on the issue at hand.
+				promise.constructor = PromiseProxy
+				promise.then = function() {
+					count++
+					var next = then.apply(promise, arguments)
+					next.then(complete, function(e) {
+						complete()
+						if (count === 0) throw e
+					})
+					return wrap(next)
+				}
+				return promise
+			}
+		}
+	}
+
+	function hasHeader(args, name) {
+		for (var key in args.headers) {
+			if ({}.hasOwnProperty.call(args.headers, key) && name.test(key)) return true
+		}
+		return false
+	}
+
+	return {
+		request: makeRequest(function(url, args, resolve, reject) {
+			var method = args.method != null ? args.method.toUpperCase() : "GET"
+			var body = args.body
+			var assumeJSON = (args.serialize == null || args.serialize === JSON.serialize) && !(body instanceof $window.FormData)
+			var responseType = args.responseType || (typeof args.extract === "function" ? "" : "json")
+
+			var xhr = new $window.XMLHttpRequest(), aborted = false
+			var original = xhr, replacedAbort
+			var abort = xhr.abort
+
+			xhr.abort = function() {
+				aborted = true
+				abort.call(this)
+			}
+
+			xhr.open(method, url, args.async !== false, typeof args.user === "string" ? args.user : undefined, typeof args.password === "string" ? args.password : undefined)
+
+			if (assumeJSON && body != null && !hasHeader(args, /^content-type$/i)) {
+				xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8")
+			}
+			if (typeof args.deserialize !== "function" && !hasHeader(args, /^accept$/i)) {
+				xhr.setRequestHeader("Accept", "application/json, text/*")
+			}
+			if (args.withCredentials) xhr.withCredentials = args.withCredentials
+			if (args.timeout) xhr.timeout = args.timeout
+			xhr.responseType = responseType
+
+			for (var key in args.headers) {
+				if ({}.hasOwnProperty.call(args.headers, key)) {
+					xhr.setRequestHeader(key, args.headers[key])
+				}
+			}
+
+			xhr.onreadystatechange = function(ev) {
+				// Don't throw errors on xhr.abort().
+				if (aborted) return
+
+				if (ev.target.readyState === 4) {
+					try {
+						var success = (ev.target.status >= 200 && ev.target.status < 300) || ev.target.status === 304 || (/^file:\/\//i).test(url)
+						// When the response type isn't "" or "text",
+						// `xhr.responseText` is the wrong thing to use.
+						// Browsers do the right thing and throw here, and we
+						// should honor that and do the right thing by
+						// preferring `xhr.response` where possible/practical.
+						var response = ev.target.response, message
+
+						if (responseType === "json") {
+							// For IE and Edge, which don't implement
+							// `responseType: "json"`.
+							if (!ev.target.responseType && typeof args.extract !== "function") response = JSON.parse(ev.target.responseText)
+						} else if (!responseType || responseType === "text") {
+							// Only use this default if it's text. If a parsed
+							// document is needed on old IE and friends (all
+							// unsupported), the user should use a custom
+							// `config` instead. They're already using this at
+							// their own risk.
+							if (response == null) response = ev.target.responseText
+						}
+
+						if (typeof args.extract === "function") {
+							response = args.extract(ev.target, args)
+							success = true
+						} else if (typeof args.deserialize === "function") {
+							response = args.deserialize(response)
+						}
+						if (success) resolve(response)
+						else {
+							try { message = ev.target.responseText }
+							catch (e) { message = response }
+							var error = new Error(message)
+							error.code = ev.target.status
+							error.response = response
+							reject(error)
+						}
+					}
+					catch (e) {
+						reject(e)
+					}
+				}
+			}
+
+			if (typeof args.config === "function") {
+				xhr = args.config(xhr, args, url) || xhr
+
+				// Propagate the `abort` to any replacement XHR as well.
+				if (xhr !== original) {
+					replacedAbort = xhr.abort
+					xhr.abort = function() {
+						aborted = true
+						replacedAbort.call(this)
+					}
+				}
+			}
+
+			if (body == null) xhr.send()
+			else if (typeof args.serialize === "function") xhr.send(args.serialize(body))
+			else if (body instanceof $window.FormData) xhr.send(body)
+			else xhr.send(JSON.stringify(body))
+		}),
+		jsonp: makeRequest(function(url, args, resolve, reject) {
+			var callbackName = args.callbackName || "_mithril_" + Math.round(Math.random() * 1e16) + "_" + callbackCount++
+			var script = $window.document.createElement("script")
+			$window[callbackName] = function(data) {
+				delete $window[callbackName]
+				script.parentNode.removeChild(script)
+				resolve(data)
+			}
+			script.onerror = function() {
+				delete $window[callbackName]
+				script.parentNode.removeChild(script)
+				reject(new Error("JSONP request failed"))
+			}
+			script.src = url + (url.indexOf("?") < 0 ? "?" : "&") +
+				encodeURIComponent(args.callbackKey || "callback") + "=" +
+				encodeURIComponent(callbackName)
+			$window.document.documentElement.appendChild(script)
+		}),
+	}
+}
+
+},{"../pathname/build":"node_modules/mithril/pathname/build.js"}],"node_modules/mithril/request.js":[function(require,module,exports) {
+"use strict"
+
+var PromisePolyfill = require("./promise/promise")
+var mountRedraw = require("./mount-redraw")
+
+module.exports = require("./request/request")(window, PromisePolyfill, mountRedraw.redraw)
+
+},{"./promise/promise":"node_modules/mithril/promise/promise.js","./mount-redraw":"node_modules/mithril/mount-redraw.js","./request/request":"node_modules/mithril/request/request.js"}],"node_modules/mithril/querystring/parse.js":[function(require,module,exports) {
+"use strict"
+
+module.exports = function(string) {
+	if (string === "" || string == null) return {}
+	if (string.charAt(0) === "?") string = string.slice(1)
+
+	var entries = string.split("&"), counters = {}, data = {}
+	for (var i = 0; i < entries.length; i++) {
+		var entry = entries[i].split("=")
+		var key = decodeURIComponent(entry[0])
+		var value = entry.length === 2 ? decodeURIComponent(entry[1]) : ""
+
+		if (value === "true") value = true
+		else if (value === "false") value = false
+
+		var levels = key.split(/\]\[?|\[/)
+		var cursor = data
+		if (key.indexOf("[") > -1) levels.pop()
+		for (var j = 0; j < levels.length; j++) {
+			var level = levels[j], nextLevel = levels[j + 1]
+			var isNumber = nextLevel == "" || !isNaN(parseInt(nextLevel, 10))
+			if (level === "") {
+				var key = levels.slice(0, j).join()
+				if (counters[key] == null) {
+					counters[key] = Array.isArray(cursor) ? cursor.length : 0
+				}
+				level = counters[key]++
+			}
+			// Disallow direct prototype pollution
+			else if (level === "__proto__") break
+			if (j === levels.length - 1) cursor[level] = value
+			else {
+				// Read own properties exclusively to disallow indirect
+				// prototype pollution
+				var desc = Object.getOwnPropertyDescriptor(cursor, level)
+				if (desc != null) desc = desc.value
+				if (desc == null) cursor[level] = desc = isNumber ? [] : {}
+				cursor = desc
+			}
+		}
+	}
+	return data
+}
+
+},{}],"node_modules/mithril/pathname/parse.js":[function(require,module,exports) {
+"use strict"
+
+var parseQueryString = require("../querystring/parse")
+
+// Returns `{path, params}` from `url`
+module.exports = function(url) {
+	var queryIndex = url.indexOf("?")
+	var hashIndex = url.indexOf("#")
+	var queryEnd = hashIndex < 0 ? url.length : hashIndex
+	var pathEnd = queryIndex < 0 ? queryEnd : queryIndex
+	var path = url.slice(0, pathEnd).replace(/\/{2,}/g, "/")
+
+	if (!path) path = "/"
+	else {
+		if (path[0] !== "/") path = "/" + path
+		if (path.length > 1 && path[path.length - 1] === "/") path = path.slice(0, -1)
+	}
+	return {
+		path: path,
+		params: queryIndex < 0
+			? {}
+			: parseQueryString(url.slice(queryIndex + 1, queryEnd)),
+	}
+}
+
+},{"../querystring/parse":"node_modules/mithril/querystring/parse.js"}],"node_modules/mithril/pathname/compileTemplate.js":[function(require,module,exports) {
+"use strict"
+
+var parsePathname = require("./parse")
+
+// Compiles a template into a function that takes a resolved path (without query
+// strings) and returns an object containing the template parameters with their
+// parsed values. This expects the input of the compiled template to be the
+// output of `parsePathname`. Note that it does *not* remove query parameters
+// specified in the template.
+module.exports = function(template) {
+	var templateData = parsePathname(template)
+	var templateKeys = Object.keys(templateData.params)
+	var keys = []
+	var regexp = new RegExp("^" + templateData.path.replace(
+		// I escape literal text so people can use things like `:file.:ext` or
+		// `:lang-:locale` in routes. This is all merged into one pass so I
+		// don't also accidentally escape `-` and make it harder to detect it to
+		// ban it from template parameters.
+		/:([^\/.-]+)(\.{3}|\.(?!\.)|-)?|[\\^$*+.()|\[\]{}]/g,
+		function(m, key, extra) {
+			if (key == null) return "\\" + m
+			keys.push({k: key, r: extra === "..."})
+			if (extra === "...") return "(.*)"
+			if (extra === ".") return "([^/]+)\\."
+			return "([^/]+)" + (extra || "")
+		}
+	) + "$")
+	return function(data) {
+		// First, check the params. Usually, there isn't any, and it's just
+		// checking a static set.
+		for (var i = 0; i < templateKeys.length; i++) {
+			if (templateData.params[templateKeys[i]] !== data.params[templateKeys[i]]) return false
+		}
+		// If no interpolations exist, let's skip all the ceremony
+		if (!keys.length) return regexp.test(data.path)
+		var values = regexp.exec(data.path)
+		if (values == null) return false
+		for (var i = 0; i < keys.length; i++) {
+			data.params[keys[i].k] = keys[i].r ? values[i + 1] : decodeURIComponent(values[i + 1])
+		}
+		return true
+	}
+}
+
+},{"./parse":"node_modules/mithril/pathname/parse.js"}],"node_modules/mithril/api/router.js":[function(require,module,exports) {
+"use strict"
+
+var Vnode = require("../render/vnode")
+var m = require("../render/hyperscript")
+var Promise = require("../promise/promise")
+
+var buildPathname = require("../pathname/build")
+var parsePathname = require("../pathname/parse")
+var compileTemplate = require("../pathname/compileTemplate")
+var assign = require("../pathname/assign")
+
+var sentinel = {}
+
+module.exports = function($window, mountRedraw) {
+	var fireAsync
+
+	function setPath(path, data, options) {
+		path = buildPathname(path, data)
+		if (fireAsync != null) {
+			fireAsync()
+			var state = options ? options.state : null
+			var title = options ? options.title : null
+			if (options && options.replace) $window.history.replaceState(state, title, route.prefix + path)
+			else $window.history.pushState(state, title, route.prefix + path)
+		}
+		else {
+			$window.location.href = route.prefix + path
+		}
+	}
+
+	var currentResolver = sentinel, component, attrs, currentPath, lastUpdate
+
+	var SKIP = route.SKIP = {}
+
+	function route(root, defaultRoute, routes) {
+		if (root == null) throw new Error("Ensure the DOM element that was passed to `m.route` is not undefined")
+		// 0 = start
+		// 1 = init
+		// 2 = ready
+		var state = 0
+
+		var compiled = Object.keys(routes).map(function(route) {
+			if (route[0] !== "/") throw new SyntaxError("Routes must start with a `/`")
+			if ((/:([^\/\.-]+)(\.{3})?:/).test(route)) {
+				throw new SyntaxError("Route parameter names must be separated with either `/`, `.`, or `-`")
+			}
+			return {
+				route: route,
+				component: routes[route],
+				check: compileTemplate(route),
+			}
+		})
+		var callAsync = typeof setImmediate === "function" ? setImmediate : setTimeout
+		var p = Promise.resolve()
+		var scheduled = false
+		var onremove
+
+		fireAsync = null
+
+		if (defaultRoute != null) {
+			var defaultData = parsePathname(defaultRoute)
+
+			if (!compiled.some(function (i) { return i.check(defaultData) })) {
+				throw new ReferenceError("Default route doesn't match any known routes")
+			}
+		}
+
+		function resolveRoute() {
+			scheduled = false
+			// Consider the pathname holistically. The prefix might even be invalid,
+			// but that's not our problem.
+			var prefix = $window.location.hash
+			if (route.prefix[0] !== "#") {
+				prefix = $window.location.search + prefix
+				if (route.prefix[0] !== "?") {
+					prefix = $window.location.pathname + prefix
+					if (prefix[0] !== "/") prefix = "/" + prefix
+				}
+			}
+			// This seemingly useless `.concat()` speeds up the tests quite a bit,
+			// since the representation is consistently a relatively poorly
+			// optimized cons string.
+			var path = prefix.concat()
+				.replace(/(?:%[a-f89][a-f0-9])+/gim, decodeURIComponent)
+				.slice(route.prefix.length)
+			var data = parsePathname(path)
+
+			assign(data.params, $window.history.state)
+
+			function fail() {
+				if (path === defaultRoute) throw new Error("Could not resolve default route " + defaultRoute)
+				setPath(defaultRoute, null, {replace: true})
+			}
+
+			loop(0)
+			function loop(i) {
+				// 0 = init
+				// 1 = scheduled
+				// 2 = done
+				for (; i < compiled.length; i++) {
+					if (compiled[i].check(data)) {
+						var payload = compiled[i].component
+						var matchedRoute = compiled[i].route
+						var localComp = payload
+						var update = lastUpdate = function(comp) {
+							if (update !== lastUpdate) return
+							if (comp === SKIP) return loop(i + 1)
+							component = comp != null && (typeof comp.view === "function" || typeof comp === "function")? comp : "div"
+							attrs = data.params, currentPath = path, lastUpdate = null
+							currentResolver = payload.render ? payload : null
+							if (state === 2) mountRedraw.redraw()
+							else {
+								state = 2
+								mountRedraw.redraw.sync()
+							}
+						}
+						// There's no understating how much I *wish* I could
+						// use `async`/`await` here...
+						if (payload.view || typeof payload === "function") {
+							payload = {}
+							update(localComp)
+						}
+						else if (payload.onmatch) {
+							p.then(function () {
+								return payload.onmatch(data.params, path, matchedRoute)
+							}).then(update, fail)
+						}
+						else update("div")
+						return
+					}
+				}
+				fail()
+			}
+		}
+
+		// Set it unconditionally so `m.route.set` and `m.route.Link` both work,
+		// even if neither `pushState` nor `hashchange` are supported. It's
+		// cleared if `hashchange` is used, since that makes it automatically
+		// async.
+		fireAsync = function() {
+			if (!scheduled) {
+				scheduled = true
+				callAsync(resolveRoute)
+			}
+		}
+
+		if (typeof $window.history.pushState === "function") {
+			onremove = function() {
+				$window.removeEventListener("popstate", fireAsync, false)
+			}
+			$window.addEventListener("popstate", fireAsync, false)
+		} else if (route.prefix[0] === "#") {
+			fireAsync = null
+			onremove = function() {
+				$window.removeEventListener("hashchange", resolveRoute, false)
+			}
+			$window.addEventListener("hashchange", resolveRoute, false)
+		}
+
+		return mountRedraw.mount(root, {
+			onbeforeupdate: function() {
+				state = state ? 2 : 1
+				return !(!state || sentinel === currentResolver)
+			},
+			oncreate: resolveRoute,
+			onremove: onremove,
+			view: function() {
+				if (!state || sentinel === currentResolver) return
+				// Wrap in a fragment to preserve existing key semantics
+				var vnode = [Vnode(component, attrs.key, attrs)]
+				if (currentResolver) vnode = currentResolver.render(vnode[0])
+				return vnode
+			},
+		})
+	}
+	route.set = function(path, data, options) {
+		if (lastUpdate != null) {
+			options = options || {}
+			options.replace = true
+		}
+		lastUpdate = null
+		setPath(path, data, options)
+	}
+	route.get = function() {return currentPath}
+	route.prefix = "#!"
+	route.Link = {
+		view: function(vnode) {
+			var options = vnode.attrs.options
+			// Remove these so they don't get overwritten
+			var attrs = {}, onclick, href
+			assign(attrs, vnode.attrs)
+			// The first two are internal, but the rest are magic attributes
+			// that need censored to not screw up rendering.
+			attrs.selector = attrs.options = attrs.key = attrs.oninit =
+			attrs.oncreate = attrs.onbeforeupdate = attrs.onupdate =
+			attrs.onbeforeremove = attrs.onremove = null
+
+			// Do this now so we can get the most current `href` and `disabled`.
+			// Those attributes may also be specified in the selector, and we
+			// should honor that.
+			var child = m(vnode.attrs.selector || "a", attrs, vnode.children)
+
+			// Let's provide a *right* way to disable a route link, rather than
+			// letting people screw up accessibility on accident.
+			//
+			// The attribute is coerced so users don't get surprised over
+			// `disabled: 0` resulting in a button that's somehow routable
+			// despite being visibly disabled.
+			if (child.attrs.disabled = Boolean(child.attrs.disabled)) {
+				child.attrs.href = null
+				child.attrs["aria-disabled"] = "true"
+				// If you *really* do want to do this on a disabled link, use
+				// an `oncreate` hook to add it.
+				child.attrs.onclick = null
+			} else {
+				onclick = child.attrs.onclick
+				href = child.attrs.href
+				child.attrs.href = route.prefix + href
+				child.attrs.onclick = function(e) {
+					var result
+					if (typeof onclick === "function") {
+						result = onclick.call(e.currentTarget, e)
+					} else if (onclick == null || typeof onclick !== "object") {
+						// do nothing
+					} else if (typeof onclick.handleEvent === "function") {
+						onclick.handleEvent(e)
+					}
+
+					// Adapted from React Router's implementation:
+					// https://github.com/ReactTraining/react-router/blob/520a0acd48ae1b066eb0b07d6d4d1790a1d02482/packages/react-router-dom/modules/Link.js
+					//
+					// Try to be flexible and intuitive in how we handle links.
+					// Fun fact: links aren't as obvious to get right as you
+					// would expect. There's a lot more valid ways to click a
+					// link than this, and one might want to not simply click a
+					// link, but right click or command-click it to copy the
+					// link target, etc. Nope, this isn't just for blind people.
+					if (
+						// Skip if `onclick` prevented default
+						result !== false && !e.defaultPrevented &&
+						// Ignore everything but left clicks
+						(e.button === 0 || e.which === 0 || e.which === 1) &&
+						// Let the browser handle `target=_blank`, etc.
+						(!e.currentTarget.target || e.currentTarget.target === "_self") &&
+						// No modifier keys
+						!e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey
+					) {
+						e.preventDefault()
+						e.redraw = false
+						route.set(href, null, options)
+					}
+				}
+			}
+			return child
+		},
+	}
+	route.param = function(key) {
+		return attrs && key != null ? attrs[key] : attrs
+	}
+
+	return route
+}
+
+},{"../render/vnode":"node_modules/mithril/render/vnode.js","../render/hyperscript":"node_modules/mithril/render/hyperscript.js","../promise/promise":"node_modules/mithril/promise/promise.js","../pathname/build":"node_modules/mithril/pathname/build.js","../pathname/parse":"node_modules/mithril/pathname/parse.js","../pathname/compileTemplate":"node_modules/mithril/pathname/compileTemplate.js","../pathname/assign":"node_modules/mithril/pathname/assign.js"}],"node_modules/mithril/route.js":[function(require,module,exports) {
+"use strict"
+
+var mountRedraw = require("./mount-redraw")
+
+module.exports = require("./api/router")(window, mountRedraw)
+
+},{"./mount-redraw":"node_modules/mithril/mount-redraw.js","./api/router":"node_modules/mithril/api/router.js"}],"node_modules/mithril/index.js":[function(require,module,exports) {
+"use strict"
+
+var hyperscript = require("./hyperscript")
+var request = require("./request")
+var mountRedraw = require("./mount-redraw")
+
+var m = function m() { return hyperscript.apply(this, arguments) }
+m.m = hyperscript
+m.trust = hyperscript.trust
+m.fragment = hyperscript.fragment
+m.mount = mountRedraw.mount
+m.route = require("./route")
+m.render = require("./render")
+m.redraw = mountRedraw.redraw
+m.request = request.request
+m.jsonp = request.jsonp
+m.parseQueryString = require("./querystring/parse")
+m.buildQueryString = require("./querystring/build")
+m.parsePathname = require("./pathname/parse")
+m.buildPathname = require("./pathname/build")
+m.vnode = require("./render/vnode")
+m.PromisePolyfill = require("./promise/polyfill")
+
+module.exports = m
+
+},{"./hyperscript":"node_modules/mithril/hyperscript.js","./request":"node_modules/mithril/request.js","./mount-redraw":"node_modules/mithril/mount-redraw.js","./route":"node_modules/mithril/route.js","./render":"node_modules/mithril/render.js","./querystring/parse":"node_modules/mithril/querystring/parse.js","./querystring/build":"node_modules/mithril/querystring/build.js","./pathname/parse":"node_modules/mithril/pathname/parse.js","./pathname/build":"node_modules/mithril/pathname/build.js","./render/vnode":"node_modules/mithril/render/vnode.js","./promise/polyfill":"node_modules/mithril/promise/polyfill.js"}],"src/components/layout.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -2222,7 +2348,7 @@ exports.Layout = function () {
     }
   };
 };
-},{"mithril":"node_modules/mithril/mithril.mjs","../services/dashboard-service":"src/services/dashboard-service.ts"}],"src/components/about/about-page.ts":[function(require,module,exports) {
+},{"mithril":"node_modules/mithril/index.js","../services/dashboard-service":"src/services/dashboard-service.ts"}],"src/components/about/about-page.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -2244,622 +2370,7 @@ exports.AboutPage = function () {
     }
   };
 };
-},{"mithril":"node_modules/mithril/mithril.mjs"}],"node_modules/mithril-materialized/dist/utils.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * Create a unique ID
- * @see https://stackoverflow.com/a/2117523/319711
- *
- * @returns id followed by 8 hexadecimal characters.
- */
-exports.uniqueId = function () {
-    // tslint:disable-next-line:no-bitwise
-    return 'idxxxxxxxx'.replace(/[x]/g, function () { return ((Math.random() * 16) | 0).toString(16); });
-};
-exports.compose = function () {
-    var functions = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        functions[_i] = arguments[_i];
-    }
-    return function (data) {
-        return functions.reduceRight(function (value, func) { return func(value); }, data);
-    };
-};
-exports.map = function (f) { return function (x) { return Array.prototype.map.call(x, f); }; };
-exports.join = function (seperator) { return function (list) { return Array.prototype.join.call(list, seperator); }; };
-/**
- * Convert camel case to snake case.
- *
- * @param {string} cc: Camel case string
- */
-exports.camelToSnake = function (cc) { return cc.replace(/([A-Z])/g, function ($1) { return '-' + $1.toLowerCase(); }); };
-var encodeAttribute = function (x) {
-    if (x === void 0) { x = ''; }
-    return x.toString().replace(/"/g, '&quot;');
-};
-/** Convert an object to a string of HTML attributes */
-exports.toAttributeString = function (x) {
-    return x
-        ? exports.compose(exports.join(''), exports.map(function (attribute) { return "[" + exports.camelToSnake(attribute) + "=\"" + encodeAttribute(x[attribute]) + "\"]"; }), Object.keys)(x)
-        : '';
-};
-/** Options that we want to convert to attributes  */
-var inputAttributes = [
-    'min',
-    'max',
-    'minLength',
-    'maxLength',
-    'rows',
-    'cols',
-    'placeholder',
-    'autocomplete',
-    'pattern',
-    'readOnly',
-];
-var isInputAttribute = function (key) { return inputAttributes.indexOf(key) >= 0; };
-var isDefinedAttribute = function (opt) { return function (key) { return typeof opt[key] !== 'undefined'; }; };
-var toProps = function (o) {
-    var isAttributeDefined = isDefinedAttribute(o);
-    return Object.keys(o)
-        .filter(isInputAttribute)
-        .filter(isAttributeDefined)
-        .reduce(function (p, c) {
-        var value = o[c];
-        p.push("[" + c.toLowerCase() + "=" + value + "]");
-        return p;
-    }, [])
-        .join('');
-};
-/** Add a character counter when there is an input restriction. */
-var charCounter = function (o) { return (o.maxLength ? "[data-length=" + o.maxLength + "]" : ''); };
-/** Add the disabled attribute when required */
-exports.disable = function (_a) {
-    var disabled = _a.disabled;
-    return (disabled ? '[disabled]' : '');
-};
-/** Add the required and aria-required attribute when required */
-exports.req = function (_a) {
-    var required = _a.required, isMandatory = _a.isMandatory;
-    return required || isMandatory ? '[required][aria-required=true]' : '';
-};
-/** Add the autofocus attribute when required */
-var focus = function (_a) {
-    var autofocus = _a.autofocus;
-    return (typeof autofocus === 'boolean' && autofocus) || (autofocus && autofocus()) ? '[autofocus]' : '';
-};
-/** Convert input options to a set of input attributes */
-exports.toAttrs = function (o) { return toProps(o) + charCounter(o) + exports.disable(o) + exports.req(o) + focus(o); };
-/** Check if a string or number is numeric. @see https://stackoverflow.com/a/9716488/319711 */
-exports.isNumeric = function (n) { return !isNaN(parseFloat(n)) && isFinite(n); };
-exports.pipe = function () {
-    var fncs = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        fncs[_i] = arguments[_i];
-    }
-    return function (x) { return fncs.reduce(function (y, f) { return f(y); }, x); };
-};
-/**
- * Pad left, default width 2 with a '0'
- *
- * @see http://stackoverflow.com/a/10073788/319711
- * @param {(string | number)} n
- * @param {number} [width=2]
- * @param {string} [z='0']
- * @returns
- */
-exports.padLeft = function (n, width, z) {
-    if (width === void 0) { width = 2; }
-    if (z === void 0) { z = '0'; }
-    n = n + '';
-    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
-};
-
-},{}],"node_modules/mithril-materialized/dist/styles/input.css":[function(require,module,exports) {
-
-        var reloadCSS = require('_css_loader');
-        module.hot.dispose(reloadCSS);
-        module.hot.accept(reloadCSS);
-      
-},{"_css_loader":"node_modules/.registry.npmjs.org/parcel-bundler/1.12.3/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/mithril-materialized/dist/label.js":[function(require,module,exports) {
-"use strict";
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
-            t[p[i]] = s[p[i]];
-    return t;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var mithril_1 = __importDefault(require("mithril"));
-var utils_1 = require("./utils");
-require("./styles/input.css");
-exports.Mandatory = { view: function (_a) {
-        var attrs = _a.attrs;
-        return mithril_1.default('span.mandatory', attrs, '*');
-    } };
-/** Simple label element, used for most components. */
-exports.Label = function () {
-    return {
-        view: function (_a) {
-            var _b = _a.attrs, label = _b.label, id = _b.id, isMandatory = _b.isMandatory, isActive = _b.isActive, params = __rest(_b, ["label", "id", "isMandatory", "isActive"]);
-            return label
-                ? mithril_1.default("label" + (isActive ? '.active' : '') + (id ? "[for=" + id + "]" : ''), params, [
-                    mithril_1.default.trust(label),
-                    isMandatory ? mithril_1.default(exports.Mandatory) : undefined,
-                ])
-                : undefined;
-        },
-    };
-};
-/** Create a helper text, often used for displaying a small help text. May be replaced by the validation message. */
-exports.HelperText = function () {
-    return {
-        view: function (_a) {
-            var _b = _a.attrs, helperText = _b.helperText, dataError = _b.dataError, dataSuccess = _b.dataSuccess;
-            var a = dataError || dataSuccess ? utils_1.toAttributeString({ dataError: dataError, dataSuccess: dataSuccess }) : '';
-            return helperText || a ? mithril_1.default("span.helper-text" + a, helperText ? mithril_1.default.trust(helperText) : '') : undefined;
-        },
-    };
-};
-
-},{"mithril":"node_modules/mithril/mithril.mjs","./utils":"node_modules/mithril-materialized/dist/utils.js","./styles/input.css":"node_modules/mithril-materialized/dist/styles/input.css"}],"node_modules/mithril-materialized/dist/autocomplete.js":[function(require,module,exports) {
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var mithril_1 = __importDefault(require("mithril"));
-var utils_1 = require("./utils");
-var label_1 = require("./label");
-/** Component to auto complete your text input */
-exports.Autocomplete = function () {
-    var state = { id: utils_1.uniqueId() };
-    return {
-        view: function (_a) {
-            var attrs = _a.attrs;
-            var id = attrs.id || state.id;
-            var attributes = utils_1.toAttrs(attrs);
-            var label = attrs.label, helperText = attrs.helperText, initialValue = attrs.initialValue, onchange = attrs.onchange, newRow = attrs.newRow, _b = attrs.className, className = _b === void 0 ? 'col s12' : _b, style = attrs.style, iconName = attrs.iconName, isMandatory = attrs.isMandatory;
-            return mithril_1.default(".input-field" + (newRow ? '.clear' : ''), { className: className, style: style }, [
-                iconName ? mithril_1.default('i.material-icons.prefix', iconName) : '',
-                mithril_1.default("input.autocomplete[type=text][tabindex=0][id=" + id + "]" + attributes, {
-                    oncreate: function (_a) {
-                        var dom = _a.dom;
-                        M.Autocomplete.init(dom, attrs);
-                    },
-                    onchange: onchange
-                        ? function (e) {
-                            if (e.target && e.target.value) {
-                                onchange(e.target.value);
-                            }
-                        }
-                        : undefined,
-                    value: initialValue,
-                }),
-                mithril_1.default(label_1.Label, { label: label, id: id, isMandatory: isMandatory, isActive: initialValue }),
-                mithril_1.default(label_1.HelperText, { helperText: helperText }),
-            ]);
-        },
-    };
-};
-
-},{"mithril":"node_modules/mithril/mithril.mjs","./utils":"node_modules/mithril-materialized/dist/utils.js","./label":"node_modules/mithril-materialized/dist/label.js"}],"node_modules/mithril-materialized/dist/icon.js":[function(require,module,exports) {
-"use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var mithril_1 = __importDefault(require("mithril"));
-/**
- * A simple material icon, defined by its icon name.
- *
- * @example m(Icon, { class: 'small' }, 'create') renders a small 'create' icon
- * @example m(Icon, { class: 'prefix' }, iconName) renders the icon as a prefix
- */
-exports.Icon = function () { return ({
-    view: function (_a) {
-        var attrs = _a.attrs;
-        var passThrough = __assign({}, attrs, { iconName: undefined });
-        return mithril_1.default('i.material-icons', passThrough, attrs.iconName);
-    },
-}); };
-
-},{"mithril":"node_modules/mithril/mithril.mjs"}],"node_modules/mithril-materialized/dist/button.js":[function(require,module,exports) {
-"use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var mithril_1 = __importDefault(require("mithril"));
-var utils_1 = require("./utils");
-var icon_1 = require("./icon");
-/**
- * A factory to create new buttons.
- *
- * @example FlatButton = ButtonFactory('a.waves-effect.waves-teal.btn-flat');
- */
-exports.ButtonFactory = function (defaultClassNames, attributes) {
-    if (attributes === void 0) { attributes = ''; }
-    return function () {
-        return {
-            view: function (_a) {
-                var attrs = _a.attrs;
-                var modalId = attrs.modalId, tooltip = attrs.tooltip, tooltipPostion = attrs.tooltipPostion, iconName = attrs.iconName, iconClass = attrs.iconClass, label = attrs.label, attr = attrs.attr;
-                var passThrough = __assign({}, attrs, { modalId: undefined, tooltip: undefined, tooltipPostion: undefined, iconName: undefined, iconClass: undefined, label: undefined, attr: undefined });
-                return mithril_1.default("" + defaultClassNames + attributes + (modalId ? '.modal-trigger[href=#' + modalId + ']' : '') + (tooltip ? ".tooltipped[data-position=" + (tooltipPostion || 'top') + "][data-tooltip=" + tooltip + "]" : '') + utils_1.toAttributeString(attr), passThrough, iconName ? mithril_1.default(icon_1.Icon, { iconName: iconName, class: iconClass || 'left' }) : undefined, label ? label : undefined);
-            },
-        };
-    };
-};
-exports.Button = exports.ButtonFactory('a.waves-effect.waves-light.btn');
-exports.LargeButton = exports.ButtonFactory('a.waves-effect.waves-light.btn-large');
-exports.SmallButton = exports.ButtonFactory('a.waves-effect.waves-light.btn-small');
-exports.FlatButton = exports.ButtonFactory('a.waves-effect.waves-teal.btn-flat');
-exports.RoundIconButton = exports.ButtonFactory('button.btn-floating.btn-large.waves-effect.waves-light');
-exports.SubmitButton = exports.ButtonFactory('button.btn.waves-effect.waves-light', '[type=submit]');
-
-},{"mithril":"node_modules/mithril/mithril.mjs","./utils":"node_modules/mithril-materialized/dist/utils.js","./icon":"node_modules/mithril-materialized/dist/icon.js"}],"node_modules/mithril-materialized/dist/carousel.js":[function(require,module,exports) {
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var mithril_1 = __importDefault(require("mithril"));
-exports.CarouselItem = function () {
-    return {
-        view: function (_a) {
-            var _b = _a.attrs, href = _b.href, src = _b.src;
-            return mithril_1.default('a.carousel-item', { href: href }, mithril_1.default("img[src=" + src + "]"));
-        },
-    };
-};
-/**
- * Creates a collabsible or accordion (via the accordion option, default true) component.
- * @see https://materializecss.com/carousel.html
- */
-exports.Carousel = function () {
-    return {
-        view: function (_a) {
-            var attrs = _a.attrs;
-            var items = attrs.items;
-            return items && items.length > 0
-                ? mithril_1.default('.carousel', {
-                    oncreate: function (_a) {
-                        var dom = _a.dom;
-                        M.Carousel.init(dom, attrs);
-                    },
-                }, items.map(function (item) { return mithril_1.default(exports.CarouselItem, item); }))
-                : undefined;
-        },
-    };
-};
-
-},{"mithril":"node_modules/mithril/mithril.mjs"}],"node_modules/mithril-materialized/dist/chip.js":[function(require,module,exports) {
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var mithril_1 = __importDefault(require("mithril"));
-/** Chips and tags */
-exports.Chips = function () {
-    return {
-        oncreate: function (_a) {
-            var attrs = _a.attrs, dom = _a.dom;
-            var onchange = attrs.onchange, onChipAdd = attrs.onChipAdd, onChipDelete = attrs.onChipDelete;
-            if (!onchange) {
-                return;
-            }
-            var chips = M.Chips.getInstance(dom);
-            var onChipAddBound = onChipAdd ? onChipAdd.bind(chips) : undefined;
-            attrs.onChipAdd = function (el, chip) {
-                onchange(this.chipsData);
-                if (onChipAddBound) {
-                    onChipAddBound(el, chip);
-                }
-            };
-            var onChipDeleteBound = onChipDelete
-                ? onChipDelete.bind(chips)
-                : undefined;
-            attrs.onChipDelete = function (el, chip) {
-                onchange(this.chipsData);
-                if (onChipDeleteBound) {
-                    onChipDeleteBound(el, chip);
-                }
-            };
-            M.Chips.init(dom, attrs);
-        },
-        onupdate: function (vnode) {
-            var data = vnode.attrs.data;
-            if (!data || data.length === 0) {
-                return;
-            }
-            var chips = M.Chips.getInstance(vnode.dom);
-            data.forEach(function (d) { return chips.addChip(d); });
-        },
-        view: function (_a) {
-            var attrs = _a.attrs;
-            var placeholder = attrs.placeholder, data = attrs.data;
-            return mithril_1.default(".chips.input-field.chips-autocomplete" + (placeholder ? '.placeholder' : '') + (data ? '.chips-initial' : ''));
-        },
-    };
-};
-
-},{"mithril":"node_modules/mithril/mithril.mjs"}],"node_modules/mithril-materialized/dist/styles/codeblock.css":[function(require,module,exports) {
-
-        var reloadCSS = require('_css_loader');
-        module.hot.dispose(reloadCSS);
-        module.hot.accept(reloadCSS);
-      
-},{"_css_loader":"node_modules/.registry.npmjs.org/parcel-bundler/1.12.3/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/mithril-materialized/dist/code-block.js":[function(require,module,exports) {
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-require("./styles/codeblock.css");
-var mithril_1 = __importDefault(require("mithril"));
-/** A simple code block without syntax high-lighting */
-exports.CodeBlock = function () { return ({
-    view: function (_a) {
-        var attrs = _a.attrs;
-        var newRow = attrs.newRow, code = attrs.code, language = attrs.language;
-        var lang = language || 'lang-TypeScript';
-        var label = lang.replace('lang-', '');
-        var cb = code instanceof Array ? code.join('\n') : code;
-        return mithril_1.default("pre.codeblock" + (newRow ? '.clear' : ''), attrs, [
-            mithril_1.default('div', mithril_1.default('label', label)),
-            mithril_1.default("code." + lang, cb),
-        ]);
-    },
-}); };
-
-},{"./styles/codeblock.css":"node_modules/mithril-materialized/dist/styles/codeblock.css","mithril":"node_modules/mithril/mithril.mjs"}],"node_modules/mithril-materialized/dist/collapsible.js":[function(require,module,exports) {
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var mithril_1 = __importDefault(require("mithril"));
-exports.CollapsibleItem = function () {
-    return {
-        view: function (_a) {
-            var _b = _a.attrs, header = _b.header, body = _b.body, active = _b.active, iconName = _b.iconName;
-            return mithril_1.default(active ? 'li.active' : 'li', [
-                header || iconName
-                    ? mithril_1.default('.collapsible-header', [
-                        iconName ? mithril_1.default('i.material-icons', iconName) : undefined,
-                        header ? (typeof header === 'string' ? mithril_1.default('span', header) : header) : undefined,
-                    ])
-                    : undefined,
-                body ? mithril_1.default('.collapsible-body', typeof body === 'string' ? body : body) : undefined,
-            ]);
-        },
-    };
-};
-/**
- * Creates a collabsible or accordion (via the accordion option, default true) component.
- * @see https://materializecss.com/collapsible.html
- */
-exports.Collapsible = function () {
-    return {
-        oncreate: function (_a) {
-            var dom = _a.dom, attrs = _a.attrs;
-            M.Collapsible.init(dom, attrs);
-        },
-        view: function (_a) {
-            var attrs = _a.attrs;
-            var items = attrs.items;
-            return items && items.length > 0 ? mithril_1.default('ul.collapsible', items.map(function (item) { return mithril_1.default(exports.CollapsibleItem, item); })) : undefined;
-        },
-    };
-};
-
-},{"mithril":"node_modules/mithril/mithril.mjs"}],"node_modules/mithril-materialized/dist/collection.js":[function(require,module,exports) {
-"use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
-            t[p[i]] = s[p[i]];
-    return t;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var mithril_1 = __importDefault(require("mithril"));
-var _1 = require(".");
-var CollectionMode;
-(function (CollectionMode) {
-    CollectionMode[CollectionMode["BASIC"] = 0] = "BASIC";
-    CollectionMode[CollectionMode["LINKS"] = 1] = "LINKS";
-    CollectionMode[CollectionMode["AVATAR"] = 2] = "AVATAR";
-})(CollectionMode = exports.CollectionMode || (exports.CollectionMode = {}));
-exports.SecondaryContent = function () {
-    var isNonLocalRoute = function (url) { return url && /https?:\/\//.test(url); };
-    return {
-        view: function (_a) {
-            var attrs = _a.attrs;
-            var href = attrs.href, _b = attrs.iconName, iconName = _b === void 0 ? 'send' : _b, onclick = attrs.onclick, _c = attrs.style, style = _c === void 0 ? { cursor: 'pointer' } : _c;
-            return mithril_1.default('a.secondary-content', {
-                href: href,
-                style: style,
-                oncreate: href ? (isNonLocalRoute(href) ? undefined : mithril_1.default.route.link) : undefined,
-                onclick: onclick ? function () { return onclick(attrs); } : undefined,
-            }, mithril_1.default(_1.Icon, { iconName: iconName }));
-        },
-    };
-};
-var avatarIsImage = function (avatar) {
-    if (avatar === void 0) { avatar = ''; }
-    return /\./.test(avatar);
-};
-exports.ListItem = function () {
-    return {
-        view: function (_a) {
-            var _b = _a.attrs, item = _b.item, mode = _b.mode;
-            var title = item.title, _c = item.content, content = _c === void 0 ? '' : _c, active = item.active, iconName = item.iconName, avatar = item.avatar, className = item.className, onclick = item.onclick;
-            return mode === CollectionMode.AVATAR
-                ? mithril_1.default("li.collection-item.avatar" + (active ? '.active' : ''), {
-                    onclick: onclick ? function () { return onclick(item); } : undefined,
-                }, [
-                    avatarIsImage(avatar)
-                        ? mithril_1.default('img.circle', { src: avatar })
-                        : mithril_1.default('i.material-icons.circle', { className: className }, avatar),
-                    mithril_1.default('span.title', title),
-                    mithril_1.default('p', mithril_1.default.trust(content)),
-                    mithril_1.default(exports.SecondaryContent, item),
-                ])
-                : mithril_1.default("li.collection-item" + (active ? '.active' : ''), iconName ? mithril_1.default('div', [title, mithril_1.default(exports.SecondaryContent, item)]) : title);
-        },
-    };
-};
-var BasicCollection = function () {
-    return {
-        view: function (_a) {
-            var _b = _a.attrs, header = _b.header, items = _b.items, _c = _b.mode, mode = _c === void 0 ? CollectionMode.BASIC : _c, params = __rest(_b, ["header", "items", "mode"]);
-            return header
-                ? mithril_1.default('ul.collection.with-header', params, [
-                    mithril_1.default('li.collection-header', mithril_1.default('h4', header))
-                ].concat(items.map(function (item) { return mithril_1.default(exports.ListItem, { item: item, mode: mode }); })))
-                : mithril_1.default('ul.collection', params, items.map(function (item) { return mithril_1.default(exports.ListItem, { item: item, mode: mode }); }));
-        },
-    };
-};
-exports.AnchorItem = function () {
-    return {
-        view: function (_a) {
-            var attrs = _a.attrs;
-            var title = attrs.title, active = attrs.active, href = attrs.href, params = __rest(attrs, ["title", "active", "href"]);
-            return mithril_1.default("a.collection-item" + (active ? '.active' : ''), __assign({}, params, { href: href, oncreate: href ? mithril_1.default.route.link : undefined }), title);
-        },
-    };
-};
-var LinksCollection = function () {
-    return {
-        view: function (_a) {
-            var _b = _a.attrs, items = _b.items, header = _b.header, params = __rest(_b, ["items", "header"]);
-            return header
-                ? mithril_1.default('.collection.with-header', params, [
-                    mithril_1.default('.collection-header', mithril_1.default('h4', header))
-                ].concat(items.map(function (item) { return mithril_1.default(exports.AnchorItem, item); })))
-                : mithril_1.default('.collection', params, items.map(function (item) { return mithril_1.default(exports.AnchorItem, item); }));
-        },
-    };
-};
-/**
- * Creates a collabsible or accordion (via the accordion option, default true) component.
- * @see https://materializecss.com/collapsible.html
- */
-exports.Collection = function () {
-    return {
-        view: function (_a) {
-            var _b = _a.attrs, items = _b.items, header = _b.header, _c = _b.mode, mode = _c === void 0 ? CollectionMode.BASIC : _c, params = __rest(_b, ["items", "header", "mode"]);
-            return header || (items && items.length > 0)
-                ? mode === CollectionMode.LINKS
-                    ? mithril_1.default(LinksCollection, __assign({ header: header, items: items }, params))
-                    : mithril_1.default(BasicCollection, __assign({ header: header, items: items, mode: mode }, params))
-                : undefined;
-        },
-    };
-};
-
-},{"mithril":"node_modules/mithril/mithril.mjs",".":"node_modules/mithril-materialized/dist/index.js"}],"node_modules/mithril-materialized/dist/dropdown.js":[function(require,module,exports) {
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var mithril_1 = __importDefault(require("mithril"));
-var _1 = require(".");
-/** Dropdown component */
-exports.Dropdown = function () {
-    // export const Dropdown: FactoryComponent<IDropdownOptions> = () => {
-    var state = {
-        checkedId: undefined,
-    };
-    return {
-        view: function (_a) {
-            var attrs = _a.attrs;
-            var id = attrs.id || 'dropdown';
-            var key = attrs.key, label = attrs.label, onchange = attrs.onchange, items = attrs.items, _b = attrs.checkedId, checkedId = _b === void 0 ? state.checkedId : _b, iconName = attrs.iconName, helperText = attrs.helperText, _c = attrs.className, className = _c === void 0 ? 'col s12' : _c;
-            var selectedItem = checkedId
-                ? items
-                    .filter(function (i) { return (i.id ? i.id === checkedId : i.label === checkedId); })
-                    .shift()
-                : undefined;
-            var title = selectedItem ? selectedItem.label : label || 'Select';
-            return mithril_1.default('.input-field', { className: className, key: key }, [
-                iconName ? mithril_1.default('i.material-icons.prefix', iconName) : undefined,
-                mithril_1.default(_1.HelperText, { helperText: helperText }),
-                mithril_1.default("a.dropdown-trigger.btn[href=#][data-target=" + id + "]", {
-                    class: 'col s12',
-                    style: attrs.style || (iconName ? 'margin: 0.2em 0 0 3em;' : undefined),
-                    oncreate: function (_a) {
-                        var dom = _a.dom;
-                        M.Dropdown.init(dom, attrs);
-                    },
-                }, title),
-                mithril_1.default("ul.dropdown-content[id=" + id + "]", items.map(function (i) {
-                    return mithril_1.default("li" + (i.divider ? '.divider[tabindex=-1]' : ''), i.divider
-                        ? undefined
-                        : mithril_1.default('a', {
-                            onclick: onchange
-                                ? function () {
-                                    state.checkedId = i.id || i.label;
-                                    onchange(i.id || i.label);
-                                }
-                                : undefined,
-                        }, [i.iconName ? mithril_1.default('i.material-icons', i.iconName) : undefined, i.label]));
-                })),
-            ]);
-        },
-    };
-};
-
-},{"mithril":"node_modules/mithril/mithril.mjs",".":"node_modules/mithril-materialized/dist/index.js"}],"node_modules/materialize-css/dist/js/materialize.js":[function(require,module,exports) {
+},{"mithril":"node_modules/mithril/index.js"}],"node_modules/materialize-css/dist/js/materialize.js":[function(require,module,exports) {
 var define;
 var global = arguments[3];
 /*!
@@ -15237,882 +14748,2118 @@ $jscomp.polyfill = function (e, r, p, m) {
   Range.init($('input[type=range]'));
 })(cash, M.anime);
 
-},{}],"node_modules/mithril-materialized/dist/input.js":[function(require,module,exports) {
+},{}],"node_modules/mithril-materialized/dist/index.esm.js":[function(require,module,exports) {
 "use strict";
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
-            t[p[i]] = s[p[i]];
-    return t;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var materialize_css_1 = require("materialize-css");
-var mithril_1 = __importDefault(require("mithril"));
-var utils_1 = require("./utils");
-var label_1 = require("./label");
-require("./styles/input.css");
-/** Create a TextArea */
-exports.TextArea = function () {
-    var state = { id: utils_1.uniqueId() };
-    return {
-        view: function (_a) {
-            var attrs = _a.attrs;
-            var _b = attrs.className, className = _b === void 0 ? 'col s12' : _b, helperText = attrs.helperText, iconName = attrs.iconName, _c = attrs.id, id = _c === void 0 ? state.id : _c, initialValue = attrs.initialValue, isMandatory = attrs.isMandatory, label = attrs.label, onchange = attrs.onchange, style = attrs.style, params = __rest(attrs, ["className", "helperText", "iconName", "id", "initialValue", "isMandatory", "label", "onchange", "style"]);
-            var attributes = utils_1.toAttrs(params);
-            return mithril_1.default(".input-field", { className: className, style: style }, [
-                iconName ? mithril_1.default('i.material-icons.prefix', iconName) : '',
-                mithril_1.default("textarea.materialize-textarea[tabindex=0][id=" + id + "]" + attributes, {
-                    oncreate: function (_a) {
-                        var dom = _a.dom;
-                        M.textareaAutoResize(dom);
-                        if (attrs.maxLength) {
-                            materialize_css_1.CharacterCounter.init(dom);
-                        }
-                    },
-                    onchange: onchange
-                        ? function (e) {
-                            if (e.target && e.target.value) {
-                                onchange(e.target.value);
-                            }
-                        }
-                        : undefined,
-                    value: initialValue,
-                }),
-                mithril_1.default(label_1.Label, { label: label, id: id, isMandatory: isMandatory, isActive: initialValue }),
-                mithril_1.default(label_1.HelperText, { helperText: helperText }),
-            ]);
-        },
-    };
-};
-/** Default component for all kinds of input fields. */
-var InputField = function (type, defaultClass) {
-    if (defaultClass === void 0) { defaultClass = ''; }
-    return function () {
-        var state = { id: utils_1.uniqueId() };
-        var getValue = function (target) {
-            var val = target.value;
-            return (val ? (type === 'number' || type === 'range' ? +val : val) : val);
-        };
-        var setValidity = function (target, validationResult) {
-            if (typeof validationResult === 'boolean') {
-                target.setCustomValidity(validationResult ? '' : 'Custom validation failed');
-            }
-            else {
-                target.setCustomValidity(validationResult);
-            }
-        };
-        var focus = function (_a) {
-            var autofocus = _a.autofocus;
-            return autofocus ? (typeof autofocus === 'boolean' ? autofocus : autofocus()) : false;
-        };
-        return {
-            view: function (_a) {
-                var attrs = _a.attrs;
-                var _b = attrs.className, className = _b === void 0 ? 'col s12' : _b, dataError = attrs.dataError, dataSuccess = attrs.dataSuccess, helperText = attrs.helperText, iconName = attrs.iconName, _c = attrs.id, id = _c === void 0 ? state.id : _c, initialValue = attrs.initialValue, isMandatory = attrs.isMandatory, label = attrs.label, maxLength = attrs.maxLength, newRow = attrs.newRow, onchange = attrs.onchange, onkeydown = attrs.onkeydown, onkeypress = attrs.onkeypress, onkeyup = attrs.onkeyup, style = attrs.style, validate = attrs.validate, params = __rest(attrs, ["className", "dataError", "dataSuccess", "helperText", "iconName", "id", "initialValue", "isMandatory", "label", "maxLength", "newRow", "onchange", "onkeydown", "onkeypress", "onkeyup", "style", "validate"]);
-                var attributes = utils_1.toAttrs(params);
-                return mithril_1.default(".input-field" + (newRow ? '.clear' : '') + defaultClass, { className: className, style: style }, [
-                    iconName ? mithril_1.default('i.material-icons.prefix', iconName) : undefined,
-                    mithril_1.default("input.validate[type=" + type + "][tabindex=0][id=" + id + "]" + attributes, {
-                        oncreate: function (_a) {
-                            var dom = _a.dom;
-                            if (focus(attrs)) {
-                                dom.focus();
-                            }
-                            if (maxLength) {
-                                materialize_css_1.CharacterCounter.init(dom);
-                            }
-                            if (type === 'range') {
-                                M.Range.init(dom);
-                            }
-                        },
-                        onkeyup: onkeyup
-                            ? function (ev) {
-                                onkeyup(ev, getValue(ev.target));
-                            }
-                            : undefined,
-                        onkeydown: onkeydown
-                            ? function (ev) {
-                                onkeydown(ev, getValue(ev.target));
-                            }
-                            : undefined,
-                        onkeypress: onkeypress
-                            ? function (ev) {
-                                onkeypress(ev, getValue(ev.target));
-                            }
-                            : undefined,
-                        onupdate: validate
-                            ? function (_a) {
-                                var dom = _a.dom;
-                                var target = dom;
-                                setValidity(target, validate(getValue(target), target));
-                            }
-                            : undefined,
-                        onchange: function (e) {
-                            var target = e.target;
-                            if (target) {
-                                var value = getValue(target);
-                                if (onchange) {
-                                    onchange(value);
-                                }
-                                if (validate) {
-                                    setValidity(target, validate(value, target));
-                                }
-                            }
-                        },
-                        value: initialValue,
-                    }),
-                    mithril_1.default(label_1.Label, {
-                        label: label,
-                        id: id,
-                        isMandatory: isMandatory,
-                        isActive: initialValue || type === 'number' || type === 'color' || type === 'range' ? true : false,
-                    }),
-                    mithril_1.default(label_1.HelperText, { helperText: helperText, dataError: dataError, dataSuccess: dataSuccess }),
-                ]);
-            },
-        };
-    };
-};
-/** Component for entering some text */
-exports.TextInput = InputField('text');
-/** Component for entering a number */
-exports.NumberInput = InputField('number');
-/** Component for entering a URL */
-exports.UrlInput = InputField('url');
-/** Component for entering a color */
-exports.ColorInput = InputField('color');
-/** Component for entering a range */
-exports.RangeInput = InputField('range', '.range-field');
-/** Component for entering an email */
-exports.EmailInput = InputField('email');
-/** Component for uploading a file */
-exports.FileInput = function () {
-    return {
-        view: function (_a) {
-            var attrs = _a.attrs;
-            var multiple = attrs.multiple, disabled = attrs.disabled, placeholder = attrs.placeholder, onchange = attrs.onchange, _b = attrs.className, className = _b === void 0 ? 'col s12' : _b, accept = attrs.accept;
-            var accepted = accept ? (accept instanceof Array ? accept.join(', ') : accept) : undefined;
-            var acc = accepted ? "[accept=" + accepted + "]" : '';
-            var mul = multiple ? '[multiple]' : '';
-            var dis = disabled ? '[disabled]' : '';
-            var ph = placeholder ? "[placeholder=" + placeholder + "]" : '';
-            return mithril_1.default('.file-field.input-field', {
-                class: attrs.class || attrs.className || 'col s12',
-            }, [
-                mithril_1.default('.btn', [
-                    mithril_1.default('span', 'File'),
-                    mithril_1.default("input[type=file]" + mul + dis + acc, {
-                        className: className,
-                        onchange: onchange
-                            ? function (e) {
-                                var i = e.target;
-                                if (i && i.files) {
-                                    onchange(i.files);
-                                }
-                            }
-                            : undefined,
-                    }),
-                ]),
-                mithril_1.default('.file-path-wrapper', mithril_1.default("input.file-path.validate" + ph + "[type=text]")),
-            ]);
-        },
-    };
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.uuid4 = exports.uniqueId = exports.toAttrs = exports.toAttributeString = exports.swap = exports.req = exports.pipe = exports.padLeft = exports.move = exports.map = exports.join = exports.isNumeric = exports.fieldToComponent = exports.disable = exports.compose = exports.camelToSnake = exports.UrlInput = exports.Timeline = exports.TimePicker = exports.TextInput = exports.TextArea = exports.Tabs = exports.Switch = exports.SubmitButton = exports.SmallButton = exports.Select = exports.SecondaryContent = exports.RoundIconButton = exports.RangeInput = exports.RadioButtons = exports.RadioButton = exports.PasswordInput = exports.Parallax = exports.Pagination = exports.Options = exports.NumberInput = exports.ModalPanel = exports.MaterialBox = exports.MapEditor = exports.Mandatory = exports.ListItem = exports.LayoutForm = exports.LargeButton = exports.Label = exports.Kanban = exports.InputCheckbox = exports.Icon = exports.HelperText = exports.FloatingActionButton = exports.FlatButton = exports.FileInput = exports.EmailInput = exports.Dropdown = exports.DatePicker = exports.ColorInput = exports.CollectionMode = exports.Collection = exports.CollapsibleItem = exports.Collapsible = exports.CodeBlock = exports.Chips = exports.CarouselItem = exports.Carousel = exports.ButtonFactory = exports.Button = exports.Autocomplete = exports.AnchorItem = void 0;
+
+var _mithril = _interopRequireDefault(require("mithril"));
+
+var _materializeCss = _interopRequireDefault(require("materialize-css"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var n = function () {
+  return "idxxxxxxxx".replace(/[x]/g, function () {
+    return (16 * Math.random() | 0).toString(16);
+  });
+},
+    i = function () {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (e) {
+    var t = 16 * Math.random() | 0;
+    return ("x" === e ? t : 3 & t | 8).toString(16);
+  });
+},
+    a = function () {
+  for (var e = [], t = 0; t < arguments.length; t++) e[t] = arguments[t];
+
+  return function (t) {
+    return e.reduceRight(function (e, t) {
+      return t(e);
+    }, t);
+  };
+},
+    r = function (e) {
+  return function (t) {
+    return Array.prototype.map.call(t, e);
+  };
+},
+    o = function (e) {
+  return function (t) {
+    return Array.prototype.join.call(t, e);
+  };
+},
+    l = function (e) {
+  return e.replace(/([A-Z])/g, function (e) {
+    return "-" + e.toLowerCase();
+  });
+},
+    c = function (e) {
+  return e ? a(o(""), r(function (t) {
+    return "[" + l(t) + '="' + function (e) {
+      return void 0 === e && (e = ""), e.toString().replace(/"/g, "&quot;");
+    }(e[t]) + '"]';
+  }), Object.keys)(e) : "";
+},
+    d = ["min", "max", "minLength", "maxLength", "rows", "cols", "placeholder", "autocomplete", "pattern", "readOnly"],
+    s = function (e) {
+  return d.indexOf(e) >= 0;
+},
+    u = function (e) {
+  return e.disabled ? "[disabled]" : "";
+},
+    m = function (e) {
+  var t = e.required,
+      n = e.isMandatory;
+  return t || n ? "[required][aria-required=true]" : "";
+},
+    f = function (e) {
+  return function (e) {
+    var t,
+        n = (t = e, function (e) {
+      return void 0 !== t[e];
+    });
+    return Object.keys(e).filter(s).filter(n).reduce(function (t, n) {
+      var i = e[n];
+      return t.push("[" + n.toLowerCase() + "=" + i + "]"), t;
+    }, []).join("");
+  }(e) + function (e) {
+    return e.maxLength ? "[data-length=" + e.maxLength + "]" : "";
+  }(e) + u(e) + m(e) + ("boolean" == typeof (t = e.autofocus) && t || t && t() ? "[autofocus]" : "");
+  var t;
+},
+    v = function (e) {
+  return !isNaN(parseFloat(e)) && isFinite(e);
+},
+    p = function () {
+  for (var e = [], t = 0; t < arguments.length; t++) e[t] = arguments[t];
+
+  return function (t) {
+    return e.reduce(function (e, t) {
+      return t(e);
+    }, t);
+  };
+},
+    b = function (e, t, n) {
+  return void 0 === t && (t = 2), void 0 === n && (n = "0"), (e += "").length >= t ? e : new Array(t - e.length + 1).join(n) + e;
+},
+    h = function (e, t, n) {
+  var i = e[t];
+  e[t] = e[n], e[n] = i;
+},
+    g = function (e, t, n) {
+  var i = e[t];
+  e.splice(t, 1), e.splice(n, 0, i);
+},
+    y = function () {
+  return (y = Object.assign || function (e) {
+    for (var t, n = 1, i = arguments.length; n < i; n++) for (var a in t = arguments[n]) Object.prototype.hasOwnProperty.call(t, a) && (e[a] = t[a]);
+
+    return e;
+  }).apply(this, arguments);
 };
 
-},{"materialize-css":"node_modules/materialize-css/dist/js/materialize.js","mithril":"node_modules/mithril/mithril.mjs","./utils":"node_modules/mithril-materialized/dist/utils.js","./label":"node_modules/mithril-materialized/dist/label.js","./styles/input.css":"node_modules/mithril-materialized/dist/styles/input.css"}],"node_modules/mithril-materialized/dist/styles/map-editor.css":[function(require,module,exports) {
+exports.move = g;
+exports.swap = h;
+exports.padLeft = b;
+exports.pipe = p;
+exports.isNumeric = v;
+exports.toAttrs = f;
+exports.req = m;
+exports.disable = u;
+exports.toAttributeString = c;
+exports.camelToSnake = l;
+exports.join = o;
+exports.map = r;
+exports.compose = a;
+exports.uuid4 = i;
+exports.uniqueId = n;
 
-        var reloadCSS = require('_css_loader');
-        module.hot.dispose(reloadCSS);
-        module.hot.accept(reloadCSS);
-      
-},{"_css_loader":"node_modules/.registry.npmjs.org/parcel-bundler/1.12.3/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/mithril-materialized/dist/map-editor.js":[function(require,module,exports) {
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var mithril_1 = __importDefault(require("mithril"));
-var _1 = require(".");
-var utils_1 = require("./utils");
-require("./styles/map-editor.css");
-/** A simple viewer and/or editor for a map of key - value pairs */
-exports.MapEditor = function () {
-    var parseArray = function (v, disallowArrays) {
-        if (disallowArrays === void 0) { disallowArrays = false; }
-        if (disallowArrays) {
-            return v;
-        }
-        var extractArrayData = /\s*\[(.*)\]\s*/gi;
-        if (!v) {
-            return undefined;
-        }
-        var match = extractArrayData.exec(v);
-        if (!match || match.length !== 2) {
-            return undefined;
-        }
-        return match[1]
-            .split(',')
-            .map(function (i) { return i.trim(); })
-            .map(function (i) { return (/^\d+$/g.test(i) ? +i : i); });
-    };
-    var kvc = function (key, value, options) {
-        var _a = options.keyClass, keyClass = _a === void 0 ? '.col.s4' : _a, _b = options.valueClass, valueClass = _b === void 0 ? '.col.s8' : _b;
-        var displayValue = value instanceof Array
-            ? value.join(', ')
-            : typeof value === 'boolean'
-                ? mithril_1.default(_1.InputCheckbox, { label: '', checked: value, disabled: true, className: 'checkbox-in-collection' })
-                : value.toString();
-        var title = mithril_1.default('.row', { style: 'margin-bottom: 0' }, [mithril_1.default(keyClass, mithril_1.default('b', key)), mithril_1.default(valueClass, displayValue)]);
-        return {
-            title: title,
-        };
-    };
-    var onclick = function (key) { return (state.curKey = state.id = key); };
-    var kvcWrapper = function (key, item) {
-        var clickHandler = item.onclick;
-        item.id = item.id || key;
-        item.active = key === state.curKey;
-        item.onclick = clickHandler ? function () { return onclick(key) && clickHandler(item); } : function () { return onclick(key); };
-        return item;
-    };
-    var toCollectionArray = function (properties, options) {
-        return Object.keys(properties)
-            .map(function (key) { return ({ key: key, value: properties[key] }); })
-            .map(function (item) {
-            return kvcWrapper(item.key, state.kvc(item.key, item.value, { keyClass: options.keyClass, valueClass: options.valueClass }));
-        });
-    };
-    var isTruthy = function (i, truthy, falsy) {
-        return truthy.indexOf(i) >= 0 ? true : falsy.indexOf(i) >= 0 ? false : undefined;
-    };
-    var state = {
-        elementId: utils_1.uniqueId(),
-        id: '',
-        curKey: '',
-        kvc: kvc,
-    };
-    var resetInputs = function () {
-        state.id = '';
-        state.curKey = '';
-    };
-    return {
-        oninit: function (_a) {
-            var _b = _a.attrs, keyValueConverter = _b.keyValueConverter, id = _b.id;
-            if (keyValueConverter) {
-                state.kvc = keyValueConverter;
-            }
-            if (id) {
-                state.elementId = id;
-            }
-        },
-        view: function (_a) {
-            var _b = _a.attrs, _c = _b.className, className = _c === void 0 ? 'col s12' : _c, disabled = _b.disabled, disallowArrays = _b.disallowArrays, header = _b.header, iconName = _b.iconName, _d = _b.iconNameKey, iconNameKey = _d === void 0 ? iconName ? 'label' : undefined : _d, isMandatory = _b.isMandatory, label = _b.label, _e = _b.labelKey, labelKey = _e === void 0 ? 'Key' : _e, _f = _b.labelValue, labelValue = _f === void 0 ? 'Value' : _f, properties = _b.properties, keyClass = _b.keyClass, valueClass = _b.valueClass, onchange = _b.onchange, _g = _b.falsy, falsy = _g === void 0 ? ['false'] : _g, _h = _b.truthy, truthy = _h === void 0 ? ['true'] : _h;
-            var notify = function () { return (onchange ? onchange(properties) : undefined); };
-            var items = toCollectionArray(properties, { keyClass: keyClass, valueClass: valueClass });
-            var key = state.curKey;
-            var prop = properties[key];
-            var value = typeof prop === 'boolean' || typeof prop === 'number'
-                ? prop
-                : prop
-                    ? prop instanceof Array
-                        ? "[" + prop.join(', ') + "]"
-                        : prop
-                    : '';
-            var id = state.elementId;
-            return [
-                mithril_1.default('.map-editor', mithril_1.default('.input-field', { className: className, style: 'min-height: 1.5em;' }, [
-                    iconName ? mithril_1.default('i.material-icons.prefix', iconName) : '',
-                    mithril_1.default(_1.Label, { label: label, isMandatory: isMandatory, isActive: items.length > 0 }),
-                    mithril_1.default(_1.Collection, { id: id, items: items, mode: _1.CollectionMode.LINKS, header: header }),
-                ])),
-                disabled
-                    ? undefined
-                    : [
-                        mithril_1.default(_1.TextInput, {
-                            label: labelKey,
-                            iconName: iconNameKey,
-                            className: 'col s5',
-                            initialValue: key,
-                            onchange: function (v) {
-                                state.curKey = v;
-                                if (state.id) {
-                                    delete properties[state.id];
-                                    properties[v] = prop;
-                                    state.id = v;
-                                }
-                                notify();
-                            },
-                        }),
-                        typeof value === 'string'
-                            ? mithril_1.default(_1.TextArea, {
-                                label: labelValue,
-                                initialValue: value,
-                                className: 'col s7',
-                                onchange: function (v) {
-                                    var b = isTruthy(v, truthy, falsy);
-                                    var n = typeof b === 'undefined' ? (/^\s*\d+\s*$/i.test(v) ? +v : undefined) : undefined;
-                                    properties[key] =
-                                        typeof b === 'boolean' ? b : typeof n === 'number' ? n : parseArray(v, disallowArrays) || v;
-                                    notify();
-                                },
-                            })
-                            : typeof value === 'number'
-                                ? mithril_1.default(_1.NumberInput, {
-                                    label: labelValue,
-                                    initialValue: value,
-                                    className: 'col s7',
-                                    onchange: function (v) {
-                                        properties[key] = v;
-                                        notify();
-                                    },
-                                })
-                                : mithril_1.default(_1.InputCheckbox, {
-                                    label: labelValue,
-                                    checked: value,
-                                    className: 'input-field col s7',
-                                    onchange: function (v) {
-                                        properties[key] = v;
-                                        notify();
-                                    },
-                                }),
-                        mithril_1.default('.col.s12.right-align', [
-                            mithril_1.default(_1.FlatButton, {
-                                iconName: 'add',
-                                onclick: resetInputs,
-                            }),
-                            mithril_1.default(_1.FlatButton, {
-                                iconName: 'delete',
-                                disabled: !key,
-                                onclick: function () {
-                                    delete properties[key];
-                                    resetInputs();
-                                    notify();
-                                },
-                            }),
-                        ]),
-                    ],
-            ];
-        },
-    };
-};
+function x(e, t) {
+  var n = {};
 
-},{"mithril":"node_modules/mithril/mithril.mjs",".":"node_modules/mithril-materialized/dist/index.js","./utils":"node_modules/mithril-materialized/dist/utils.js","./styles/map-editor.css":"node_modules/mithril-materialized/dist/styles/map-editor.css"}],"node_modules/mithril-materialized/dist/material-box.js":[function(require,module,exports) {
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var mithril_1 = __importDefault(require("mithril"));
-/**
- * Create an image box, that, when clicked upon, fills the screen.
- * @see https://materializecss.com/media.html
- */
-exports.MaterialBox = function () {
-    return {
-        oncreate: function (_a) {
-            var dom = _a.dom, attrs = _a.attrs;
-            M.Materialbox.init(dom, attrs);
-        },
-        view: function (_a) {
-            var attrs = _a.attrs;
-            var src = attrs.src, width = attrs.width, height = attrs.height;
-            var w = width ? "[width=" + width + "]" : '';
-            var h = height ? "[height=" + height + "]" : '';
-            return mithril_1.default("img.materialboxed[src=" + src + "]" + w + h, attrs);
-        },
-    };
-};
+  for (var i in e) Object.prototype.hasOwnProperty.call(e, i) && t.indexOf(i) < 0 && (n[i] = e[i]);
 
-},{"mithril":"node_modules/mithril/mithril.mjs"}],"node_modules/mithril-materialized/dist/modal.js":[function(require,module,exports) {
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var mithril_1 = __importDefault(require("mithril"));
-/** Builds a modal panel, which can be triggered using its id */
-exports.ModalPanel = function () { return ({
-    oncreate: function (_a) {
-        var dom = _a.dom, options = _a.attrs.options;
-        M.Modal.init(dom, options);
-    },
-    view: function (_a) {
-        var _b = _a.attrs, id = _b.id, title = _b.title, description = _b.description, fixedFooter = _b.fixedFooter, bottomSheet = _b.bottomSheet, buttons = _b.buttons, richContent = _b.richContent;
-        var ff = fixedFooter ? '.modal-fixed-footer' : '';
-        var bs = bottomSheet ? '.bottom-sheet' : '';
-        return mithril_1.default(".modal" + ff + bs + "[id=" + id + "]", [
-            mithril_1.default('.modal-content', [
-                mithril_1.default('h4', title),
-                richContent && typeof description === 'string'
-                    ? mithril_1.default.trust(description || '')
-                    : typeof description === 'string'
-                        ? mithril_1.default('p', description)
-                        : description,
-            ]),
-            buttons
-                ? mithril_1.default('.modal-footer', buttons.map(function (b) { return mithril_1.default('a.modal-close.waves-effect.waves-green.btn-flat', { onclick: b.onclick }, b.label); }))
-                : undefined,
-        ]);
-    },
-}); };
+  if (null != e && "function" == typeof Object.getOwnPropertySymbols) {
+    var a = 0;
 
-},{"mithril":"node_modules/mithril/mithril.mjs"}],"node_modules/mithril-materialized/dist/option.js":[function(require,module,exports) {
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var mithril_1 = __importDefault(require("mithril"));
-var label_1 = require("./label");
-/** Component to show a check box */
-exports.InputCheckbox = function () {
-    return {
-        view: function (_a) {
-            var _b = _a.attrs, _c = _b.className, className = _c === void 0 ? 'col s12' : _c, onchange = _b.onchange, label = _b.label, checked = _b.checked, disabled = _b.disabled;
-            return mithril_1.default("div", { className: className }, mithril_1.default('label', [
-                mithril_1.default("input[type=checkbox][tabindex=0]" + (checked ? '[checked]' : '') + (disabled ? '[disabled]' : ''), {
-                    onclick: onchange
-                        ? function (e) {
-                            if (e.target && typeof e.target.checked !== 'undefined') {
-                                onchange(e.target.checked);
-                            }
-                        }
-                        : undefined,
-                }),
-                typeof label === 'string' ? mithril_1.default('span', label) : label,
-            ]));
-        },
-    };
-};
-/** A list of checkboxes */
-exports.Options = function () {
-    return {
-        view: function (_a) {
-            var _b = _a.attrs, label = _b.label, id = _b.id, options = _b.options, onchange = _b.onchange, description = _b.description, className = _b.className, checkboxClass = _b.checkboxClass, newRow = _b.newRow, isMandatory = _b.isMandatory;
-            var clear = newRow ? '.clear' : '';
-            return mithril_1.default("div" + clear, { className: className }, [
-                mithril_1.default('h4', mithril_1.default(label_1.Label, { id: id, label: label, isMandatory: isMandatory })),
-                mithril_1.default(label_1.HelperText, { helperText: description })
-            ].concat(options.map(function (option) {
-                return mithril_1.default(exports.InputCheckbox, {
-                    label: option.label,
-                    onchange: onchange ? function (v) { return onchange(v, option.id, option); } : undefined,
-                    checkboxClass: checkboxClass,
-                    checked: option.isChecked,
-                });
-            })));
-        },
-    };
-};
+    for (i = Object.getOwnPropertySymbols(e); a < i.length; a++) t.indexOf(i[a]) < 0 && Object.prototype.propertyIsEnumerable.call(e, i[a]) && (n[i[a]] = e[i[a]]);
+  }
 
-},{"mithril":"node_modules/mithril/mithril.mjs","./label":"node_modules/mithril-materialized/dist/label.js"}],"node_modules/mithril-materialized/dist/pagination.js":[function(require,module,exports) {
-"use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var mithril_1 = __importDefault(require("mithril"));
-var PaginationItem = function () { return ({
-    view: function (_a) {
-        var _b = _a.attrs, title = _b.title, href = _b.href, active = _b.active, disabled = _b.disabled;
-        return mithril_1.default('li', { class: active ? 'active' : disabled ? 'disabled' : 'waves-effect' }, typeof title === 'number' ? mithril_1.default('a', { href: href, oncreate: mithril_1.default.route.link }, title) : title);
-    },
-}); };
-exports.Pagination = function () {
-    var state = {
-        pagIndex: 0,
-    };
-    return {
-        view: function (_a) {
-            var _b = _a.attrs, items = _b.items, curPage = _b.curPage, _c = _b.size, size = _c === void 0 ? Math.min(9, items.length) : _c;
-            var pagIndex = state.pagIndex;
-            var startPage = pagIndex * size;
-            var endPage = startPage + size;
-            var canGoBack = pagIndex > 0;
-            var canGoForward = (pagIndex + 1) * size < items.length;
-            var displayedItems = [
-                {
-                    title: mithril_1.default('a', {
-                        onclick: function () { return canGoBack && state.pagIndex--; },
-                    }, mithril_1.default('i.material-icons', 'chevron_left')),
-                    disabled: !canGoBack,
-                }
-            ].concat(items.filter(function (_item, i) { return startPage <= i && i < endPage; }), [
-                {
-                    title: mithril_1.default('a', {
-                        onclick: function () { return canGoForward && state.pagIndex++; },
-                    }, mithril_1.default('i.material-icons', 'chevron_right')),
-                    disabled: !canGoForward,
-                },
-            ]);
-            return mithril_1.default('ul.pagination', displayedItems
-                .map(function (item, i) { return (__assign({ title: startPage + i }, item, { active: i === curPage })); })
-                .map(function (item) { return mithril_1.default(PaginationItem, item); }));
-        },
-    };
-};
-
-},{"mithril":"node_modules/mithril/mithril.mjs"}],"node_modules/mithril-materialized/dist/parallax.js":[function(require,module,exports) {
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var mithril_1 = __importDefault(require("mithril"));
-/**
- * Parallax component:
- * Parallax is an effect where the background content or image in this case,
- * is moved at a different speed than the foreground content while scrolling.
- * @see https://materializecss.com/parallax.html
- */
-exports.Parallax = function () {
-    return {
-        oncreate: function (_a) {
-            var dom = _a.dom, attrs = _a.attrs;
-            M.Parallax.init(dom, attrs);
-        },
-        view: function (_a) {
-            var src = _a.attrs.src;
-            return (src ? mithril_1.default('.parallax-container', mithril_1.default('.parallax', mithril_1.default("img[src=" + src + "]"))) : undefined);
-        },
-    };
-};
-
-},{"mithril":"node_modules/mithril/mithril.mjs"}],"node_modules/mithril-materialized/dist/pickers.js":[function(require,module,exports) {
-"use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var mithril_1 = __importDefault(require("mithril"));
-var utils_1 = require("./utils");
-var label_1 = require("./label");
-/** Component to pick a date */
-exports.DatePicker = function () {
-    var state = { id: utils_1.uniqueId() };
-    return {
-        view: function (_a) {
-            var attrs = _a.attrs;
-            var id = state.id;
-            var attributes = utils_1.toAttrs(attrs);
-            var label = attrs.label, helperText = attrs.helperText, initialValue = attrs.initialValue, newRow = attrs.newRow, _b = attrs.className, className = _b === void 0 ? 'col s12' : _b, iconName = attrs.iconName, isMandatory = attrs.isMandatory, onchange = attrs.onchange;
-            var clear = newRow ? '.clear' : '';
-            return mithril_1.default(".input-field" + clear, { className: className }, [
-                iconName ? mithril_1.default('i.material-icons.prefix', iconName) : '',
-                mithril_1.default("input.datepicker[type=text][tabindex=0][id=" + id + "]" + attributes, {
-                    oncreate: function (_a) {
-                        var dom = _a.dom;
-                        M.Datepicker.init(dom, __assign({ format: 'yyyy/mm/dd', showClearBtn: true, setDefaultDate: true, defaultDate: initialValue ? new Date(initialValue) : new Date(), onSelect: onchange }, attrs));
-                    },
-                }),
-                mithril_1.default(label_1.Label, { label: label, id: id, isMandatory: isMandatory, isActive: !!initialValue }),
-                mithril_1.default(label_1.HelperText, { helperText: helperText }),
-            ]);
-        },
-    };
-};
-/** Component to pick a time */
-exports.TimePicker = function () {
-    var state = { id: utils_1.uniqueId() };
-    return {
-        view: function (_a) {
-            var attrs = _a.attrs;
-            var id = state.id;
-            var attributes = utils_1.toAttrs(attrs);
-            var label = attrs.label, helperText = attrs.helperText, initialValue = attrs.initialValue, newRow = attrs.newRow, _b = attrs.className, className = _b === void 0 ? 'col s12' : _b, iconName = attrs.iconName, isMandatory = attrs.isMandatory, onchange = attrs.onchange;
-            var clear = newRow ? '.clear' : '';
-            return mithril_1.default(".input-field.timepicker" + clear, { className: className }, [
-                iconName ? mithril_1.default('i.material-icons.prefix', iconName) : '',
-                mithril_1.default("input[type=text][tabindex=0][id=" + id + "]" + attributes, {
-                    value: initialValue,
-                    oncreate: function (_a) {
-                        var dom = _a.dom;
-                        M.Timepicker.init(dom, __assign({ twelveHour: false, showClearBtn: true, defaultTime: initialValue, onSelect: onchange ? function (hours, minutes) { return onchange(hours + ":" + minutes); } : undefined }, attrs));
-                    },
-                }),
-                mithril_1.default(label_1.Label, { label: label, id: id, isMandatory: isMandatory, isActive: initialValue }),
-                mithril_1.default(label_1.HelperText, { helperText: helperText }),
-            ]);
-        },
-    };
-};
-
-},{"mithril":"node_modules/mithril/mithril.mjs","./utils":"node_modules/mithril-materialized/dist/utils.js","./label":"node_modules/mithril-materialized/dist/label.js"}],"node_modules/mithril-materialized/dist/radio.js":[function(require,module,exports) {
-"use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var mithril_1 = __importDefault(require("mithril"));
-var utils_1 = require("./utils");
-/** Component to show a list of radio buttons, from which you can choose one. */
-exports.RadioButtons = function () {
-    var state = { id: utils_1.uniqueId() };
-    return {
-        view: function (_a) {
-            var _b = _a.attrs, newRow = _b.newRow, _c = _b.className, className = _c === void 0 ? 'col s12' : _c, label = _b.label, description = _b.description, onchange = _b.onchange, options = _b.options, checkedId = _b.checkedId;
-            var groupId = state.id;
-            var clear = newRow ? '.clear' : '';
-            return mithril_1.default(".input-field" + clear, { className: className }, [
-                mithril_1.default('h4', mithril_1.default.trust(label)),
-                description ? mithril_1.default('p.helper-text', mithril_1.default.trust(description)) : ''
-            ].concat(options.map(function (r) {
-                return mithril_1.default(exports.RadioButton, __assign({}, r, { onchange: onchange,
-                    groupId: groupId, checked: r.id === checkedId }));
-            })));
-        },
-    };
-};
-exports.RadioButton = function () { return ({
-    view: function (_a) {
-        var _b = _a.attrs, id = _b.id, groupId = _b.groupId, label = _b.label, onchange = _b.onchange, _c = _b.className, className = _c === void 0 ? 'col s12' : _c, checked = _b.checked;
-        return mithril_1.default("div", { className: className }, mithril_1.default('label', [
-            mithril_1.default("input[type=radio][tabindex=0][name=" + groupId + "]" + (checked ? '[checked=checked]' : ''), {
-                onclick: onchange ? function () { return onchange(id); } : undefined,
-            }),
-            mithril_1.default('span', mithril_1.default.trust(label)),
-        ]));
-    },
-}); };
-
-},{"mithril":"node_modules/mithril/mithril.mjs","./utils":"node_modules/mithril-materialized/dist/utils.js"}],"node_modules/mithril-materialized/dist/select.js":[function(require,module,exports) {
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var mithril_1 = __importDefault(require("mithril"));
-var utils_1 = require("./utils");
-var label_1 = require("./label");
-/** Component to select from a list of values in a dropdowns */
-exports.Select = function () {
-    var state = {
-        instance: undefined,
-    };
-    var isSelected = function (id, checkedId, selected) {
-        if (selected === void 0) { selected = false; }
-        return selected ||
-            (checkedId instanceof Array && (id || typeof id === 'number') ? checkedId.indexOf(id) >= 0 : checkedId === id);
-    };
-    return {
-        view: function (_a) {
-            var _b = _a.attrs, id = _b.id, checkedId = _b.checkedId, newRow = _b.newRow, _c = _b.className, className = _c === void 0 ? 'col s12' : _c, key = _b.key, onchange = _b.onchange, options = _b.options, label = _b.label, helperText = _b.helperText, multiple = _b.multiple, placeholder = _b.placeholder, isMandatory = _b.isMandatory, iconName = _b.iconName, disabled = _b.disabled;
-            var clear = newRow ? '.clear' : '';
-            var isDisabled = disabled ? '[disabled]' : '';
-            var isMultiple = multiple ? '[multiple]' : '';
-            var noValidSelection = options.filter(function (o) { return isSelected(o.id, checkedId); }).length === 0;
-            return mithril_1.default(".input-field.select-space" + clear, { className: className, key: key }, [
-                iconName ? mithril_1.default('i.material-icons.prefix', iconName) : undefined,
-                mithril_1.default("select[id=" + id + "]" + isDisabled + isMultiple, {
-                    oncreate: function (_a) {
-                        var dom = _a.dom, attrs = _a.attrs;
-                        state.instance = M.FormSelect.init(dom, attrs);
-                    },
-                    onupdate: function (_a) {
-                        var dom = _a.dom, attrs = _a.attrs;
-                        state.instance = M.FormSelect.init(dom, attrs);
-                    },
-                    onchange: onchange
-                        ? function (e) {
-                            if (multiple) {
-                                var values = state.instance && state.instance.getSelectedValues();
-                                var v = values
-                                    ? values.length > 0 && utils_1.isNumeric(values[0])
-                                        ? values.map(function (n) { return +n; })
-                                        : values
-                                    : undefined;
-                                onchange(v);
-                            }
-                            else if (e && e.currentTarget) {
-                                var b = e.currentTarget;
-                                var v = utils_1.isNumeric(b.value) ? +b.value : b.value;
-                                onchange(v);
-                            }
-                        }
-                        : undefined,
-                }, placeholder ? mithril_1.default("option[disabled]" + (noValidSelection ? '[selected]' : ''), placeholder) : '', options.map(function (o, i) {
-                    return mithril_1.default("option[value=" + o.id + "]" + (o.disabled ? '[disabled]' : '') + (isSelected(o.id, checkedId, i === 0 && noValidSelection && !placeholder) ? '[selected]' : ''), o.label.replace('&amp;', '&'));
-                })),
-                mithril_1.default(label_1.Label, { label: label, isMandatory: isMandatory }),
-                mithril_1.default(label_1.HelperText, { helperText: helperText }),
-            ]);
-        },
-    };
-};
-
-},{"mithril":"node_modules/mithril/mithril.mjs","./utils":"node_modules/mithril-materialized/dist/utils.js","./label":"node_modules/mithril-materialized/dist/label.js"}],"node_modules/mithril-materialized/dist/styles/switch.css":[function(require,module,exports) {
-
-        var reloadCSS = require('_css_loader');
-        module.hot.dispose(reloadCSS);
-        module.hot.accept(reloadCSS);
-      
-},{"_css_loader":"node_modules/.registry.npmjs.org/parcel-bundler/1.12.3/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/mithril-materialized/dist/switch.js":[function(require,module,exports) {
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var mithril_1 = __importDefault(require("mithril"));
-var utils_1 = require("./utils");
-var label_1 = require("./label");
-require("./styles/switch.css");
-/** Component to display a switch with two values. */
-exports.Switch = function () {
-    var state = { id: utils_1.uniqueId() };
-    return {
-        view: function (_a) {
-            var attrs = _a.attrs;
-            var id = attrs.id || state.id;
-            var label = attrs.label, left = attrs.left, right = attrs.right, disabled = attrs.disabled, newRow = attrs.newRow, onchange = attrs.onchange, checked = attrs.checked, isMandatory = attrs.isMandatory, _b = attrs.className, className = _b === void 0 ? 'col s12' : _b;
-            return mithril_1.default("div" + (newRow ? '.clear' : ''), { className: className }, [
-                label ? mithril_1.default(label_1.Label, { label: label || '', id: id, isMandatory: isMandatory }) : undefined,
-                mithril_1.default('.switch', mithril_1.default('label', [
-                    left || 'Off',
-                    mithril_1.default("input[id=" + id + "][type=checkbox]" + utils_1.disable({ disabled: disabled }) + (checked ? '[checked]' : ''), {
-                        onclick: onchange
-                            ? function (e) {
-                                if (e.target && typeof e.target.checked !== 'undefined') {
-                                    onchange(e.target.checked);
-                                }
-                            }
-                            : undefined,
-                    }),
-                    mithril_1.default('span.lever'),
-                    right || 'On',
-                ])),
-            ]);
-        },
-    };
-};
-
-},{"mithril":"node_modules/mithril/mithril.mjs","./utils":"node_modules/mithril-materialized/dist/utils.js","./label":"node_modules/mithril-materialized/dist/label.js","./styles/switch.css":"node_modules/mithril-materialized/dist/styles/switch.css"}],"node_modules/mithril-materialized/dist/styles/timeline.css":[function(require,module,exports) {
-
-        var reloadCSS = require('_css_loader');
-        module.hot.dispose(reloadCSS);
-        module.hot.accept(reloadCSS);
-      
-},{"_css_loader":"node_modules/.registry.npmjs.org/parcel-bundler/1.12.3/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/mithril-materialized/dist/timeline.js":[function(require,module,exports) {
-"use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var mithril_1 = __importDefault(require("mithril"));
-require("./styles/timeline.css");
-var utils_1 = require("./utils");
-var TimelineItem = function () {
-    return {
-        view: function (_a) {
-            var _b = _a.attrs, id = _b.id, title = _b.title, datetime = _b.datetime, active = _b.active, content = _b.content, iconName = _b.iconName, dateFormatter = _b.dateFormatter, timeFormatter = _b.timeFormatter, onSelect = _b.onSelect;
-            var onclick = onSelect ? function () { return onSelect({ id: id, title: title, datetime: datetime, active: active, content: content }); } : undefined;
-            var style = onSelect ? 'cursor: pointer;' : undefined;
-            return mithril_1.default("li" + (active ? '.active' : '') + (id ? "[id=" + id + "]" : ''), { onclick: onclick, style: style }, [
-                mithril_1.default('.mm_time', { datetime: datetime }, [mithril_1.default('span', dateFormatter(datetime)), mithril_1.default('span', timeFormatter(datetime))]),
-                iconName ? mithril_1.default('.mm_icon', mithril_1.default('i.material-icons', iconName)) : undefined,
-                mithril_1.default('.mm_label', [
-                    title ? typeof title === 'string' ? mithril_1.default('h5', title) : title : undefined,
-                    content ? (typeof content === 'string' ? mithril_1.default('p', content) : content) : undefined,
-                ]),
-            ]);
-        },
-    };
-};
-/**
- * A timeline component to generate a simple vertical timeline based on Codrops' Vertical Timeline.
- * @see https://tympanus.net/codrops/2013/05/02/vertical-timeline/
- */
-exports.Timeline = function () {
-    var df = function (d) { return d.getUTCDate() + "/" + (d.getUTCMonth() + 1) + "/" + d.getUTCFullYear(); };
-    var tf = function (d) { return utils_1.padLeft(d.getUTCHours()) + ":" + utils_1.padLeft(d.getUTCMinutes()); };
-    return {
-        view: function (_a) {
-            var _b = _a.attrs, items = _b.items, onSelect = _b.onSelect, _c = _b.timeFormatter, timeFormatter = _c === void 0 ? tf : _c, _d = _b.dateFormatter, dateFormatter = _d === void 0 ? df : _d;
-            return mithril_1.default('ul.mm_timeline', items.map(function (item) { return mithril_1.default(TimelineItem, __assign({ onSelect: onSelect, dateFormatter: dateFormatter, timeFormatter: timeFormatter }, item)); }));
-        },
-    };
-};
-
-},{"mithril":"node_modules/mithril/mithril.mjs","./styles/timeline.css":"node_modules/mithril-materialized/dist/styles/timeline.css","./utils":"node_modules/mithril-materialized/dist/utils.js"}],"node_modules/mithril-materialized/dist/index.js":[function(require,module,exports) {
-"use strict";
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+  return n;
 }
-Object.defineProperty(exports, "__esModule", { value: true });
-__export(require("./autocomplete"));
-__export(require("./button"));
-__export(require("./carousel"));
-__export(require("./chip"));
-__export(require("./code-block"));
-__export(require("./collapsible"));
-__export(require("./collection"));
-__export(require("./dropdown"));
-__export(require("./icon"));
-__export(require("./input"));
-__export(require("./label"));
-__export(require("./map-editor"));
-__export(require("./material-box"));
-__export(require("./modal"));
-__export(require("./option"));
-__export(require("./pagination"));
-__export(require("./parallax"));
-__export(require("./pickers"));
-__export(require("./radio"));
-__export(require("./select"));
-__export(require("./switch"));
-__export(require("./timeline"));
-__export(require("./utils"));
 
-},{"./autocomplete":"node_modules/mithril-materialized/dist/autocomplete.js","./button":"node_modules/mithril-materialized/dist/button.js","./carousel":"node_modules/mithril-materialized/dist/carousel.js","./chip":"node_modules/mithril-materialized/dist/chip.js","./code-block":"node_modules/mithril-materialized/dist/code-block.js","./collapsible":"node_modules/mithril-materialized/dist/collapsible.js","./collection":"node_modules/mithril-materialized/dist/collection.js","./dropdown":"node_modules/mithril-materialized/dist/dropdown.js","./icon":"node_modules/mithril-materialized/dist/icon.js","./input":"node_modules/mithril-materialized/dist/input.js","./label":"node_modules/mithril-materialized/dist/label.js","./map-editor":"node_modules/mithril-materialized/dist/map-editor.js","./material-box":"node_modules/mithril-materialized/dist/material-box.js","./modal":"node_modules/mithril-materialized/dist/modal.js","./option":"node_modules/mithril-materialized/dist/option.js","./pagination":"node_modules/mithril-materialized/dist/pagination.js","./parallax":"node_modules/mithril-materialized/dist/parallax.js","./pickers":"node_modules/mithril-materialized/dist/pickers.js","./radio":"node_modules/mithril-materialized/dist/radio.js","./select":"node_modules/mithril-materialized/dist/select.js","./switch":"node_modules/mithril-materialized/dist/switch.js","./timeline":"node_modules/mithril-materialized/dist/timeline.js","./utils":"node_modules/mithril-materialized/dist/utils.js"}],"node_modules/mithril-scenario-timeline/dist/mithril-scenario-timeline.mjs":[function(require,module,exports) {
+function w() {
+  for (var e = 0, t = 0, n = arguments.length; t < n; t++) e += arguments[t].length;
+
+  var i = Array(e),
+      a = 0;
+
+  for (t = 0; t < n; t++) for (var r = arguments[t], o = 0, l = r.length; o < l; o++, a++) i[a] = r[o];
+
+  return i;
+}
+
+function k(e, t) {
+  void 0 === t && (t = {});
+  var n = t.insertAt;
+
+  if (e && "undefined" != typeof document) {
+    var i = document.head || document.getElementsByTagName("head")[0],
+        a = document.createElement("style");
+    a.type = "text/css", "top" === n && i.firstChild ? i.insertBefore(a, i.firstChild) : i.appendChild(a), a.styleSheet ? a.styleSheet.cssText = e : a.appendChild(document.createTextNode(e));
+  }
+}
+
+k(".twist{transform:scaleY(-1)}input[type=color]:not(.browser-default){margin:0 0 8px;background-color:transparent;border:none;border-bottom:1px solid #9e9e9e;border-radius:0;outline:none;height:3rem;width:100%;font-size:16px;padding:0;box-shadow:none;box-sizing:content-box;transition:box-shadow .3s,border .3s}.input-field.options>label{top:-2.5rem}");
+
+var N = {
+  view: function (t) {
+    var n = t.attrs;
+    return (0, _mithril.default)("span.mandatory", n, "*");
+  }
+},
+    _ = function () {
+  return {
+    view: function (t) {
+      var n = t.attrs,
+          i = n.label,
+          a = n.id,
+          r = n.isMandatory,
+          o = n.isActive,
+          l = x(n, ["label", "id", "isMandatory", "isActive"]);
+      return i ? (0, _mithril.default)("label" + (o ? ".active" : "") + (a ? "[for=" + a + "]" : ""), l, [_mithril.default.trust(i), r ? (0, _mithril.default)(N) : void 0]) : void 0;
+    }
+  };
+},
+    I = function () {
+  return {
+    view: function (t) {
+      var n = t.attrs,
+          i = n.helperText,
+          a = n.dataError,
+          r = n.dataSuccess,
+          o = a || r ? c({
+        dataError: a,
+        dataSuccess: r
+      }) : "";
+      return i || o ? (0, _mithril.default)("span.helper-text" + o, i ? _mithril.default.trust(i) : "") : void 0;
+    }
+  };
+},
+    C = function () {
+  var t = {
+    id: n()
+  };
+  return {
+    view: function (n) {
+      var i = n.attrs,
+          a = i.id || t.id,
+          r = f(i),
+          o = i.label,
+          l = i.helperText,
+          c = i.initialValue,
+          d = i.onchange,
+          s = i.newRow,
+          u = i.className,
+          m = void 0 === u ? "col s12" : u,
+          v = i.style,
+          p = i.iconName,
+          b = i.isMandatory;
+      return (0, _mithril.default)(".input-field" + (s ? ".clear" : ""), {
+        className: m,
+        style: v
+      }, [p ? (0, _mithril.default)("i.material-icons.prefix", p) : "", (0, _mithril.default)("input.autocomplete[type=text][tabindex=0][id=" + a + "]" + r, {
+        oncreate: function (e) {
+          var t = e.dom;
+          M.Autocomplete.init(t, i);
+        },
+        onchange: d ? function (e) {
+          e.target && e.target.value && d(e.target.value);
+        } : void 0,
+        value: c
+      }), (0, _mithril.default)(_, {
+        label: o,
+        id: a,
+        isMandatory: b,
+        isActive: c
+      }), (0, _mithril.default)(I, {
+        helperText: l
+      })]);
+    }
+  };
+},
+    T = function () {
+  return {
+    view: function (t) {
+      var n = t.attrs,
+          i = n.iconName,
+          a = x(n, ["iconName"]);
+      return (0, _mithril.default)("i.material-icons", a, i);
+    }
+  };
+},
+    A = function (t, n) {
+  return void 0 === n && (n = ""), function () {
+    var i = "" + t + n;
+    return {
+      view: function (t) {
+        var n = t.attrs,
+            a = n.modalId,
+            r = n.tooltip,
+            o = n.tooltipPostion,
+            l = n.iconName,
+            d = n.iconClass,
+            s = n.label,
+            u = n.attr,
+            m = x(n, ["modalId", "tooltip", "tooltipPostion", "iconName", "iconClass", "label", "attr"]);
+        return (0, _mithril.default)(i + (a ? ".modal-trigger[href=#" + a + "]" : "") + (r ? ".tooltipped[data-position=" + (o || "top") + "][data-tooltip=" + r + "]" : "") + c(u), m, l ? (0, _mithril.default)(T, {
+          iconName: l,
+          className: d || "left"
+        }) : void 0, s || void 0);
+      }
+    };
+  };
+},
+    S = A("a.waves-effect.waves-light.btn"),
+    V = A("a.waves-effect.waves-light.btn-large"),
+    D = A("a.waves-effect.waves-light.btn-small"),
+    O = A("a.waves-effect.waves-teal.btn-flat"),
+    E = A("button.btn-floating.btn-large.waves-effect.waves-light"),
+    L = A("button.btn.waves-effect.waves-light", "[type=submit]"),
+    j = function () {
+  return {
+    view: function (t) {
+      var n = t.attrs,
+          i = n.href,
+          a = n.src;
+      return (0, _mithril.default)("a.carousel-item", {
+        href: i
+      }, (0, _mithril.default)("img[src=" + a + "]"));
+    }
+  };
+},
+    R = function () {
+  return {
+    view: function (t) {
+      var n = t.attrs,
+          i = n.items;
+      return i && i.length > 0 ? (0, _mithril.default)(".carousel", {
+        oncreate: function (e) {
+          var t = e.dom;
+          M.Carousel.init(t, n);
+        }
+      }, i.map(function (t) {
+        return (0, _mithril.default)(j, t);
+      })) : void 0;
+    }
+  };
+},
+    B = function () {
+  return {
+    oncreate: function (e) {
+      var t = e.attrs,
+          n = e.dom,
+          i = t.onchange,
+          a = t.onChipAdd,
+          r = t.onChipDelete,
+          o = M.Chips.getInstance(n.children[0]),
+          l = a ? a.bind(o) : void 0;
+
+      t.onChipAdd = function (e, t) {
+        i && i(this.chipsData), l && l(e, t);
+      };
+
+      var c = r ? r.bind(o) : void 0;
+      t.onChipDelete = function (e, t) {
+        i && i(this.chipsData), c && c(e, t);
+      }, M.Chips.init(n.children[0], t);
+    },
+    onupdate: function (e) {
+      var t = e.dom,
+          n = e.attrs.data;
+
+      if (n && 0 !== n.length) {
+        var i = M.Chips.getInstance(t.children[0]);
+        n.forEach(function (e) {
+          return i.addChip(e);
+        });
+      }
+    },
+    view: function (t) {
+      var n = t.attrs,
+          i = n.placeholder,
+          a = n.data,
+          r = n.className,
+          o = void 0 === r ? "col s12" : r,
+          l = n.label,
+          c = n.helperText;
+      return (0, _mithril.default)(".input-field", {
+        className: o
+      }, [(0, _mithril.default)(".chips.chips-autocomplete" + (i ? ".chips-placeholder" : "") + (a ? ".chips-initial" : "")), l ? (0, _mithril.default)(_, {
+        label: l,
+        className: "active"
+      }) : void 0, c ? (0, _mithril.default)(I, {
+        helperText: c
+      }) : void 0]);
+    }
+  };
+};
+
+exports.Chips = B;
+exports.Carousel = R;
+exports.CarouselItem = j;
+exports.SubmitButton = L;
+exports.RoundIconButton = E;
+exports.FlatButton = O;
+exports.SmallButton = D;
+exports.LargeButton = V;
+exports.Button = S;
+exports.ButtonFactory = A;
+exports.Icon = T;
+exports.Autocomplete = C;
+exports.HelperText = I;
+exports.Label = _;
+exports.Mandatory = N;
+k(".codeblock{margin:1.5rem 0 2.5rem}.codeblock>div{margin-bottom:1rem}.codeblock>label{display:inline-block}");
+
+var F,
+    K = function () {
+  return {
+    view: function (t) {
+      var n = t.attrs,
+          i = n.newRow,
+          a = n.code,
+          r = n.language || "lang-TypeScript",
+          o = r.replace("lang-", ""),
+          l = a instanceof Array ? a.join("\n") : a;
+      return (0, _mithril.default)("pre.codeblock" + (i ? ".clear" : ""), n, [(0, _mithril.default)("div", (0, _mithril.default)("label", o)), (0, _mithril.default)("code." + r, l)]);
+    }
+  };
+},
+    z = function () {
+  return {
+    view: function (t) {
+      var n = t.attrs,
+          i = n.header,
+          a = n.body,
+          r = n.active,
+          o = n.iconName;
+      return (0, _mithril.default)(r ? "li.active" : "li", [i || o ? (0, _mithril.default)(".collapsible-header", [o ? (0, _mithril.default)("i.material-icons", o) : void 0, i ? "string" == typeof i ? (0, _mithril.default)("span", i) : i : void 0]) : void 0, a ? (0, _mithril.default)(".collapsible-body", a) : void 0]);
+    }
+  };
+},
+    P = function () {
+  return {
+    oncreate: function (e) {
+      var t = e.dom,
+          n = e.attrs;
+      M.Collapsible.init(t, n);
+    },
+    view: function (t) {
+      var n = t.attrs.items;
+      return n && n.length > 0 ? (0, _mithril.default)("ul.collapsible", n.map(function (t) {
+        return (0, _mithril.default)(z, t);
+      })) : void 0;
+    }
+  };
+};
+
+exports.Collapsible = P;
+exports.CollapsibleItem = z;
+exports.CodeBlock = K;
+exports.CollectionMode = F;
+!function (e) {
+  e[e.BASIC = 0] = "BASIC", e[e.LINKS = 1] = "LINKS", e[e.AVATAR = 2] = "AVATAR";
+}(F || (exports.CollectionMode = F = {}));
+
+var U = function (e) {
+  return e && /https?:\/\//.test(e);
+},
+    q = function () {
+  return {
+    view: function (t) {
+      var n = t.attrs,
+          i = n.href,
+          a = n.iconName,
+          r = void 0 === a ? "send" : a,
+          o = n.onclick,
+          l = n.style,
+          c = {
+        href: i,
+        style: void 0 === l ? {
+          cursor: "pointer"
+        } : l,
+        className: "secondary-content",
+        onclick: o ? function () {
+          return o(n);
+        } : void 0
+      };
+      return U(i) || !i ? (0, _mithril.default)("a[target=_]", c, (0, _mithril.default)(T, {
+        iconName: r
+      })) : (0, _mithril.default)(_mithril.default.route.Link, c, (0, _mithril.default)(T, {
+        iconName: r
+      }));
+    }
+  };
+},
+    Y = function (e) {
+  return void 0 === e && (e = ""), /\./.test(e);
+},
+    G = function () {
+  return {
+    view: function (t) {
+      var n = t.attrs,
+          i = n.item,
+          a = n.mode,
+          r = i.title,
+          o = i.content,
+          l = void 0 === o ? "" : o,
+          c = i.active,
+          d = i.iconName,
+          s = i.avatar,
+          u = i.className,
+          m = i.onclick;
+      return a === F.AVATAR ? (0, _mithril.default)("li.collection-item.avatar" + (c ? ".active" : ""), {
+        onclick: m ? function () {
+          return m(i);
+        } : void 0
+      }, [Y(s) ? (0, _mithril.default)("img.circle", {
+        src: s
+      }) : (0, _mithril.default)("i.material-icons.circle", {
+        className: u
+      }, s), (0, _mithril.default)("span.title", r), (0, _mithril.default)("p", _mithril.default.trust(l)), (0, _mithril.default)(q, i)]) : (0, _mithril.default)("li.collection-item" + (c ? ".active" : ""), d ? (0, _mithril.default)("div", [r, (0, _mithril.default)(q, i)]) : r);
+    }
+  };
+},
+    H = function () {
+  return {
+    view: function (t) {
+      var n = t.attrs,
+          i = n.header,
+          a = n.items,
+          r = n.mode,
+          o = void 0 === r ? F.BASIC : r,
+          l = x(n, ["header", "items", "mode"]),
+          c = a.map(function (t) {
+        return (0, _mithril.default)(G, {
+          key: t.id,
+          item: t,
+          mode: o
+        });
+      });
+      return i ? (0, _mithril.default)("ul.collection.with-header", l, [(0, _mithril.default)("li.collection-header", (0, _mithril.default)("h4", i)), c]) : (0, _mithril.default)("ul.collection", l, c);
+    }
+  };
+},
+    J = function () {
+  return {
+    view: function (t) {
+      var n = t.attrs.item,
+          i = n.title,
+          a = n.active,
+          r = n.href,
+          o = x(n, ["title", "active", "href"]),
+          l = y(y({}, o), {
+        className: "collection-item " + (a ? "active" : ""),
+        href: r
+      });
+      return U(r) || !r ? (0, _mithril.default)("a[target=_]", l, i) : (0, _mithril.default)(_mithril.default.route.Link, l, i);
+    }
+  };
+},
+    X = function () {
+  return {
+    view: function (t) {
+      var n = t.attrs,
+          i = n.items,
+          a = n.header,
+          r = x(n, ["items", "header"]);
+      return a ? (0, _mithril.default)(".collection.with-header", r, [(0, _mithril.default)(".collection-header", (0, _mithril.default)("h4", a)), i.map(function (t) {
+        return (0, _mithril.default)(J, {
+          key: t.id,
+          item: t
+        });
+      })]) : (0, _mithril.default)(".collection", r, i.map(function (t) {
+        return (0, _mithril.default)(J, {
+          key: t.id,
+          item: t
+        });
+      }));
+    }
+  };
+},
+    $ = function () {
+  return {
+    view: function (t) {
+      var n = t.attrs,
+          i = n.items,
+          a = n.header,
+          r = n.mode,
+          o = void 0 === r ? F.BASIC : r,
+          l = x(n, ["items", "header", "mode"]);
+      return a || i && i.length > 0 ? o === F.LINKS ? (0, _mithril.default)(X, y({
+        header: a,
+        items: i
+      }, l)) : (0, _mithril.default)(H, y({
+        header: a,
+        items: i,
+        mode: o
+      }, l)) : void 0;
+    }
+  };
+},
+    W = function () {
+  var t = {};
+  return {
+    oninit: function (e) {
+      var i = e.attrs,
+          a = i.id,
+          r = void 0 === a ? n() : a,
+          o = i.initialValue,
+          l = i.checkedId;
+      t.id = r, t.initialValue = o || l;
+    },
+    view: function (n) {
+      var i = n.attrs,
+          a = i.key,
+          r = i.label,
+          o = i.onchange,
+          l = i.disabled,
+          c = void 0 !== l && l,
+          d = i.items,
+          s = i.iconName,
+          u = i.helperText,
+          m = i.style,
+          f = i.className,
+          v = void 0 === f ? "col s12" : f,
+          p = x(i, ["key", "label", "onchange", "disabled", "items", "iconName", "helperText", "style", "className"]),
+          b = t.id,
+          h = t.initialValue,
+          g = h ? d.filter(function (e) {
+        return e.id ? e.id === h : e.label === h;
+      }).shift() : void 0,
+          y = g ? g.label : r || "Select";
+      return (0, _mithril.default)(".input-field", {
+        className: v,
+        key: a,
+        style: m
+      }, [s ? (0, _mithril.default)("i.material-icons.prefix", s) : void 0, (0, _mithril.default)(I, {
+        helperText: u
+      }), (0, _mithril.default)("a.dropdown-trigger.btn.truncate[href=#][data-target=" + b + "]" + (c ? "[disabled]" : ""), {
+        className: "col s12",
+        style: m || (s ? "margin: 0.2em 0 0 3em;" : void 0),
+        oncreate: function (e) {
+          var t = e.dom;
+          M.Dropdown.init(t, p);
+        }
+      }, y), (0, _mithril.default)("ul.dropdown-content[id=" + b + "]", d.map(function (n) {
+        return (0, _mithril.default)("li" + (n.divider ? ".divider[tabindex=-1]" : ""), n.divider ? void 0 : (0, _mithril.default)("a", {
+          onclick: o ? function () {
+            t.initialValue = n.id || n.label, o(t.initialValue);
+          } : void 0
+        }, [n.iconName ? (0, _mithril.default)("i.material-icons", n.iconName) : void 0, n.label]));
+      }))]);
+    }
+  };
+},
+    Z = function () {
+  return {
+    view: function (t) {
+      var n = t.attrs,
+          i = n.className,
+          a = n.iconName,
+          r = n.iconClass,
+          o = void 0 === r ? "large" : r,
+          l = n.position,
+          c = n.style,
+          d = void 0 === c ? "left" === l || "inline-left" === l ? "position: absolute; display: inline-block; left: 24px;" : "right" === l || "inline-right" === l ? "position: absolute; display: inline-block; right: 24px;" : void 0 : c,
+          s = n.buttons,
+          u = x(n, ["className", "iconName", "iconClass", "position", "style", "buttons"]),
+          m = (0, _mithril.default)(".fixed-action-btn", {
+        style: d,
+        oncreate: function (e) {
+          var t = e.dom;
+          return M.FloatingActionButton.init(t, u);
+        }
+      }, [(0, _mithril.default)("a.btn-floating.btn-large", {
+        className: i
+      }, (0, _mithril.default)("i.material-icons", {
+        classNames: o
+      }, a)), s ? (0, _mithril.default)("ul", s.map(function (t) {
+        return (0, _mithril.default)("li", (0, _mithril.default)("a.btn-floating", {
+          className: t.className,
+          onclick: function (e) {
+            return t.onClick && t.onClick(e);
+          }
+        }, (0, _mithril.default)("i.material-icons", {
+          className: t.iconClass
+        }, t.iconName)));
+      })) : void 0]);
+      return "inline-right" === l || "inline-left" === l ? (0, _mithril.default)("div", {
+        style: "position: relative; height: 70px;"
+      }, m) : m;
+    }
+  };
+},
+    Q = function () {
+  var i = {
+    id: n()
+  };
+  return {
+    view: function (n) {
+      var a = n.attrs,
+          r = a.className,
+          o = void 0 === r ? "col s12" : r,
+          l = a.helperText,
+          c = a.iconName,
+          d = a.id,
+          s = void 0 === d ? i.id : d,
+          u = a.initialValue,
+          m = a.isMandatory,
+          v = a.label,
+          p = a.onchange,
+          b = a.style,
+          h = x(a, ["className", "helperText", "iconName", "id", "initialValue", "isMandatory", "label", "onchange", "style"]),
+          g = f(h);
+      return (0, _mithril.default)(".input-field", {
+        className: o,
+        style: b
+      }, [c ? (0, _mithril.default)("i.material-icons.prefix", c) : "", (0, _mithril.default)("textarea.materialize-textarea[tabindex=0][id=" + s + "]" + g, {
+        oncreate: function (e) {
+          var n = e.dom;
+          _materializeCss.default.textareaAutoResize(n), a.maxLength && _materializeCss.default.CharacterCounter.init(n);
+        },
+        onchange: p ? function (e) {
+          var t = e.target,
+              n = t && "string" == typeof t.value ? t.value : "";
+          p(n);
+        } : void 0,
+        value: u
+      }), (0, _mithril.default)(_, {
+        label: v,
+        id: s,
+        isMandatory: m,
+        isActive: u || a.placeholder
+      }), (0, _mithril.default)(I, {
+        helperText: l
+      })]);
+    }
+  };
+},
+    ee = function (i, a) {
+  return void 0 === a && (a = ""), function () {
+    var r = {
+      id: n()
+    },
+        o = function (e) {
+      var t = e.value;
+      return t && ("number" === i || "range" === i) ? +t : t;
+    },
+        l = function (e, t) {
+      "boolean" == typeof t ? e.setCustomValidity(t ? "" : "Custom validation failed") : e.setCustomValidity(t);
+    };
+
+    return {
+      view: function (n) {
+        var c = n.attrs,
+            d = c.className,
+            s = void 0 === d ? "col s12" : d,
+            u = c.dataError,
+            m = c.dataSuccess,
+            v = c.helperText,
+            p = c.iconName,
+            b = c.id,
+            h = void 0 === b ? r.id : b,
+            g = c.initialValue,
+            y = c.isMandatory,
+            w = c.label,
+            k = c.maxLength,
+            N = c.newRow,
+            C = c.onchange,
+            M = c.onkeydown,
+            T = c.onkeypress,
+            A = c.onkeyup,
+            S = c.style,
+            V = c.validate,
+            D = x(c, ["className", "dataError", "dataSuccess", "helperText", "iconName", "id", "initialValue", "isMandatory", "label", "maxLength", "newRow", "onchange", "onkeydown", "onkeypress", "onkeyup", "style", "validate"]),
+            O = f(D);
+        return (0, _mithril.default)(".input-field" + (N ? ".clear" : "") + a, {
+          className: s,
+          style: S
+        }, [p ? (0, _mithril.default)("i.material-icons.prefix", p) : void 0, (0, _mithril.default)("input.validate[type=" + i + "][tabindex=0][id=" + h + "]" + O, {
+          oncreate: function (e) {
+            var n = e.dom;
+            (function (e) {
+              var t = e.autofocus;
+              return !!t && ("boolean" == typeof t ? t : t());
+            })(c) && n.focus(), k && _materializeCss.default.CharacterCounter.init(n), "range" === i && _materializeCss.default.Range.init(n);
+          },
+          onkeyup: A ? function (e) {
+            A(e, o(e.target));
+          } : void 0,
+          onkeydown: M ? function (e) {
+            M(e, o(e.target));
+          } : void 0,
+          onkeypress: T ? function (e) {
+            T(e, o(e.target));
+          } : void 0,
+          onupdate: V ? function (e) {
+            var t = e.dom;
+            l(t, V(o(t), t));
+          } : void 0,
+          onchange: function (e) {
+            var t = e.target;
+
+            if (t) {
+              var n = o(t);
+              C && C(n), V && l(t, V(n, t));
+            }
+          },
+          value: g
+        }), (0, _mithril.default)(_, {
+          label: w,
+          id: h,
+          isMandatory: y,
+          isActive: !(void 0 === g && !c.placeholder && "number" !== i && "color" !== i && "range" !== i)
+        }), (0, _mithril.default)(I, {
+          helperText: v,
+          dataError: u,
+          dataSuccess: m
+        })]);
+      }
+    };
+  };
+},
+    te = ee("text"),
+    ne = ee("password"),
+    ie = ee("number"),
+    ae = ee("url"),
+    re = ee("color"),
+    oe = ee("range", ".range-field"),
+    le = ee("email"),
+    ce = function () {
+  return {
+    view: function (t) {
+      var n = t.attrs,
+          i = n.multiple,
+          a = n.disabled,
+          r = n.placeholder,
+          o = n.onchange,
+          l = n.className,
+          c = void 0 === l ? "col s12" : l,
+          d = n.accept,
+          s = d ? d instanceof Array ? d.join(", ") : d : void 0,
+          u = s ? "[accept=" + s + "]" : "",
+          m = i ? "[multiple]" : "",
+          f = a ? "[disabled]" : "",
+          v = r ? "[placeholder=" + r + "]" : "";
+      return (0, _mithril.default)(".file-field.input-field", {
+        className: n.class || c
+      }, [(0, _mithril.default)(".btn", [(0, _mithril.default)("span", "File"), (0, _mithril.default)("input[type=file]" + m + f + u, {
+        className: c,
+        onchange: o ? function (e) {
+          var t = e.target;
+          t && t.files && o(t.files);
+        } : void 0
+      })]), (0, _mithril.default)(".file-path-wrapper", (0, _mithril.default)("input.file-path.validate" + v + "[type=text]"))]);
+    }
+  };
+},
+    de = function () {
+  var t = {
+    id: n()
+  };
+  return {
+    view: function (n) {
+      var i = n.attrs,
+          a = i.label,
+          r = i.helperText,
+          o = i.initialValue,
+          l = i.newRow,
+          c = i.className,
+          d = void 0 === c ? "col s12" : c,
+          s = i.iconName,
+          u = i.isMandatory,
+          m = i.onchange,
+          v = i.disabled,
+          p = x(i, ["label", "helperText", "initialValue", "newRow", "className", "iconName", "isMandatory", "onchange", "disabled"]),
+          b = t.id,
+          h = f(p),
+          g = m ? function () {
+        return t.dp && m(t.dp.date);
+      } : void 0;
+      return (0, _mithril.default)(".input-field" + (l ? ".clear" : ""), {
+        className: d,
+        onremove: function () {
+          return t.dp && t.dp.destroy();
+        }
+      }, [s ? (0, _mithril.default)("i.material-icons.prefix", s) : "", (0, _mithril.default)("input.datepicker[type=text][tabindex=0][id=" + b + "]" + h + (v ? "[disabled]" : ""), {
+        oncreate: function (e) {
+          var n = e.dom;
+          t.dp = M.Datepicker.init(n, y(y({
+            format: "yyyy/mm/dd",
+            showClearBtn: !0,
+            setDefaultDate: !0,
+            defaultDate: o ? new Date(o) : new Date()
+          }, p), {
+            onClose: g
+          }));
+        }
+      }), (0, _mithril.default)(_, {
+        label: a,
+        id: b,
+        isMandatory: u,
+        isActive: !!o
+      }), (0, _mithril.default)(I, {
+        helperText: r
+      })]);
+    }
+  };
+},
+    se = function () {
+  var t = {
+    id: n()
+  };
+  return {
+    view: function (n) {
+      var i = n.attrs,
+          a = i.label,
+          r = i.helperText,
+          o = i.initialValue,
+          l = i.newRow,
+          c = i.className,
+          d = void 0 === c ? "col s12" : c,
+          s = i.iconName,
+          u = i.isMandatory,
+          m = i.onchange,
+          v = i.disabled,
+          p = x(i, ["label", "helperText", "initialValue", "newRow", "className", "iconName", "isMandatory", "onchange", "disabled"]),
+          b = t.id,
+          h = f(p),
+          g = m ? function () {
+        return t.tp && m(t.tp.time);
+      } : void 0;
+      return (0, _mithril.default)(".input-field.timepicker" + (l ? ".clear" : ""), {
+        className: d,
+        onremove: function () {
+          return t.tp && t.tp.destroy();
+        }
+      }, [s ? (0, _mithril.default)("i.material-icons.prefix", s) : "", (0, _mithril.default)("input[type=text][tabindex=0][id=" + b + "]" + h + (v ? "[disabled]" : ""), {
+        value: o,
+        oncreate: function (e) {
+          var n = e.dom;
+          t.tp = M.Timepicker.init(n, y(y({
+            twelveHour: !1,
+            showClearBtn: !0,
+            defaultTime: o
+          }, p), {
+            onCloseEnd: g
+          }));
+        }
+      }), (0, _mithril.default)(_, {
+        label: a,
+        id: b,
+        isMandatory: u,
+        isActive: o
+      }), (0, _mithril.default)(I, {
+        helperText: r
+      })]);
+    }
+  };
+},
+    ue = function () {
+  return {
+    view: function (t) {
+      var n = t.attrs,
+          i = n.inline,
+          a = n.className,
+          r = void 0 === a ? i ? "col" : "col s12" : a,
+          o = n.onchange,
+          l = n.label,
+          c = n.checked,
+          d = n.disabled;
+      return (0, _mithril.default)("div", {
+        className: r,
+        style: i ? "display: inline-block; margin: 0 2em 1em 0;" : ""
+      }, (0, _mithril.default)("label", [(0, _mithril.default)("input[type=checkbox][tabindex=0]" + (c ? "[checked]" : "") + (d ? "[disabled]" : ""), {
+        onclick: o ? function (e) {
+          e.target && void 0 !== e.target.checked && o(e.target.checked);
+        } : void 0
+      }), l ? "string" == typeof l ? (0, _mithril.default)("span", l) : l : void 0]));
+    }
+  };
+},
+    me = function () {
+  var t = {},
+      n = function (e) {
+    return t.initialValue.indexOf(e) >= 0;
+  };
+
+  return {
+    oninit: function (e) {
+      var n = e.attrs,
+          i = n.onchange,
+          a = n.initialValue,
+          r = n.checkedId,
+          o = a || r;
+      t.initialValue = o ? o instanceof Array ? w(o) : [o] : [], t.onchange = i ? function (e, n) {
+        var a = t.initialValue.filter(function (t) {
+          return t !== e;
+        });
+        n && a.push(e), t.initialValue = a, i(a);
+      } : void 0;
+    },
+    view: function (i) {
+      var a = i.attrs,
+          r = a.label,
+          o = a.id,
+          l = a.options,
+          c = a.description,
+          d = a.className,
+          s = void 0 === d ? "col s12" : d,
+          u = a.disabled,
+          m = a.checkboxClass,
+          f = a.newRow,
+          v = a.isMandatory,
+          p = a.inline,
+          b = f ? ".clear" : "",
+          h = t.onchange;
+      return (0, _mithril.default)("div" + b, {
+        className: s
+      }, w([(0, _mithril.default)("div", {
+        className: "input-field options"
+      }, (0, _mithril.default)(_, {
+        id: o,
+        label: r,
+        isMandatory: v
+      })), (0, _mithril.default)(I, {
+        helperText: c
+      })], l.map(function (t) {
+        return (0, _mithril.default)(ue, {
+          inline: p,
+          disabled: u || t.disabled,
+          label: t.label,
+          onchange: h ? function (e) {
+            return h(t.id, e);
+          } : void 0,
+          className: m,
+          checked: n(t.id)
+        });
+      })));
+    }
+  };
+},
+    fe = function () {
+  var t = {},
+      n = function (e) {
+    return e.map(function (e) {
+      return e.id;
+    }).join("");
+  },
+      i = function (e, t, n) {
+    return void 0 === n && (n = !1), n || (t instanceof Array && (e || "number" == typeof e) ? t.indexOf(e) >= 0 : t === e);
+  };
+
+  return {
+    oninit: function (e) {
+      var i = e.attrs,
+          a = i.onchange,
+          r = i.multiple,
+          o = i.checkedId,
+          l = i.initialValue,
+          c = i.options,
+          d = l || o;
+      t.ids = n(c), t.initialValue = d ? d instanceof Array ? w(d.filter(function (e) {
+        return null !== e;
+      })) : [d] : [], t.onchange = a ? r ? function () {
+        var e = t.instance && t.instance.getSelectedValues(),
+            n = e ? e.length > 0 && v(e[0]) ? e.map(function (e) {
+          return +e;
+        }) : e.filter(function (e) {
+          return null !== e || void 0 !== e;
+        }) : void 0;
+        t.initialValue = n || [], a(t.initialValue);
+      } : function (e) {
+        if (e && e.currentTarget) {
+          var n = e.currentTarget,
+              i = v(n.value) ? +n.value : n.value;
+          t.initialValue = void 0 !== typeof i ? [i] : [];
+        }
+
+        a(t.initialValue);
+      } : void 0;
+    },
+    view: function (a) {
+      var r = a.attrs,
+          o = r.id,
+          l = r.newRow,
+          c = r.className,
+          d = void 0 === c ? "col s12" : c,
+          s = r.key,
+          u = r.options,
+          m = r.multiple,
+          f = r.label,
+          v = r.helperText,
+          p = r.placeholder,
+          b = r.isMandatory,
+          h = r.iconName,
+          g = r.disabled,
+          y = r.classes,
+          x = r.dropdownOptions,
+          w = t.initialValue,
+          k = t.onchange,
+          N = l ? ".clear" : "",
+          C = g ? "[disabled]" : "",
+          T = m ? "[multiple]" : "",
+          A = 0 === u.filter(function (e) {
+        return i(e.id, w);
+      }).length;
+      return (0, _mithril.default)(".input-field.select-space" + N, {
+        className: d,
+        key: s
+      }, [h ? (0, _mithril.default)("i.material-icons.prefix", h) : void 0, (0, _mithril.default)("select[id=" + o + "]" + C + T, {
+        oncreate: function (e) {
+          var n = e.dom;
+          t.instance = M.FormSelect.init(n, {
+            classes: y,
+            dropdownOptions: x
+          });
+        },
+        onupdate: function (e) {
+          var i = e.dom,
+              a = n(u);
+          t.ids !== a && (t.ids = a, t.instance = M.FormSelect.init(i, {
+            classes: y,
+            dropdownOptions: x
+          }));
+        },
+        onchange: k
+      }, p ? (0, _mithril.default)("option[disabled]" + (A ? "[selected]" : ""), p) : "", u.map(function (t, n) {
+        return (0, _mithril.default)("option[value=" + t.id + "]" + (t.disabled ? "[disabled]" : "") + (i(t.id, w, 0 === n && A && !p) ? "[selected]" : ""), t.label.replace("&amp;", "&"));
+      })), (0, _mithril.default)(_, {
+        label: f,
+        isMandatory: b
+      }), (0, _mithril.default)(I, {
+        helperText: v
+      })]);
+    }
+  };
+},
+    ve = function () {
+  var t = {
+    groupId: n()
+  };
+  return {
+    oninit: function (e) {
+      var n = e.attrs,
+          i = n.onchange,
+          a = n.checkedId;
+      t.checkedId = a, t.onchange = function (e) {
+        t.checkedId = e, i && i(e);
+      };
+    },
+    view: function (n) {
+      var i = n.attrs,
+          a = i.id,
+          r = i.newRow,
+          o = i.inline,
+          l = i.className,
+          c = void 0 === l ? "col s12" : l,
+          d = i.label,
+          s = void 0 === d ? "" : d,
+          u = i.disabled,
+          m = i.description,
+          f = i.options,
+          v = i.isMandatory,
+          p = t.groupId,
+          b = t.onchange,
+          h = t.checkedId;
+      return (0, _mithril.default)("div" + (a ? "[id=" + a + "]" : "") + (r ? ".clear" : ""), {
+        className: c
+      }, w([(0, _mithril.default)("div", {
+        className: "input-field options"
+      }, (0, _mithril.default)(_, {
+        id: a,
+        label: s,
+        isMandatory: v
+      })), m ? (0, _mithril.default)("p.helper-text", _mithril.default.trust(m)) : ""], f.map(function (t) {
+        return (0, _mithril.default)(pe, y(y({}, t), {
+          inline: o,
+          onchange: b,
+          groupId: p,
+          disabled: u,
+          checked: t.id === h
+        }));
+      })));
+    }
+  };
+},
+    pe = function () {
+  return {
+    view: function (t) {
+      var n = t.attrs,
+          i = n.id,
+          a = n.groupId,
+          r = n.label,
+          o = n.onchange,
+          l = n.inline,
+          c = n.className,
+          d = void 0 === c ? l ? "col" : "col s12" : c,
+          s = n.checked,
+          u = n.disabled;
+      return (0, _mithril.default)("div", {
+        className: d,
+        style: l ? "display: inline-block; margin: 0 2em 1em 0;" : ""
+      }, (0, _mithril.default)("label", [(0, _mithril.default)("input[type=radio][tabindex=0][name=" + a + "]" + (s ? "[checked=checked]" : "") + (u ? "[disabled]" : ""), {
+        onclick: o ? function () {
+          return o(i);
+        } : void 0
+      }), (0, _mithril.default)("span", _mithril.default.trust(r))]));
+    }
+  };
+},
+    be = function (t, a, r) {
+  void 0 === r && (r = {});
+  var o = t.component,
+      l = t.required,
+      c = t.options,
+      d = t.autogenerate,
+      s = x(t, ["component", "required", "options", "autogenerate"]),
+      u = r.containerId,
+      m = r.autofocus,
+      f = r.disabled,
+      v = void 0 !== f && f,
+      p = r.onchange,
+      b = r.multiline,
+      h = r.key;
+  d && p && p("id" === d ? n() : i(), !1);
+  var g = l ? function (e) {
+    return e instanceof Array ? e && e.length > 0 : void 0 !== typeof e;
+  } : void 0;
+
+  switch (o) {
+    case "text":
+      return (0, _mithril.default)(b ? Q : te, y(y({}, s), {
+        key: h,
+        isMandatory: l,
+        validate: g,
+        autofocus: m,
+        disabled: v,
+        onchange: p,
+        initialValue: a
+      }));
+
+    case "number":
+      return (0, _mithril.default)(ie, y(y({}, s), {
+        key: h,
+        isMandatory: l,
+        validate: g,
+        autofocus: m,
+        disabled: v,
+        onchange: p,
+        initialValue: a
+      }));
+
+    case "url":
+      return (0, _mithril.default)(ae, y(y({}, s), {
+        key: h,
+        isMandatory: l,
+        validate: g,
+        autofocus: m,
+        disabled: v,
+        onchange: p,
+        initialValue: a
+      }));
+
+    case "email":
+      return (0, _mithril.default)(le, y(y({}, s), {
+        key: h,
+        isMandatory: l,
+        validate: g,
+        autofocus: m,
+        disabled: v,
+        onchange: p,
+        initialValue: a
+      }));
+
+    case "checkbox":
+      return (0, _mithril.default)(ue, y(y({}, s), {
+        validate: g,
+        disabled: v,
+        onchange: p,
+        checked: a
+      }));
+
+    case "select":
+      return (0, _mithril.default)(fe, y(y({}, s), {
+        key: h,
+        options: c || [{
+          id: "none",
+          label: "Unspecified"
+        }],
+        disabled: v,
+        isMandatory: l,
+        validate: g,
+        onchange: function (e) {
+          return e && p && p(e);
+        },
+        checkedId: a
+      }));
+
+    case "options":
+      return (0, _mithril.default)(me, y(y({}, s), {
+        key: h,
+        options: c || [{
+          id: "none",
+          label: "Unspecified"
+        }],
+        disabled: v,
+        isMandatory: l,
+        validate: g,
+        onchange: function (e) {
+          return p && p(e);
+        },
+        checkedId: a
+      }));
+
+    case "radios":
+      return (0, _mithril.default)(ve, y(y({}, s), {
+        key: h,
+        options: c || [{
+          id: "none",
+          label: "Unspecified"
+        }],
+        disabled: v,
+        isMandatory: l,
+        validate: g,
+        onchange: function (e) {
+          return e && p && p(e);
+        },
+        checkedId: a
+      }));
+
+    case "date":
+      var w = a || new Date();
+      return !a && p && p(w), (0, _mithril.default)(de, y(y({}, s), {
+        key: h,
+        isMandatory: l,
+        autofocus: m,
+        disabled: v,
+        onchange: p,
+        initialValue: w,
+        container: u ? document.getElementById(u) : document.body
+      }));
+
+    case "time":
+      var k = a || "00:00";
+      return !a && p && p(k), (0, _mithril.default)(se, y(y({}, s), {
+        key: h,
+        isMandatory: l,
+        autofocus: m,
+        disabled: v,
+        onchange: p,
+        initialValue: k,
+        container: u || document.body.id
+      }));
+
+    default:
+      return;
+  }
+},
+    he = function () {
+  var t = {};
+  return {
+    view: function (n) {
+      var i = n.attrs,
+          a = i.el,
+          r = void 0 === a ? ".row" : a,
+          o = i.model,
+          l = i.item,
+          c = i.containerId,
+          d = i.disabled,
+          s = void 0 !== d && d,
+          u = i.editableIds,
+          m = void 0 === u ? [] : u,
+          f = i.onchange;
+      return t.item = l, t.model = o, f && f(!1), (0, _mithril.default)(r, {
+        style: "margin-bottom: -15px;",
+        key: l.id
+      }, o.map(function (e, n) {
+        return be(e, l[e.id], {
+          containerId: c,
+          autofocus: 0 === n,
+          disabled: s && m.indexOf(e.id) < 0,
+          onchange: s && m.indexOf(e.id) < 0 ? void 0 : function (n, i) {
+            void 0 === i && (i = !0), (i || void 0 === t.item[e.id]) && (Array, t.item[e.id] = n, f && f(function () {
+              var e = t.model,
+                  n = t.item;
+              return e.filter(function (e) {
+                return e.required;
+              }).reduce(function (e, t) {
+                return e && !(void 0 === n[t.id] || n[t.id] instanceof Array && 0 === n[t.id].length || "string" == typeof n[t.id] && 0 === n[t.id].length);
+              }, !0);
+            }()));
+          }
+        });
+      }));
+    }
+  };
+},
+    ge = function () {
+  return {
+    oncreate: function (e) {
+      var t = e.dom,
+          n = e.attrs,
+          i = n.options,
+          a = n.onCreate,
+          r = M.Modal.init(t, i);
+      a && a(r);
+    },
+    view: function (t) {
+      var n = t.attrs,
+          i = n.id,
+          a = n.title,
+          r = n.description,
+          o = n.fixedFooter,
+          l = n.bottomSheet,
+          c = n.buttons,
+          d = n.richContent;
+      return (0, _mithril.default)(".modal" + (o ? ".modal-fixed-footer" : "") + (l ? ".bottom-sheet" : "") + "[id=" + i + "]", [(0, _mithril.default)(".modal-content", [(0, _mithril.default)("h4", a), d && "string" == typeof r ? _mithril.default.trust(r || "") : "string" == typeof r ? (0, _mithril.default)("p", r) : r]), c ? (0, _mithril.default)(".modal-footer", c.map(function (t) {
+        return (0, _mithril.default)(O, y(y({}, t), {
+          className: "modal-close"
+        }));
+      })) : void 0]);
+    }
+  };
+};
+
+exports.ModalPanel = ge;
+exports.LayoutForm = he;
+exports.fieldToComponent = be;
+exports.RadioButton = pe;
+exports.RadioButtons = ve;
+exports.Select = fe;
+exports.Options = me;
+exports.InputCheckbox = ue;
+exports.TimePicker = se;
+exports.DatePicker = de;
+exports.FileInput = ce;
+exports.EmailInput = le;
+exports.RangeInput = oe;
+exports.ColorInput = re;
+exports.UrlInput = ae;
+exports.NumberInput = ie;
+exports.PasswordInput = ne;
+exports.TextInput = te;
+exports.TextArea = Q;
+exports.FloatingActionButton = Z;
+exports.Dropdown = W;
+exports.Collection = $;
+exports.AnchorItem = J;
+exports.ListItem = G;
+exports.SecondaryContent = q;
+k('.kanban .kanban__draggable{cursor:move;cursor:grab;cursor:-webkit-grab}.kanban .kanban__draggable:active{cursor:grabbing;cursor:-webkit-grabbing}.kanban .kanban__below{background:linear-gradient(180deg,rgba(30,87,153,0) 0,rgba(30,87,153,.7));filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#001e5799",endColorstr="#b31e5799",GradientType=0)}.kanban .kanban__above{background:linear-gradient(180deg,rgba(30,87,153,.7) 0,rgba(30,87,153,0));filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#b31e5799",endColorstr="#001e5799",GradientType=0)}.kanban__item{padding-bottom:12px}.kanban__item.disabled{padding-bottom:24px}.kanban__item>.card-action{margin-bottom:0;text-align:right}');
+
+var ye = function () {
+  var t = {
+    id: n()
+  },
+      a = function () {
+    return t.onchange && t.onchange(t.items);
+  },
+      r = function (e, t) {
+    var n = e.getBoundingClientRect(),
+        i = n.top,
+        a = n.height;
+    return t.clientY - i < a / 2 ? "above" : "below";
+  },
+      o = function (e) {
+    var t = e.getAttribute("data-kanban-index");
+    return t ? +t : e.parentElement ? o(e.parentElement) : -1;
+  },
+      l = function (e) {
+    return !!/kanban__item/.test(e.className) || !!e.parentElement && l(e.parentElement);
+  },
+      c = function (e) {
+    return /kanban__item/.test(e.className) ? e : e.parentElement ? c(e.parentElement) : null;
+  },
+      d = function (e, n, i) {
+    return t.moveBetweenList ? "above" === e ? n : n + 1 : i < n ? "above" === e ? n - 1 : n : "above" === e ? n : n - 1;
+  },
+      s = {
+    draggable: !0,
+    ondrop: function (e) {
+      e.preventDefault();
+      var l = t.dragIndex,
+          s = t.moveBetweenList,
+          u = t.copying,
+          m = e.target,
+          f = c(m);
+
+      if (f) {
+        f.classList.remove("kanban__above", "kanban__below");
+        var v = r(m, e),
+            p = o(m),
+            b = d(v, p, l);
+
+        if (b < l && t.dragIndex++, s && e.dataTransfer) {
+          var h = JSON.parse(e.dataTransfer.getData("application/json"));
+          u && function (e) {
+            t.model.filter(function (e) {
+              return e.autogenerate;
+            }).forEach(function (t) {
+              var a = t.id,
+                  r = t.autogenerate;
+              e[a] = "id" === r ? n() : i();
+            });
+          }(h), t.items.splice(b, 0, h);
+        } else g(t.items, l, b);
+
+        a();
+      }
+    },
+    ondragstart: function (e) {
+      var n = e.target;
+
+      if (e.dataTransfer) {
+        var i = t.items;
+        e.dataTransfer.effectAllowed = "copyMove", t.dragIndex = o(n);
+        var a = i[t.dragIndex];
+        e.dataTransfer.setData("application/json", JSON.stringify(a, null, 2));
+      }
+    },
+    ondragover: function (e) {
+      e.redraw = !1, e.preventDefault();
+      var n = e.target,
+          i = c(n);
+
+      if (i && e.dataTransfer) {
+        var a = e.getModifierState("Control");
+        i.classList.remove("kanban__above", "kanban__below");
+        var s = r(i, e);
+        !function (e, n) {
+          if (!l(e)) return !1;
+          var i = t.dragIndex;
+          if (t.moveBetweenList) return !0;
+          var a = o(e),
+              r = d(n, a, i);
+          return i !== a && r !== i;
+        }(i, s) ? e.dataTransfer.dropEffect = "none" : (i.classList.add("kanban__" + s), t.copying = a, e.dataTransfer.dropEffect = a ? "copy" : "move");
+      }
+    },
+    ondragleave: function (e) {
+      e.redraw = !1;
+      var t = e.target,
+          n = c(t);
+      n && n.classList.remove("kanban__above", "kanban__below");
+    },
+    ondragend: function (e) {
+      e.dataTransfer && "move" === e.dataTransfer.dropEffect && (t.items.splice(t.dragIndex, 1), a());
+    }
+  };
+
+  return {
+    oninit: function (e) {
+      var n = e.attrs,
+          i = n.items,
+          a = void 0 === i ? [] : i,
+          r = n.canEdit,
+          o = void 0 === r || r,
+          l = n.canSort,
+          c = void 0 === l || l,
+          d = n.canDrag,
+          s = void 0 !== d && d,
+          u = n.sortDirection,
+          m = void 0 === u ? "asc" : u,
+          f = n.model,
+          v = void 0 === f ? [] : f,
+          p = n.label,
+          b = void 0 === p ? "item" : p,
+          h = n.i18n,
+          g = void 0 === h ? {
+        newItem: "New " + b,
+        modalDeleteItem: "Delete " + b,
+        modalCreateNewItem: "Create new " + b,
+        modalEditNewItem: "Edit new " + b
+      } : h,
+          x = n.containerId,
+          k = n.editableIds,
+          N = void 0 === k ? [] : k,
+          _ = n.fixedFooter,
+          I = void 0 !== _ && _,
+          C = n.moveBetweenList,
+          M = void 0 !== C && C,
+          T = n.onchange;
+      t.items = a.map(function (e) {
+        return y({}, e);
+      }), t.model = v, t.i18n = g, t.canEdit = o, t.canSort = c, t.canDrag = s, t.sortDirection = m, t.containerId = x, t.fixedFooter = I, t.editId = "edit_item_" + t.id, t.deleteId = "delete_item_" + t.id, t.moveBetweenList = M, t.onchange = T, t.editableIds = N, t.sortableIds = w([{
+        label: "None"
+      }], v.filter(function (e) {
+        return e.label;
+      }).map(function (e) {
+        return {
+          label: e.label,
+          id: e.id
+        };
+      }));
+    },
+    view: function (n) {
+      var i = n.attrs.disabled,
+          r = t.model,
+          o = t.items,
+          l = t.canSort,
+          c = t.sortDirection,
+          d = t.curSortId,
+          u = t.i18n,
+          m = t.containerId,
+          f = t.fixedFooter,
+          v = t.canDrag,
+          p = t.canEdit,
+          b = t.moveBetweenList,
+          h = t.sortableIds,
+          g = t.editableIds;
+
+      if (r) {
+        var x = "asc" === c ? 1 : -1,
+            w = l && d ? o.sort(function (e, t) {
+          return e[d] > t[d] ? x : e[d] < t[d] ? -x : 0;
+        }) : o;
+        return (0, _mithril.default)(".kanban", [(0, _mithril.default)(".row.kanban__menu", {
+          style: "margin-bottom: 0;"
+        }, [p && !i ? (0, _mithril.default)(O, {
+          label: u.newItem,
+          modalId: t.editId,
+          iconName: "add",
+          onclick: function () {
+            t.curItem = void 0, t.updatedItem = {};
+          }
+        }) : void 0, l && !v && h && o.length > 1 ? [(0, _mithril.default)(O, {
+          iconName: "sort",
+          iconClass: "asc" === c ? "left twist" : "",
+          className: "right",
+          onclick: function () {
+            t.sortDirection = "asc" === t.sortDirection ? "desc" : "asc";
+          }
+        }), (0, _mithril.default)(W, {
+          items: h,
+          checkedId: d,
+          className: "right",
+          style: "margin: 0 auto;",
+          onchange: function (e) {
+            return t.curSortId = e;
+          }
+        })] : void 0]), (0, _mithril.default)(".row.kanban__items", (0, _mithril.default)(".col.s12", w.length > 0 || !b ? w.map(function (n, a) {
+          return (0, _mithril.default)(".card-panel.kanban__item[data-kanban-index=" + a + "]" + (i ? ".disabled" : ""), v && !i ? y({
+            key: n.id
+          }, s) : {
+            key: n.id
+          }, [(0, _mithril.default)(".card-content", (0, _mithril.default)(he, {
+            model: r,
+            item: n,
+            containerId: m,
+            disabled: !0,
+            editableIds: g,
+            onchange: function (e) {
+              t.canSave = e, e && t.onchange && t.onchange(t.items);
+            }
+          })), p && !i ? (0, _mithril.default)(".card-action.row", (0, _mithril.default)(".col.s12", [(0, _mithril.default)(O, {
+            iconName: "edit",
+            modalId: t.editId,
+            onclick: function () {
+              t.curItem = n, t.updatedItem = y({}, n);
+            }
+          }), (0, _mithril.default)(O, {
+            iconName: "delete",
+            modalId: t.deleteId,
+            onclick: function () {
+              return t.curItem = n;
+            }
+          })])) : void 0]);
+        }) : (0, _mithril.default)(".card-panel.kanban__item", y({}, s)))), (0, _mithril.default)(ge, {
+          id: t.editId,
+          title: u.modalCreateNewItem,
+          fixedFooter: f,
+          description: t.updatedItem ? (0, _mithril.default)(he, {
+            model: r,
+            item: t.updatedItem || {},
+            containerId: m,
+            onchange: function (e) {
+              t.canSave = e;
+            }
+          }) : void 0,
+          buttons: [{
+            iconName: "cancel",
+            label: "Cancel"
+          }, {
+            iconName: "save",
+            label: "Save",
+            disabled: !t.canSave,
+            onclick: function () {
+              if (t.curItem) {
+                var e = t.curItem;
+                r.forEach(function (n) {
+                  e[n.id] = t.updatedItem[n.id];
+                });
+              } else t.updatedItem && t.items.push(t.updatedItem);
+
+              a();
+            }
+          }]
+        }), (0, _mithril.default)(ge, {
+          id: t.deleteId,
+          title: u.modalDeleteItem,
+          description: "Are you sure?",
+          buttons: [{
+            label: "No"
+          }, {
+            label: "Yes",
+            onclick: function () {
+              t.items = t.items.filter(function (e) {
+                return e !== t.curItem;
+              }), a();
+            }
+          }]
+        })]);
+      }
+    }
+  };
+};
+
+exports.Kanban = ye;
+k(".map-editor .input-field .prefix~.collection{margin-left:3rem;width:92%;width:calc(100% - 3rem)}.map-editor .active .checkbox-in-collection label>input[type=checkbox]:checked+span:before{top:-4px;left:-3px;width:12px;height:22px;border-color:transparent #fff #fff transparent;border-style:solid;border-width:2px;transform:rotate(40deg);-webkit-backface-visibility:hidden;transform-origin:100% 100%}");
+
+var xe = function () {
+  var t = function (e) {
+    return a.curKey = a.id = e;
+  },
+      i = function (e, n) {
+    return Object.keys(e).map(function (t) {
+      return {
+        key: t,
+        value: e[t]
+      };
+    }).map(function (e) {
+      return function (e, n) {
+        var i = n.onclick;
+        return n.id = n.id || e, n.active = e === a.curKey, n.onclick = i ? function () {
+          return t(e) && i(n);
+        } : function () {
+          return t(e);
+        }, n;
+      }(e.key, a.kvc(e.key, e.value, {
+        keyClass: n.keyClass,
+        valueClass: n.valueClass
+      }));
+    });
+  },
+      a = {
+    elementId: n(),
+    id: "",
+    curKey: "",
+    kvc: function (t, n, i) {
+      var a = i.keyClass,
+          r = void 0 === a ? ".col.s4" : a,
+          o = i.valueClass,
+          l = void 0 === o ? ".col.s8" : o,
+          c = n instanceof Array ? n.join(", ") : "boolean" == typeof n ? (0, _mithril.default)(ue, {
+        label: " ",
+        checked: n,
+        disabled: !0,
+        className: "checkbox-in-collection"
+      }) : n.toString();
+      return {
+        title: (0, _mithril.default)(".row", {
+          style: "margin-bottom: 0"
+        }, [(0, _mithril.default)(r, (0, _mithril.default)("b", t)), (0, _mithril.default)(l, c)])
+      };
+    }
+  },
+      r = function () {
+    a.id = "", a.curKey = "";
+  };
+
+  return {
+    oninit: function (e) {
+      var t = e.attrs,
+          n = t.keyValueConverter,
+          i = t.id;
+      n && (a.kvc = n), i && (a.elementId = i);
+    },
+    view: function (t) {
+      var n = t.attrs,
+          o = n.className,
+          l = void 0 === o ? "col s12" : o,
+          c = n.disabled,
+          d = n.disallowArrays,
+          s = n.header,
+          u = n.iconName,
+          m = n.iconNameKey,
+          f = void 0 === m ? u ? "label" : void 0 : m,
+          v = n.isMandatory,
+          p = n.label,
+          b = n.labelKey,
+          h = void 0 === b ? "Key" : b,
+          g = n.labelValue,
+          y = void 0 === g ? "Value" : g,
+          x = n.properties,
+          w = n.keyClass,
+          k = n.valueClass,
+          N = n.onchange,
+          I = n.falsy,
+          C = void 0 === I ? ["false"] : I,
+          M = n.truthy,
+          T = void 0 === M ? ["true"] : M,
+          A = function () {
+        return N ? N(x) : void 0;
+      },
+          S = i(x, {
+        keyClass: w,
+        valueClass: k
+      }),
+          V = a.curKey,
+          D = x[V],
+          E = "boolean" == typeof D || "number" == typeof D ? D : D ? D instanceof Array ? "[" + D.join(", ") + "]" : D : "",
+          L = a.elementId;
+
+      return [(0, _mithril.default)(".map-editor", (0, _mithril.default)(".input-field", {
+        className: l,
+        style: "min-height: 1.5em;"
+      }, [u ? (0, _mithril.default)("i.material-icons.prefix", u) : "", (0, _mithril.default)(_, {
+        label: p,
+        isMandatory: v,
+        isActive: S.length > 0
+      }), (0, _mithril.default)($, {
+        id: L,
+        items: S,
+        mode: F.LINKS,
+        header: s
+      })])), c ? void 0 : [(0, _mithril.default)(te, {
+        label: h,
+        iconName: f,
+        className: "col s5",
+        initialValue: V,
+        onchange: function (e) {
+          a.curKey = e, a.id && (delete x[a.id], x[e] = D, a.id = e), A();
+        }
+      }), "string" == typeof E ? (0, _mithril.default)(Q, {
+        label: y,
+        initialValue: E,
+        className: "col s7",
+        onchange: function (e) {
+          var t = function (e, t, n) {
+            return t.indexOf(e) >= 0 || !(n.indexOf(e) >= 0) && void 0;
+          }(e, T, C),
+              n = void 0 === t && /^\s*\d+\s*$/i.test(e) ? +e : void 0;
+
+          x[V] = "boolean" == typeof t ? t : "number" == typeof n ? n : function (e, t) {
+            if (void 0 === t && (t = !1), t) return e;
+
+            if (e) {
+              var n = /\s*\[(.*)\]\s*/gi.exec(e);
+              if (n && 2 === n.length) return n[1].split(",").map(function (e) {
+                return e.trim();
+              }).map(function (e) {
+                return /^\d+$/g.test(e) ? +e : e;
+              });
+            }
+          }(e, d) || e, A();
+        }
+      }) : "number" == typeof E ? (0, _mithril.default)(ie, {
+        label: y,
+        initialValue: E,
+        className: "col s7",
+        onchange: function (e) {
+          x[V] = e, A();
+        }
+      }) : (0, _mithril.default)(ue, {
+        label: y,
+        checked: E,
+        className: "input-field col s7",
+        onchange: function (e) {
+          x[V] = e, A();
+        }
+      }), (0, _mithril.default)(".col.s12.right-align", [(0, _mithril.default)(O, {
+        iconName: "add",
+        onclick: r
+      }), (0, _mithril.default)(O, {
+        iconName: "delete",
+        disabled: !V,
+        onclick: function () {
+          delete x[V], r(), A();
+        }
+      })])]];
+    }
+  };
+},
+    we = function () {
+  return {
+    oncreate: function (e) {
+      var t = e.dom,
+          n = e.attrs;
+      M.Materialbox.init(t, n);
+    },
+    view: function (t) {
+      var n = t.attrs,
+          i = n.src,
+          a = n.width,
+          r = n.height;
+      return (0, _mithril.default)("img.materialboxed[src=" + i + "]" + (a ? "[width=" + a + "]" : "") + (r ? "[height=" + r + "]" : ""), n);
+    }
+  };
+},
+    ke = function () {
+  return {
+    view: function (t) {
+      var n = t.attrs,
+          i = n.title,
+          a = n.href,
+          r = n.active,
+          o = n.disabled;
+      return (0, _mithril.default)("li", {
+        className: r ? "active" : o ? "disabled" : "waves-effect"
+      }, "number" == typeof i ? (0, _mithril.default)(_mithril.default.route.Link, {
+        href: a
+      }, i) : i);
+    }
+  };
+},
+    Ne = function () {
+  var t = {
+    pagIndex: 0
+  };
+  return {
+    view: function (n) {
+      var i = n.attrs,
+          a = i.items,
+          r = i.curPage,
+          o = void 0 === r ? 1 : r,
+          l = i.size,
+          c = void 0 === l ? Math.min(9, a.length) : l,
+          d = t.pagIndex,
+          s = d * c,
+          u = s + c,
+          m = d > 0,
+          f = u < a.length,
+          v = w([{
+        title: (0, _mithril.default)("a", {
+          onclick: function () {
+            return m && t.pagIndex--;
+          }
+        }, (0, _mithril.default)("i.material-icons", "chevron_left")),
+        disabled: !m
+      }], a.filter(function (e, t) {
+        return s <= t && t < u;
+      }), [{
+        title: (0, _mithril.default)("a", {
+          onclick: function () {
+            return f && t.pagIndex++;
+          }
+        }, (0, _mithril.default)("i.material-icons", "chevron_right")),
+        disabled: !f
+      }]);
+      return (0, _mithril.default)("ul.pagination", v.map(function (t, n) {
+        return (0, _mithril.default)(ke, y(y({
+          title: s + n
+        }, t), {
+          active: s + n === o
+        }));
+      }));
+    }
+  };
+},
+    _e = function () {
+  return {
+    oncreate: function (e) {
+      var t = e.dom,
+          n = e.attrs;
+      M.Parallax.init(t, n);
+    },
+    view: function (t) {
+      var n = t.attrs.src;
+      return n ? (0, _mithril.default)(".parallax-container", (0, _mithril.default)(".parallax", (0, _mithril.default)("img[src=" + n + "]"))) : void 0;
+    }
+  };
+};
+
+exports.Parallax = _e;
+exports.Pagination = Ne;
+exports.MaterialBox = we;
+exports.MapEditor = xe;
+k(".clear,.clear-10,.clear-15{clear:both}.clear-10{margin-bottom:10px}.clear-15{margin-bottom:15px}span.mandatory{margin-left:5px;color:red}label+.switch{margin-top:1rem}");
+
+var Ie = function () {
+  var t = {
+    id: n()
+  };
+  return {
+    view: function (n) {
+      var i = n.attrs,
+          a = i.id || t.id,
+          r = i.label,
+          o = i.left,
+          l = i.right,
+          c = i.disabled,
+          d = i.newRow,
+          s = i.onchange,
+          m = i.checked,
+          f = i.isMandatory,
+          v = i.className;
+      return (0, _mithril.default)("div" + (d ? ".clear" : ""), {
+        className: void 0 === v ? "col s12" : v
+      }, [r ? (0, _mithril.default)(_, {
+        label: r || "",
+        id: a,
+        isMandatory: f
+      }) : void 0, (0, _mithril.default)(".switch", (0, _mithril.default)("label", [o || "Off", (0, _mithril.default)("input[id=" + a + "][type=checkbox]" + u({
+        disabled: c
+      }) + (m ? "[checked]" : ""), {
+        onclick: s ? function (e) {
+          e.target && void 0 !== e.target.checked && s(e.target.checked);
+        } : void 0
+      }), (0, _mithril.default)("span.lever"), l || "On"]))]);
+    }
+  };
+},
+    Ce = function () {
+  var t = {},
+      n = function (e, t) {
+    return t || e.replace(/ /g, "").toLowerCase();
+  };
+
+  return {
+    view: function (i) {
+      var a = i.attrs,
+          r = a.tabWidth,
+          o = a.selectedTabId,
+          l = a.tabs,
+          c = a.className,
+          d = a.style,
+          s = a.duration,
+          u = a.onShow,
+          m = a.swipeable,
+          f = a.responsiveThreshold,
+          v = l.filter(function (e) {
+        return e.active;
+      }).shift(),
+          p = o || (v ? n(v.title, v.id) : "");
+      return (0, _mithril.default)(".row", [(0, _mithril.default)(".col.s12", (0, _mithril.default)("ul.tabs" + ("fill" === r ? ".tabs-fixed-width" : ""), {
+        className: c,
+        style: d,
+        oncreate: function (e) {
+          var n = e.dom;
+          t.instance = M.Tabs.init(n, {
+            duration: s,
+            onShow: u,
+            responsiveThreshold: f,
+            swipeable: m
+          });
+        },
+        onupdate: function () {
+          if (p) {
+            var e = document.getElementById("tab_" + p);
+            e && e.click();
+          }
+        },
+        onremove: function () {
+          return t.instance.destroy();
+        }
+      }, l.map(function (t) {
+        var i = t.className,
+            a = t.title,
+            o = t.id,
+            c = t.active,
+            d = t.disabled,
+            s = t.target,
+            u = t.href;
+        return (0, _mithril.default)("li.tab" + (d ? ".disabled" : "") + ("fixed" === r ? ".col.s" + Math.floor(12 / l.length) : ""), {
+          className: i
+        }, (0, _mithril.default)("a[id=tab_" + n(a, o) + "]" + (c ? ".active" : ""), {
+          target: s,
+          href: u || "#" + n(a, o)
+        }, a));
+      }))), l.filter(function (e) {
+        return void 0 === e.href;
+      }).map(function (t) {
+        var i = t.id,
+            a = t.title,
+            r = t.vnode,
+            o = t.contentClass;
+        return (0, _mithril.default)(".col.s12[id=" + n(a, i) + "]", {
+          className: o
+        }, r);
+      })]);
+    }
+  };
+};
+
+exports.Tabs = Ce;
+exports.Switch = Ie;
+k('.mm_timeline{margin:30px 0 0;padding:0;list-style:none;position:relative}.mm_timeline:before{content:"";position:absolute;top:0;bottom:0;width:10px;background:#afdcf8;left:20%;margin-left:-10px}.mm_timeline>li .mm_time{display:block;width:25%;padding-right:100px;position:absolute}.mm_timeline>li .mm_time span{display:block;text-align:right}.mm_timeline>li .mm_time span:first-child{font-size:.9em;color:#bdd0db}.mm_timeline>li .mm_time span:last-child{font-size:1.4em;color:#3594cb}.mm_timeline>li:nth-child(odd) .mm_time span:last-child{color:#6cbfee}.mm_timeline>li.active:nth-child(2n) .mm_time span:last-child,.mm_timeline>li.active:nth-child(odd) .mm_time span:last-child{color:#060558}.mm_timeline>li .mm_label{margin:0 0 15px 28%;background:#3594cb;color:#fff;padding:.6em 1em;font-size:1.2em;font-weight:300;line-height:1.4;position:relative;border-radius:5px}.mm_timeline>li.active .mm_label{border:4px solid #060558}.mm_timeline>li:nth-child(odd) .mm_label{background:#6cbfee}.mm_timeline>li .mm_label h5{margin-top:0;padding:0 0 10px;border-bottom:1px solid hsla(0,0%,100%,.4)}.mm_timeline>li .mm_label:after{right:100%;content:" ";height:0;width:0;position:absolute;pointer-events:none;border:10px solid transparent;border-right-color:#3594cb;top:10px}.mm_timeline>li:nth-child(2n).active .mm_label:after,.mm_timeline>li:nth-child(odd).active .mm_label:after{border-right-color:#060558}.mm_timeline>li:nth-child(odd) .mm_label:after{border-right-color:#6cbfee}.mm_timeline>li .mm_icon{width:40px;height:40px;font-style:normal;font-weight:400;font-feature-settings:normal;font-variant:normal;text-transform:none;font-size:1.4em;line-height:40px;-webkit-font-smoothing:antialiased;position:absolute;color:#fff;background:#46a4da;border-radius:50%;box-shadow:0 0 0 8px #afdcf8;text-align:center;left:20%;margin:0 0 0 -25px}.mm_timeline>li.active .mm_icon{background:#060558}.mm_icon>.material-icons{line-height:3rem}@media screen and (max-width:65.375em){.mm_timeline>li .mm_time span:last-child{font-size:1.5em}}@media screen and (max-width:47.2em){.mm_timeline:before{display:none}.mm_timeline>li .mm_time{width:100%;position:relative;padding:0 0 20px}.mm_timeline>li .mm_time span{text-align:left}.mm_timeline>li .mm_label{margin:0 0 30px;padding:1em;font-weight:400;font-size:95%}.mm_timeline>li .mm_label:after{right:auto;left:20px;border-right-color:transparent;border-bottom-color:#3594cb;top:-20px}.mm_timeline>li:nth-child(odd) .mm_label:after{border-right-color:transparent;border-bottom-color:#6cbfee}.mm_timeline>li .mm_icon{position:relative;float:right;left:auto;margin:-55px 5px 0 0}}');
+
+var Me = function () {
+  return {
+    view: function (t) {
+      var n = t.attrs,
+          i = n.id,
+          a = n.title,
+          r = n.datetime,
+          o = n.active,
+          l = n.content,
+          c = n.iconName,
+          d = n.dateFormatter,
+          s = n.timeFormatter,
+          u = n.onSelect;
+      return (0, _mithril.default)("li" + (o ? ".active" : "") + (i ? "[id=" + i + "]" : ""), {
+        onclick: u ? function () {
+          return u({
+            id: i,
+            title: a,
+            datetime: r,
+            active: o,
+            content: l
+          });
+        } : void 0,
+        style: u ? "cursor: pointer;" : void 0
+      }, [(0, _mithril.default)(".mm_time", {
+        datetime: r
+      }, [(0, _mithril.default)("span", d(r)), (0, _mithril.default)("span", s(r))]), c ? (0, _mithril.default)(".mm_icon", (0, _mithril.default)("i.material-icons", c)) : void 0, (0, _mithril.default)(".mm_label", [a ? "string" == typeof a ? (0, _mithril.default)("h5", a) : a : void 0, l ? "string" == typeof l ? (0, _mithril.default)("p", l) : l : void 0])]);
+    }
+  };
+},
+    Te = function () {
+  var t = function (e) {
+    return e.getUTCDate() + "/" + (e.getUTCMonth() + 1) + "/" + e.getUTCFullYear();
+  },
+      n = function (e) {
+    return b(e.getUTCHours()) + ":" + b(e.getUTCMinutes());
+  };
+
+  return {
+    view: function (i) {
+      var a = i.attrs,
+          r = a.items,
+          o = a.onSelect,
+          l = a.timeFormatter,
+          c = void 0 === l ? n : l,
+          d = a.dateFormatter,
+          s = void 0 === d ? t : d;
+      return (0, _mithril.default)("ul.mm_timeline", r.map(function (t) {
+        return (0, _mithril.default)(Me, y({
+          onSelect: o,
+          dateFormatter: s,
+          timeFormatter: c
+        }, t));
+      }));
+    }
+  };
+};
+
+exports.Timeline = Te;
+},{"mithril":"node_modules/mithril/index.js","materialize-css":"node_modules/materialize-css/dist/js/materialize.js"}],"node_modules/mithril-scenario-timeline/dist/mithril-scenario-timeline.mjs":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -16188,6 +16935,14 @@ var __assign = function () {
 
   return __assign.apply(this, arguments);
 };
+
+function __spreadArrays() {
+  for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+
+  for (var r = Array(s), k = 0, i = 0; i < il; i++) for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++) r[k] = a[j];
+
+  return r;
+}
 
 var CircularDependencyError =
 /** @class */
@@ -16301,11 +17056,11 @@ var calcStartEndTimes = function (items) {
     });
 
     if (cur.dependsOn && cur.dependsOn.length) {
-      acc[id].start = start.concat(cur.dependsOn);
+      acc[id].start = __spreadArrays(start, cur.dependsOn);
     }
 
     if (children.length) {
-      acc[id].end = end.concat(children.map(function (i) {
+      acc[id].end = __spreadArrays(end, children.map(function (i) {
         return {
           id: i,
           condition: 'finished'
@@ -16404,7 +17159,7 @@ var toTree = function (items) {
     return items.filter(function (item) {
       return parentId ? item.parentId === parentId : !item.parentId;
     }).map(function (item) {
-      return __assign({}, item, {
+      return __assign(__assign({}, item), {
         children: item.isOpen ? findChildren(item.id) : undefined
       });
     });
@@ -16642,15 +17397,19 @@ var TimeAxis = function () {
           sf = _c[0],
           legend = _c[1];
 
+      var timeFormatter = function (sec) {
+        return sst === 0 ? formatTime(sf, sec) : formatRealTime(new Date(sst + sec * 1000), sf);
+      };
+
       return (0, _mithril.default)('.mst__time-scale', {
         style: style
-      }, range(startTime, endTime, step).map(function (i) {
+      }, __spreadArrays(range(startTime, endTime, step).map(function (i) {
         return [(0, _mithril.default)('.mst__time-scale-marker', {
           style: "left: " + scale * i + "px"
         }), (0, _mithril.default)('.mst__time-scale-text', {
           style: "left: " + (scale * i - textWidth / 2) + "px; width: " + textWidth + "px;"
-        }, sst === 0 ? formatTime(sf, i) : formatRealTime(new Date(sst + i * 1000), sf))];
-      }).concat([(0, _mithril.default)('.mst__time-scale-legend', sst === 0 ? legend : 'time')]));
+        }, timeFormatter(i))];
+      }), [(0, _mithril.default)('.mst__time-scale-legend', sst === 0 ? legend : 'time')]));
     }
   };
 };
@@ -16701,8 +17460,7 @@ var ScenarioLink = function () {
       })]);
     }
   };
-}; //# sourceMappingURL=scenario-link.js.map
-
+};
 
 var ScenarioLinks = function () {
   return {
@@ -16742,9 +17500,15 @@ var ScenarioTime = function () {
     return 0;
   };
 
-  var updateTime = function (time) {
-    state.t = computeTime(time);
-    render();
+  var updateTime = function (curTime) {
+    return curTime ? function (time) {
+      state.t = computeTime(time);
+      curTime(state.t);
+      render();
+    } : function (time) {
+      state.t = computeTime(time);
+      render();
+    };
   };
 
   var boundsToStyle = function (b, time, scale) {
@@ -16758,7 +17522,7 @@ var ScenarioTime = function () {
         time = state.time;
     var t = time instanceof Function ? state.t : computeTime(time || 0);
 
-    if (t * scale > bounds.width || t === 0) {
+    if (!t || t * scale > bounds.width) {
       return;
     }
 
@@ -16769,10 +17533,12 @@ var ScenarioTime = function () {
 
   return {
     oninit: function (_a) {
-      var time = _a.attrs.time;
+      var _b = _a.attrs,
+          time = _b.time,
+          curTime = _b.curTime;
 
       if (time instanceof Function) {
-        time(updateTime);
+        time(updateTime(curTime));
       }
     },
     oncreate: function (_a) {
@@ -16795,11 +17561,13 @@ var ScenarioTime = function () {
       return (0, _mithril.default)('div');
     }
   };
-}; //# sourceMappingURL=scenario-time.js.map
-
+};
 
 var ScenarioTimeline = function () {
-  var state = {};
+  var state = {
+    time: 0,
+    endTime: 0
+  };
   var gutter = 4;
   var rightMargin = 100;
   var leftMargin = 25;
@@ -16837,9 +17605,11 @@ var ScenarioTimeline = function () {
         var startTime = Math.min.apply(Math, items.map(function (item) {
           return item.startTime;
         }));
-        var endTime = Math.max.apply(Math, items.map(function (item) {
+        var curTime = state.time || 0;
+        var endTime = Math.max.apply(Math, __spreadArrays([curTime], items.map(function (item) {
           return item.endTime;
-        }));
+        })));
+        state.endTime = endTime;
         var lineHeight = state.lineHeight,
             onClick = state.onClick,
             _c = state.scale,
@@ -16859,7 +17629,7 @@ var ScenarioTimeline = function () {
           scenarioStart: scenarioStart,
           startTime: startTime,
           endTime: endTime,
-          bounds: __assign({}, bounds, {
+          bounds: __assign(__assign({}, bounds), {
             top: 0,
             height: timeAxisHeight
           }),
@@ -16873,7 +17643,7 @@ var ScenarioTimeline = function () {
           titleView: titleView
         }), (0, _mithril.default)(ScenarioLinks, {
           items: items,
-          bounds: __assign({}, bounds, {
+          bounds: __assign(__assign({}, bounds), {
             top: gutter + timeAxisHeight
           }),
           lineHeight: lineHeight,
@@ -16887,7 +17657,14 @@ var ScenarioTimeline = function () {
             top: timeAxisHeight - gutter,
             height: bounds.height + 2 * gutter
           },
-          scale: scale
+          scale: scale,
+          curTime: function (t) {
+            state.time = t;
+
+            if (t > state.endTime) {
+              _mithril.default.redraw();
+            }
+          }
         })]);
       } catch (e) {
         if (errorCallback) {
@@ -16898,11 +17675,10 @@ var ScenarioTimeline = function () {
       }
     }
   };
-}; //# sourceMappingURL=mithril-scenario-timeline.mjs.map
-
+};
 
 exports.ScenarioTimeline = ScenarioTimeline;
-},{"mithril":"node_modules/mithril/mithril.mjs"}],"src/components/inputs/timeline-example.ts":[function(require,module,exports) {
+},{"mithril":"node_modules/mithril/index.js"}],"src/components/inputs/timeline-example.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17512,9 +18288,9 @@ var timeline_example_1 = require("./timeline-example");
 
 exports.EditorPage = function () {
   var state = {
-    time: new Date(2019, 4, 19, 9, 20),
+    time: new Date(2019, 4, 19, 9, 59),
     error: undefined,
-    scenarioStart: new Date(2019, 4, 19, 9, 0),
+    scenarioStart: new Date(2019, 4, 19, 9, 13, 42),
     timeline: [{
       id: 'a',
       title: 'A',
@@ -17814,7 +18590,7 @@ exports.EditorPage = function () {
 
   var updateTime = function updateTime(update) {
     setInterval(function () {
-      state.time = new Date(state.time.valueOf() + 10000);
+      state.time = new Date(state.time.valueOf() + 100000);
       update(state.time);
     }, 1000);
   };
@@ -17859,12 +18635,20 @@ exports.EditorPage = function () {
         timeline: timeline,
         time: 90,
         onClick: onClick
-      }), mithril_1.default('h2.header', 'ScenarioTimeline - running, highlighted diamonds'), mithril_1.default(mithril_scenario_timeline_1.ScenarioTimeline, {
+      }), mithril_1.default('h2.header', 'ScenarioTimeline - running, fixed width, highlighted diamonds'), mithril_1.default(mithril_scenario_timeline_1.ScenarioTimeline, {
         timeline: timeline2,
         time: updateTime,
         lineHeight: 30,
         titleView: titleView,
         scenarioStart: scenarioStart,
+        onClick: onClick
+      }), mithril_1.default('h2.header', 'ScenarioTimeline - running, fixed scale'), mithril_1.default(mithril_scenario_timeline_1.ScenarioTimeline, {
+        timeline: timeline2,
+        time: updateTime,
+        lineHeight: 30,
+        titleView: titleView,
+        scenarioStart: scenarioStart,
+        scale: 0.1,
         onClick: onClick
       }), mithril_1.default('h2.header', 'ScenarioTimeline - example'), mithril_1.default(mithril_scenario_timeline_1.ScenarioTimeline, {
         timeline: timeline_example_1.timeline,
@@ -17875,9 +18659,8 @@ exports.EditorPage = function () {
         time: 90,
         onClick: onClick,
         errorCallback: function errorCallback(e) {
-          console.error(e);
-          state.error = e;
-          mithril_1.default.redraw();
+          // console.error(e);
+          state.error = e; // m.redraw();
         }
       }), error ? mithril_1.default('pre', JSON.stringify(error.circularDependencies, null, 2)) : undefined, mithril_1.default(mithril_materialized_1.CodeBlock, {
         code: "\n          const state = {\n            time: new Date(2019, 4, 19, 9, 20),\n            timeline: [\n              ...\n            ] as ITimelineItem[],\n            timeline2: [\n              ...\n            ] as ITimelineItem[],\n          };\n\n          const updateTime = (update: (t: number | Date) => void) => {\n            setInterval(() => {\n              state.time = new Date(state.time.valueOf() + 10000);\n              update(state.time);\n            }, 1000);\n          };\n\n          return {\n            view: () => {\n              const { timeline, timeline2 } = state;\n              const onClick = (item: IExecutingTimelineItem) => console.table(item);\n\n              return m('.col.s12', [\n                m('h2.header', 'ScenarioTimeline - completed diamonds'),\n\n                m(ScenarioTimeline, { timeline, time: 90, onClick }),\n\n                m('h2.header', 'ScenarioTimeline - running, highlighted diamonds'),\n\n                m(ScenarioTimeline, {\n                  timeline: timeline2,\n                  time: updateTime,\n                  lineHeight: 30,\n                  scenarioStart: new Date(2019, 4, 19, 9, 0),\n                  onClick,\n                }),\n              ]);\n            },\n          };\n        "
@@ -17885,7 +18668,7 @@ exports.EditorPage = function () {
     }
   };
 };
-},{"mithril":"node_modules/mithril/mithril.mjs","mithril-materialized":"node_modules/mithril-materialized/dist/index.js","mithril-scenario-timeline":"node_modules/mithril-scenario-timeline/dist/mithril-scenario-timeline.mjs","./timeline-example":"src/components/inputs/timeline-example.ts"}],"src/components/home/home-page.ts":[function(require,module,exports) {
+},{"mithril":"node_modules/mithril/index.js","mithril-materialized":"node_modules/mithril-materialized/dist/index.esm.js","mithril-scenario-timeline":"node_modules/mithril-scenario-timeline/dist/mithril-scenario-timeline.mjs","./timeline-example":"src/components/inputs/timeline-example.ts"}],"src/components/home/home-page.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -17925,7 +18708,7 @@ exports.HomePage = function () {
     }
   };
 };
-},{"../../services/dashboard-service":"src/services/dashboard-service.ts","mithril":"node_modules/mithril/mithril.mjs","mithril-materialized":"node_modules/mithril-materialized/dist/index.js"}],"src/services/dashboard-service.ts":[function(require,module,exports) {
+},{"../../services/dashboard-service":"src/services/dashboard-service.ts","mithril":"node_modules/mithril/index.js","mithril-materialized":"node_modules/mithril-materialized/dist/index.esm.js"}],"src/services/dashboard-service.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -18039,7 +18822,7 @@ exports.dashboardSvc = new DashboardService(layout_1.Layout, [{
   visible: true,
   component: about_page_1.AboutPage
 }]);
-},{"mithril":"node_modules/mithril/mithril.mjs","../components/layout":"src/components/layout.ts","../components/about/about-page":"src/components/about/about-page.ts","../components/inputs/editor-page":"src/components/inputs/editor-page.ts","../components/home/home-page":"src/components/home/home-page.ts"}],"src/app.ts":[function(require,module,exports) {
+},{"mithril":"node_modules/mithril/index.js","../components/layout":"src/components/layout.ts","../components/about/about-page":"src/components/about/about-page.ts","../components/inputs/editor-page":"src/components/inputs/editor-page.ts","../components/home/home-page":"src/components/home/home-page.ts"}],"src/app.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -18061,7 +18844,7 @@ var mithril_1 = __importDefault(require("mithril"));
 var dashboard_service_1 = require("./services/dashboard-service");
 
 mithril_1.default.route(document.body, dashboard_service_1.dashboardSvc.defaultRoute, dashboard_service_1.dashboardSvc.routingTable);
-},{"materialize-css/dist/css/materialize.min.css":"node_modules/materialize-css/dist/css/materialize.min.css","material-icons/iconfont/material-icons.css":"node_modules/material-icons/iconfont/material-icons.css","mithril":"node_modules/mithril/mithril.mjs","./services/dashboard-service":"src/services/dashboard-service.ts"}],"node_modules/.registry.npmjs.org/parcel-bundler/1.12.3/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"materialize-css/dist/css/materialize.min.css":"node_modules/materialize-css/dist/css/materialize.min.css","material-icons/iconfont/material-icons.css":"node_modules/material-icons/iconfont/material-icons.css","mithril":"node_modules/mithril/index.js","./services/dashboard-service":"src/services/dashboard-service.ts"}],"node_modules/.pnpm/registry.npmjs.org/parcel-bundler/1.12.4/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -18089,7 +18872,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50864" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62473" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -18120,8 +18903,9 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
         assetsToAccept.forEach(function (v) {
           hmrAcceptRun(v[0], v[1]);
         });
-      } else {
-        window.location.reload();
+      } else if (location.reload) {
+        // `location` global exists in a web worker context but lacks `.reload()` function.
+        location.reload();
       }
     }
 
@@ -18264,5 +19048,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/.registry.npmjs.org/parcel-bundler/1.12.3/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/app.ts"], null)
+},{}]},{},["node_modules/.pnpm/registry.npmjs.org/parcel-bundler/1.12.4/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/app.ts"], null)
 //# sourceMappingURL=/app.5cec07dd.js.map

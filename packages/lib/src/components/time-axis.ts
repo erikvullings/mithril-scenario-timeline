@@ -60,13 +60,17 @@ export const TimeAxis: FactoryComponent<ITimeAxis> = () => {
       const style = boundsToStyle(bounds);
       const step = stepSize(startTime, endTime);
       const [sf, legend] = scaleFactor(step);
+      const timeFormatter = (sec: number): m.Children => {
+        return sst === 0 ? formatTime(sf, sec) : formatRealTime(new Date(sst + sec * 1000), sf);
+      };
+
       return m('.mst__time-scale', { style }, [
         ...range(startTime, endTime, step).map(i => [
           m('.mst__time-scale-marker', { style: `left: ${scale * i}px` }),
           m(
             '.mst__time-scale-text',
             { style: `left: ${scale * i - textWidth / 2}px; width: ${textWidth}px;` },
-            sst === 0 ? formatTime(sf, i) : formatRealTime(new Date(sst + i * 1000), sf)
+            timeFormatter(i)
           ),
         ]),
         m('.mst__time-scale-legend', sst === 0 ? legend : 'time'),
