@@ -40,7 +40,7 @@ export const TimeAxis: FactoryComponent<ITimeAxis> = () => {
       ? 900
       : duration <= 14400
       ? 1800
-      : 3600;
+      : Math.round(duration / 14400) * 1800;
   };
 
   const scaleFactor = (step: number): [number, string] =>
