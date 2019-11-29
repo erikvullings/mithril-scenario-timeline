@@ -65,7 +65,7 @@ export const TimeAxis: FactoryComponent<ITimeAxis> = () => {
       };
 
       return m('.mst__time-scale', { style }, [
-        ...range(startTime, endTime, step).map(i => [
+        ...range(startTime, endTime + step, step).map(i => [
           m('.mst__time-scale-marker', { style: `left: ${scale * i}px` }),
           m(
             '.mst__time-scale-text',

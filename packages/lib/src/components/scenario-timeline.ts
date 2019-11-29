@@ -29,55 +29,68 @@ export interface IScenarioTimeline extends Attributes {
   titleView?: FactoryComponent<{ item: IExecutingTimelineItem }>;
   /** Optional onclick event handler to inform you that the item has been clicked */
   onClick?: (item: IExecutingTimelineItem) => void;
-  /** Turn on debugging */
-  verbose?: boolean;
   /** Error callback when the timeline cannot be drawn, e.g. due to circular dependencies */
   errorCallback?: (e: CircularDependencyError) => void;
+  /** Width of the timeline: in case the time exceeds beyond this point, shrink the scale */
+  width?: number;
 }
 
 export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
   const state = {
-    time: 0,
+    curTime: 0,
     endTime: 0,
-    verbose: false,
   } as {
+    items: IExecutingTimelineItem[];
+    titleView: FactoryComponent<{ item: IExecutingTimelineItem }> | undefined;
+    errorCallback?: (e: CircularDependencyError) => void;
+    scenarioStart?: Date;
     // 1 second is x pixels
     scale?: number;
     lineHeight: number;
     onClick?: (item: ITimelineItem) => void;
-    time?: number;
+    time?: number | Date | ScenarioTimer;
+    startTime: number;
+    curTime: number;
     endTime: number;
     dom: HTMLDivElement;
-    verbose?: boolean;
+    maxWidth?: number;
   };
 
   const gutter = 4;
   const rightMargin = 100;
   const leftMargin = 25;
   const timeAxisHeight = 32;
+  const horMargin = leftMargin + rightMargin;
 
   const calculateScale = (duration: number) => Math.min(10, Math.max(0.01, 800 / duration));
 
-  const render = (
-    time: number | Date | ScenarioTimer | undefined,
-    items: IExecutingTimelineItem[],
-    titleView: FactoryComponent<{ item: IExecutingTimelineItem }> | undefined,
-    scenarioStart?: Date,
-  ) => {
-    const startTime = Math.min(...items.map(item => item.startTime!));
-    const curTime = state.time || 0;
-    const endTime = Math.max(curTime, ...items.map(item => item.endTime!));
-    state.endTime = endTime;
-    const { lineHeight, onClick, scale = calculateScale(endTime - startTime), verbose } = state;
+  const render = (): void => {
+    const {
+      lineHeight,
+      onClick,
+      curTime = 0,
+      time,
+      items,
+      titleView,
+      scenarioStart,
+      startTime,
+      endTime,
+      maxWidth = Number.MAX_SAFE_INTEGER,
+    } = state;
+    const t = Math.max(curTime, endTime);
+    const { scale = calculateScale(t - startTime) } = state;
 
-    if (verbose) {
-      console.table(items);
+    const tMax = (maxWidth - horMargin) / scale;
+
+    if (t >= tMax) {
+      state.scale = scale / 2;
+      return render();
     }
 
     const bounds = {
       left: leftMargin,
       top: gutter,
-      width: leftMargin + scale * endTime + rightMargin,
+      width: maxWidth,
       height: items.length * lineHeight,
     };
 
@@ -86,8 +99,8 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
       m('.mst__container', [
         m(TimeAxis, {
           scenarioStart,
-          startTime,
-          endTime,
+          startTime: startTime - 222,
+          endTime: tMax,
           bounds: { ...bounds, top: 0, height: timeAxisHeight },
           scale,
         }),
@@ -115,10 +128,12 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
             height: bounds.height + 2 * gutter,
           },
           scale,
-          curTime: t => {
-            state.time = t;
-            if (t > state.endTime) {
-              render(time, items, titleView, scenarioStart);
+          curTime: ct => {
+            state.curTime = ct;
+            // As this is inside a closure, recompute tMax
+            const tmax = (state.maxWidth! - horMargin) / state.scale!;
+            if (ct > tmax) {
+              render();
             }
           },
         }),
@@ -127,27 +142,43 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
   };
 
   return {
-    oninit: ({ attrs: { scale, lineHeight, onClick, verbose } }) => {
+    oninit: ({ attrs: { scale, lineHeight = 28, onClick, titleView, errorCallback, width: maxWidth } }) => {
       state.scale = scale;
-      state.lineHeight = lineHeight || 28;
+      state.lineHeight = lineHeight;
       state.onClick = onClick;
-      state.verbose = verbose;
+      state.titleView = titleView;
+      state.errorCallback = errorCallback;
+      state.maxWidth = maxWidth;
     },
-    view: ({ attrs: { timeline, time, scenarioStart, titleView, errorCallback } }) => {
+    view: ({ attrs: { timeline, time, scenarioStart, verbose } }) => {
       if (time && time instanceof Date && !scenarioStart) {
         console.error(`When time is a Date, scenarioStart must be supplied as Date too!`);
       }
       try {
+        state.time = time;
+        state.scenarioStart = scenarioStart;
         const items = preprocessTimeline(timeline);
-        setTimeout(() => render(time, items, titleView, scenarioStart), 0);
+        state.items = items;
+        state.startTime = Math.min(...items.map(item => item.startTime!));
+        state.endTime = Math.max(state.curTime || 0, ...items.map(item => item.endTime!));
+        setTimeout(() => render(), 0);
+        if (verbose) {
+          console.table(items);
+        }
         return m('.mst__container');
       } catch (e) {
+        const { errorCallback } = state;
         if (errorCallback) {
           errorCallback(e as CircularDependencyError);
         }
         return undefined;
       }
     },
-    oncreate: ({ dom }) => (state.dom = dom as HTMLDivElement),
+    oncreate: ({ dom }) => {
+      state.dom = dom as HTMLDivElement;
+      if (dom && !state.maxWidth) {
+        state.maxWidth = dom.clientWidth;
+      }
+    },
   };
 };

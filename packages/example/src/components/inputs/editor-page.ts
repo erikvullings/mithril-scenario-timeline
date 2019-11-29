@@ -448,11 +448,16 @@ export const EditorPage = () => {
           scenarioStart,
           scale: 0.1,
           onClick,
+          width: 1200,
         }),
 
         m('h2.header', 'ScenarioTimeline - example'),
 
-        m(ScenarioTimeline, { timeline: tl, scenarioStart: new Date(2019, 4, 19, 9, 0), onClick }),
+        m(ScenarioTimeline, {
+          timeline: tl,
+          scenarioStart: new Date(2019, 4, 19, 9, 0),
+          onClick,
+        }),
 
         m('h2.header', 'Circular dependency'),
         m(ScenarioTimeline, {
