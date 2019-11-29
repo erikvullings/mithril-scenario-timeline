@@ -258,6 +258,20 @@ export const EditorPage = () => {
         ],
       },
     ] as ITimelineItem[],
+    timeline3: [
+      {
+        id: 'a',
+        title: 'A',
+        isOpen: true,
+        delay: 0,
+      },
+      {
+        id: 'b',
+        title: 'B',
+        isOpen: true,
+        delay: 0,
+      },
+    ],
     timelineCircularDependencies: [
       {
         id: 'a',
@@ -392,7 +406,7 @@ export const EditorPage = () => {
 
   const updateTime = (update: (t: number | Date) => void) => {
     setInterval(() => {
-      state.time = new Date(state.time.valueOf() + 1000000);
+      state.time = new Date(state.time.valueOf() + 100000);
       update(state.time);
     }, 1000);
   };
@@ -419,17 +433,21 @@ export const EditorPage = () => {
 
   return {
     view: () => {
-      const { timeline, timeline2, timelineStart, scenarioStart, timelineCircularDependencies, error } = state;
+      const {
+        timeline,
+        timeline2,
+        timeline3,
+        timelineStart,
+        scenarioStart,
+        timelineCircularDependencies,
+      } = state;
       const onClick = (item: IExecutingTimelineItem) => console.table(item);
 
       return m('.col.s12', [
-        // m('input', { className: 'col s12', value: 'mithril-scenario-timeline' }),
         m('h2.header', 'ScenarioTimeline - completed diamonds'),
-
         m(ScenarioTimeline, { timeline, time: 90, onClick }),
 
         m('h2.header', 'ScenarioTimeline - running, fixed width, highlighted diamonds'),
-
         m(ScenarioTimeline, {
           timeline: timeline2,
           time: updateTime,
@@ -441,7 +459,6 @@ export const EditorPage = () => {
         }),
 
         m('h2.header', 'ScenarioTimeline - running, fixed scale'),
-
         m(ScenarioTimeline, {
           timeline: timeline2,
           time: updateTime,
@@ -471,6 +488,9 @@ export const EditorPage = () => {
             state.error = e;
           },
         }),
+
+        m('h2.header', 'ScenarioTimeline - almost empty'),
+        m(ScenarioTimeline, { timeline: timeline3, time: 90, onClick }),
 
         m(CodeBlock, {
           code: `
