@@ -392,7 +392,7 @@ export const EditorPage = () => {
 
   const updateTime = (update: (t: number | Date) => void) => {
     setInterval(() => {
-      state.time = new Date(state.time.valueOf() + 100000);
+      state.time = new Date(state.time.valueOf() + 1000000);
       update(state.time);
     }, 1000);
   };

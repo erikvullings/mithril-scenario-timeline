@@ -197,7 +197,7 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
     oncreate: ({ dom }) => {
       state.dom = dom as HTMLDivElement;
       if (dom && !state.maxWidth) {
-        state.maxWidth = dom.clientWidth;
+        state.maxWidth = dom.clientWidth || 800;
       }
     },
   };
