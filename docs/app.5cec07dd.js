@@ -17186,7 +17186,7 @@ var flatten = function (items) {
 
 var preprocessTimeline = pipe(calcStartEndTimes, toTree, flatten);
 
-var extractDependencyLinks = function (items, lineHeight, scale) {
+var extractDependencyLinks = function (items, lineHeight, scale, timeOffset) {
   var findItem = function (id) {
     return items.map(function (it, index) {
       return {
@@ -17213,9 +17213,9 @@ var extractDependencyLinks = function (items, lineHeight, scale) {
         var time = hasStartCondition ? it.startTime : it.endTime;
         var verOffset = it.children ? 4 : -4;
         var horOffset = item.children ? -4 : -7;
-        var x1 = time * scale;
+        var x1 = (time + timeOffset) * scale;
         var y1 = (index + 1) * lineHeight + verOffset;
-        var x2 = item.startTime * scale + horOffset;
+        var x2 = (item.startTime + timeOffset) * scale + horOffset;
         var y2 = (row + 0.5) * lineHeight + 1 + (item.startTime === time ? -6 : 0);
         return {
           x1: x1,
@@ -17333,12 +17333,14 @@ var ScenarioItems = function () {
           scale = _b.scale,
           lineHeight = _b.lineHeight,
           onClick = _b.onClick,
-          titleView = _b.titleView;
+          titleView = _b.titleView,
+          _c = _b.timeOffset,
+          timeOffset = _c === void 0 ? 0 : _c;
 
       var getBounds = function (item, row) {
         return {
           top: bounds.top + lineHeight * row + gutter,
-          left: item.startTime * scale,
+          left: (item.startTime + timeOffset) * scale,
           height: lineHeight - 2 * gutter,
           width: (item.endTime - item.startTime) * scale
         };
@@ -17388,8 +17390,8 @@ var TimeAxis = function () {
           startTime = _b.startTime,
           endTime = _b.endTime,
           scale = _b.scale,
-          scenarioStart = _b.scenarioStart;
-      var sst = scenarioStart ? scenarioStart.valueOf() : 0;
+          timelineStart = _b.timelineStart;
+      var sst = timelineStart ? timelineStart.valueOf() : 0;
       var style = boundsToStyle(bounds);
       var step = stepSize(startTime, endTime);
 
@@ -17403,7 +17405,7 @@ var TimeAxis = function () {
 
       return (0, _mithril.default)('.mst__time-scale', {
         style: style
-      }, __spreadArrays(range(startTime, endTime, step).map(function (i) {
+      }, __spreadArrays(range(startTime, endTime + step, step).map(function (i) {
         return [(0, _mithril.default)('.mst__time-scale-marker', {
           style: "left: " + scale * i + "px"
         }), (0, _mithril.default)('.mst__time-scale-text', {
@@ -17469,8 +17471,10 @@ var ScenarioLinks = function () {
           items = _b.items,
           bounds = _b.bounds,
           lineHeight = _b.lineHeight,
-          scale = _b.scale;
-      var links = extractDependencyLinks(items, lineHeight, scale); // console.table(links);
+          scale = _b.scale,
+          _c = _b.timeOffset,
+          timeOffset = _c === void 0 ? 0 : _c;
+      var links = extractDependencyLinks(items, lineHeight, scale, timeOffset); // console.table(links);
 
       return (0, _mithril.default)('.mst__links', {
         style: boundsToStyle(bounds)
@@ -17490,10 +17494,10 @@ var ScenarioTime = function () {
     if (typeof time === 'number') {
       return time;
     } else {
-      var scenarioStart = state.scenarioStart;
+      var timelineStart = state.timelineStart;
 
-      if (scenarioStart) {
-        return (time.valueOf() - scenarioStart.valueOf()) / 1000;
+      if (timelineStart) {
+        return (time.valueOf() - timelineStart.valueOf()) / 1000;
       }
     }
 
@@ -17550,9 +17554,9 @@ var ScenarioTime = function () {
           scale = _b.scale,
           time = _b.time,
           bounds = _b.bounds,
-          scenarioStart = _b.scenarioStart;
+          timelineStart = _b.timelineStart;
       state.time = time;
-      state.scenarioStart = scenarioStart;
+      state.timelineStart = timelineStart;
       state.scale = scale;
       state.bounds = bounds;
       setTimeout(function () {
@@ -17565,54 +17569,61 @@ var ScenarioTime = function () {
 
 var ScenarioTimeline = function () {
   var state = {
-    time: 0,
-    endTime: 0,
-    verbose: false
+    curTime: 0,
+    endTime: 0
   };
   var gutter = 4;
   var rightMargin = 100;
   var leftMargin = 25;
   var timeAxisHeight = 32;
+  var horMargin = leftMargin + rightMargin;
 
   var calculateScale = function (duration) {
     return Math.min(10, Math.max(0.01, 800 / duration));
   };
 
-  var render = function (time, items, titleView, scenarioStart) {
-    var startTime = Math.min.apply(Math, items.map(function (item) {
-      return item.startTime;
-    }));
-    var curTime = state.time || 0;
-    var endTime = Math.max.apply(Math, __spreadArrays([curTime], items.map(function (item) {
-      return item.endTime;
-    })));
-    state.endTime = endTime;
+  var render = function () {
     var lineHeight = state.lineHeight,
         onClick = state.onClick,
-        _a = state.scale,
-        scale = _a === void 0 ? calculateScale(endTime - startTime) : _a,
-        verbose = state.verbose;
+        _a = state.curTime,
+        curTime = _a === void 0 ? 0 : _a,
+        time = state.time,
+        items = state.items,
+        titleView = state.titleView,
+        timelineStart = state.timelineStart,
+        scenarioStart = state.scenarioStart,
+        startTime = state.startTime,
+        endTime = state.endTime,
+        _b = state.maxWidth,
+        maxWidth = _b === void 0 ? Number.MAX_SAFE_INTEGER : _b;
+    var timeOffset = scenarioStart && timelineStart ? (scenarioStart.valueOf() - timelineStart.valueOf()) / 1000 : 0;
+    var t = Math.max(curTime, endTime);
+    var _c = state.scale,
+        scale = _c === void 0 ? calculateScale(t - startTime) : _c;
+    var tMax = (maxWidth - horMargin) / scale;
 
-    if (verbose) {
-      console.table(items);
+    if (t >= tMax) {
+      state.scale = scale / 2;
+      return render();
     }
 
     var bounds = {
       left: leftMargin,
       top: gutter,
-      width: leftMargin + scale * endTime + rightMargin,
+      width: maxWidth,
       height: items.length * lineHeight
     };
     return _mithril.default.render(state.dom, (0, _mithril.default)('.mst__container', [(0, _mithril.default)(TimeAxis, {
-      scenarioStart: scenarioStart,
+      timelineStart: timelineStart,
       startTime: startTime,
-      endTime: endTime,
+      endTime: tMax,
       bounds: __assign(__assign({}, bounds), {
         top: 0,
         height: timeAxisHeight
       }),
       scale: scale
     }), (0, _mithril.default)(ScenarioItems, {
+      timeOffset: timeOffset,
       items: items,
       bounds: bounds,
       lineHeight: lineHeight,
@@ -17620,6 +17631,7 @@ var ScenarioTimeline = function () {
       onClick: onClick,
       titleView: titleView
     }), (0, _mithril.default)(ScenarioLinks, {
+      timeOffset: timeOffset,
       items: items,
       bounds: __assign(__assign({}, bounds), {
         top: gutter + timeAxisHeight
@@ -17627,7 +17639,7 @@ var ScenarioTimeline = function () {
       lineHeight: lineHeight,
       scale: scale
     }), (0, _mithril.default)(ScenarioTime, {
-      scenarioStart: scenarioStart,
+      timelineStart: timelineStart,
       time: time,
       bounds: {
         left: bounds.left,
@@ -17636,11 +17648,13 @@ var ScenarioTimeline = function () {
         height: bounds.height + 2 * gutter
       },
       scale: scale,
-      curTime: function (t) {
-        state.time = t;
+      curTime: function (ct) {
+        state.curTime = ct; // As this is inside a closure, recompute tMax
 
-        if (t > state.endTime) {
-          render(time, items, titleView, scenarioStart);
+        var tmax = (state.maxWidth - horMargin) / state.scale;
+
+        if (ct > tmax) {
+          render();
         }
       }
     })]));
@@ -17649,34 +17663,58 @@ var ScenarioTimeline = function () {
   return {
     oninit: function (_a) {
       var _b = _a.attrs,
-          scale = _b.scale,
-          lineHeight = _b.lineHeight,
-          onClick = _b.onClick,
-          verbose = _b.verbose;
-      state.scale = scale;
-      state.lineHeight = lineHeight || 28;
-      state.onClick = onClick;
-      state.verbose = verbose;
-    },
-    view: function (_a) {
-      var _b = _a.attrs,
-          timeline = _b.timeline,
           time = _b.time,
+          scale = _b.scale,
+          _c = _b.lineHeight,
+          lineHeight = _c === void 0 ? 28 : _c,
           scenarioStart = _b.scenarioStart,
+          timelineStart = _b.timelineStart,
+          onClick = _b.onClick,
           titleView = _b.titleView,
-          errorCallback = _b.errorCallback;
+          errorCallback = _b.errorCallback,
+          maxWidth = _b.width;
 
       if (time && time instanceof Date && !scenarioStart) {
         console.error("When time is a Date, scenarioStart must be supplied as Date too!");
       }
 
+      state.scale = scale;
+      state.lineHeight = lineHeight;
+      state.onClick = onClick;
+      state.titleView = titleView;
+      state.errorCallback = errorCallback;
+      state.maxWidth = maxWidth;
+      state.scenarioStart = scenarioStart;
+      state.timelineStart = timelineStart || scenarioStart;
+    },
+    view: function (_a) {
+      var _b = _a.attrs,
+          timeline = _b.timeline,
+          time = _b.time,
+          verbose = _b.verbose;
+
       try {
-        var items_1 = preprocessTimeline(timeline);
+        state.time = time;
+        var items = preprocessTimeline(timeline);
+        state.items = items;
+        state.startTime = Math.min.apply(Math, items.map(function (item) {
+          return item.startTime;
+        }));
+        state.endTime = Math.max.apply(Math, __spreadArrays([state.curTime || 0], items.map(function (item) {
+          return item.endTime;
+        })));
         setTimeout(function () {
-          return render(time, items_1, titleView, scenarioStart);
+          return render();
         }, 0);
+
+        if (verbose) {
+          console.table(items);
+        }
+
         return (0, _mithril.default)('.mst__container');
       } catch (e) {
+        var errorCallback = state.errorCallback;
+
         if (errorCallback) {
           errorCallback(e);
         }
@@ -17686,7 +17724,11 @@ var ScenarioTimeline = function () {
     },
     oncreate: function (_a) {
       var dom = _a.dom;
-      return state.dom = dom;
+      state.dom = dom;
+
+      if (dom && !state.maxWidth) {
+        state.maxWidth = dom.clientWidth;
+      }
     }
   };
 };
@@ -18304,6 +18346,7 @@ exports.EditorPage = function () {
   var state = {
     time: new Date(2019, 4, 19, 9, 59),
     error: undefined,
+    timelineStart: new Date(2019, 4, 19, 9, 0),
     scenarioStart: new Date(2019, 4, 19, 9, 13, 42),
     timeline: [{
       id: 'a',
@@ -18637,6 +18680,7 @@ exports.EditorPage = function () {
     view: function view() {
       var timeline = state.timeline,
           timeline2 = state.timeline2,
+          timelineStart = state.timelineStart,
           scenarioStart = state.scenarioStart,
           timelineCircularDependencies = state.timelineCircularDependencies,
           error = state.error;
@@ -18655,6 +18699,7 @@ exports.EditorPage = function () {
         time: updateTime,
         lineHeight: 30,
         titleView: titleView,
+        timelineStart: timelineStart,
         scenarioStart: scenarioStart,
         onClick: onClick
       }), mithril_1.default('h2.header', 'ScenarioTimeline - running, fixed scale'), mithril_1.default(mithril_scenario_timeline_1.ScenarioTimeline, {
@@ -18664,7 +18709,8 @@ exports.EditorPage = function () {
         titleView: titleView,
         scenarioStart: scenarioStart,
         scale: 0.1,
-        onClick: onClick
+        onClick: onClick,
+        width: 1200
       }), mithril_1.default('h2.header', 'ScenarioTimeline - example'), mithril_1.default(mithril_scenario_timeline_1.ScenarioTimeline, {
         timeline: timeline_example_1.timeline,
         scenarioStart: new Date(2019, 4, 19, 9, 0),
@@ -18674,10 +18720,10 @@ exports.EditorPage = function () {
         time: 90,
         onClick: onClick,
         errorCallback: function errorCallback(e) {
-          // console.error(e);
-          state.error = e; // m.redraw();
+          console.log(e);
+          state.error = e;
         }
-      }), error ? mithril_1.default('pre', JSON.stringify(error.circularDependencies, null, 2)) : undefined, mithril_1.default(mithril_materialized_1.CodeBlock, {
+      }), mithril_1.default(mithril_materialized_1.CodeBlock, {
         code: "\n          const state = {\n            time: new Date(2019, 4, 19, 9, 20),\n            timeline: [\n              ...\n            ] as ITimelineItem[],\n            timeline2: [\n              ...\n            ] as ITimelineItem[],\n          };\n\n          const updateTime = (update: (t: number | Date) => void) => {\n            setInterval(() => {\n              state.time = new Date(state.time.valueOf() + 10000);\n              update(state.time);\n            }, 1000);\n          };\n\n          return {\n            view: () => {\n              const { timeline, timeline2 } = state;\n              const onClick = (item: IExecutingTimelineItem) => console.table(item);\n\n              return m('.col.s12', [\n                m('h2.header', 'ScenarioTimeline - completed diamonds'),\n\n                m(ScenarioTimeline, { timeline, time: 90, onClick }),\n\n                m('h2.header', 'ScenarioTimeline - running, highlighted diamonds'),\n\n                m(ScenarioTimeline, {\n                  timeline: timeline2,\n                  time: updateTime,\n                  lineHeight: 30,\n                  scenarioStart: new Date(2019, 4, 19, 9, 0),\n                  onClick,\n                }),\n              ]);\n            },\n          };\n        "
       })]);
     }
@@ -18887,7 +18933,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54242" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62453" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
