@@ -12,6 +12,7 @@ export const EditorPage = () => {
   const state = {
     time: new Date(2019, 4, 19, 9, 59),
     error: undefined as undefined | CircularDependencyError,
+    timelineStart: new Date(2019, 4, 19, 9, 0),
     scenarioStart: new Date(2019, 4, 19, 9, 13, 42),
     timeline: [
       {
@@ -418,7 +419,7 @@ export const EditorPage = () => {
 
   return {
     view: () => {
-      const { timeline, timeline2, scenarioStart, timelineCircularDependencies, error } = state;
+      const { timeline, timeline2, timelineStart, scenarioStart, timelineCircularDependencies, error } = state;
       const onClick = (item: IExecutingTimelineItem) => console.table(item);
 
       return m('.col.s12', [
@@ -434,6 +435,7 @@ export const EditorPage = () => {
           time: updateTime,
           lineHeight: 30,
           titleView,
+          timelineStart,
           scenarioStart,
           onClick,
         }),
@@ -465,13 +467,10 @@ export const EditorPage = () => {
           time: 90,
           onClick,
           errorCallback: e => {
-            // console.error(e);
+            console.log(e);
             state.error = e;
-            // m.redraw();
           },
         }),
-
-        error ? m('pre', JSON.stringify(error.circularDependencies, null, 2)) : undefined,
 
         m(CodeBlock, {
           code: `

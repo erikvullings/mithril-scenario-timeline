@@ -22,7 +22,10 @@ export const compose = <R>(fn1: (a: R) => R, ...fns: Array<(a: R) => R>) =>
  * the result is equivalent to fn3(fn2(fn1(inner))).
  */
 export const pipe = <T extends any[], R>(fn1: (...args: T) => R, ...fns: Array<(a: R) => R>) => {
-  const piped = fns.reduce((prevFn, nextFn) => (value: R) => nextFn(prevFn(value)), value => value);
+  const piped = fns.reduce(
+    (prevFn, nextFn) => (value: R) => nextFn(prevFn(value)),
+    value => value
+  );
   return (...args: T) => piped(fn1(...args));
 };
 
@@ -135,25 +138,19 @@ const calcStartEndTimes = (items: ITimelineItem[]) => {
       // keys.length = 0; // To stop the loop
       throw new CircularDependencyError(
         'Cannot resolve circular dependencies',
-        keys.reduce(
-          (acc, key) => {
-            acc.push(lookupMap[key]);
-            return acc;
-          },
-          [] as ICircularDependency[]
-        )
+        keys.reduce((acc, key) => {
+          acc.push(lookupMap[key]);
+          return acc;
+        }, [] as ICircularDependency[])
       );
     }
   } while (keys.length);
 
   // Convert to array
-  return Object.keys(lookupMap).reduce(
-    (acc, cur) => {
-      acc.push(lookupMap[cur].item);
-      return acc;
-    },
-    [] as IExecutingTimelineItem[]
-  );
+  return Object.keys(lookupMap).reduce((acc, cur) => {
+    acc.push(lookupMap[cur].item);
+    return acc;
+  }, [] as IExecutingTimelineItem[]);
 };
 
 const toTree = (items: IExecutingTimelineItem[]) => {
@@ -181,46 +178,44 @@ const flatten = (items: IExecutingTimelineItem[]) => {
   return f(items, []);
 };
 
-export const preprocessTimeline = pipe(
-  calcStartEndTimes,
-  toTree,
-  flatten
-);
+export const preprocessTimeline = pipe(calcStartEndTimes, toTree, flatten);
 
-export const extractDependencyLinks = (items: IExecutingTimelineItem[], lineHeight: number, scale: number) => {
+export const extractDependencyLinks = (
+  items: IExecutingTimelineItem[],
+  lineHeight: number,
+  scale: number,
+  timeOffset: number
+) => {
   const findItem = (id: string) =>
     items
       .map((it, index) => ({ it, index }))
       .filter(i => i.it.id === id)
       .shift();
 
-  return items.reduce(
-    (acc, item, row) => {
-      if (item.dependsOn && item.dependsOn.length) {
-        const links = item.dependsOn
-          .map(dep => {
-            const found = findItem(dep.id);
-            if (!found) {
-              return undefined;
-            }
-            const { it, index } = found;
-            const hasStartCondition = dep.condition === 'started';
-            const time = hasStartCondition ? it.startTime! : it.endTime!;
-            const verOffset = it.children ? 4 : -4;
-            const horOffset = item.children ? -4 : -7;
-            const x1 = time * scale;
-            const y1 = (index + 1) * lineHeight + verOffset;
-            const x2 = item.startTime! * scale + horOffset;
-            const y2 = (row + 0.5) * lineHeight + 1 + (item.startTime! === time ? -6 : 0);
-            return { x1, y1, x2, y2, indicator: it.children ? 'none' : hasStartCondition ? 'start' : 'end' };
-          })
-          .filter(Boolean) as ILink[];
-        acc.push(...links);
-      }
-      return acc;
-    },
-    [] as ILink[]
-  );
+  return items.reduce((acc, item, row) => {
+    if (item.dependsOn && item.dependsOn.length) {
+      const links = item.dependsOn
+        .map(dep => {
+          const found = findItem(dep.id);
+          if (!found) {
+            return undefined;
+          }
+          const { it, index } = found;
+          const hasStartCondition = dep.condition === 'started';
+          const time = hasStartCondition ? it.startTime! : it.endTime!;
+          const verOffset = it.children ? 4 : -4;
+          const horOffset = item.children ? -4 : -7;
+          const x1 = (time + timeOffset) * scale;
+          const y1 = (index + 1) * lineHeight + verOffset;
+          const x2 = (item.startTime! + timeOffset) * scale + horOffset;
+          const y2 = (row + 0.5) * lineHeight + 1 + (item.startTime! === time ? -6 : 0);
+          return { x1, y1, x2, y2, indicator: it.children ? 'none' : hasStartCondition ? 'start' : 'end' };
+        })
+        .filter(Boolean) as ILink[];
+      acc.push(...links);
+    }
+    return acc;
+  }, [] as ILink[]);
 };
 
 /** Convert a bounding rectangle to a style */

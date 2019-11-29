@@ -5,7 +5,7 @@ export interface IScenarioTime extends Attributes {
   /** Bound for the component using absolute positioning */
   bounds: IBoundingRectangle;
   /** Start time of the scenario: if supplied, will be used as the starting point */
-  scenarioStart?: Date;
+  timelineStart?: Date;
   /** Horizontal resolution */
   scale: number;
   /** Number of seconds since the start */
@@ -17,7 +17,7 @@ export interface IScenarioTime extends Attributes {
 export const ScenarioTime: FactoryComponent<IScenarioTime> = () => {
   const state = {} as {
     dom: HTMLDivElement;
-    scenarioStart?: Date;
+    timelineStart?: Date;
     time?: number | Date | ScenarioTimer;
     t: number;
     scale: number;
@@ -28,9 +28,9 @@ export const ScenarioTime: FactoryComponent<IScenarioTime> = () => {
     if (typeof time === 'number') {
       return time;
     } else {
-      const { scenarioStart } = state;
-      if (scenarioStart) {
-        return (time.valueOf() - scenarioStart.valueOf()) / 1000;
+      const { timelineStart } = state;
+      if (timelineStart) {
+        return (time.valueOf() - timelineStart.valueOf()) / 1000;
       }
     }
     return 0;
@@ -69,9 +69,9 @@ export const ScenarioTime: FactoryComponent<IScenarioTime> = () => {
       }
     },
     oncreate: ({ dom }) => (state.dom = dom as HTMLDivElement),
-    view: ({ attrs: { scale, time, bounds, scenarioStart } }) => {
+    view: ({ attrs: { scale, time, bounds, timelineStart } }) => {
       state.time = time;
-      state.scenarioStart = scenarioStart;
+      state.timelineStart = timelineStart;
       state.scale = scale;
       state.bounds = bounds;
       setTimeout(() => render(), 0);

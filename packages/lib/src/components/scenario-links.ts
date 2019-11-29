@@ -12,14 +12,20 @@ export interface IScenarioLinks extends Attributes {
   /** 1 second is x pixels horizontally */
   scale: number;
   items: IExecutingTimelineItem[];
+  /** Time offset in seconds */
+  timeOffset?: number;
 }
 
 export const ScenarioLinks: FactoryComponent<IScenarioLinks> = () => {
   return {
-    view: ({ attrs: { items, bounds, lineHeight, scale } }) => {
-      const links = extractDependencyLinks(items, lineHeight, scale);
+    view: ({ attrs: { items, bounds, lineHeight, scale, timeOffset = 0 } }) => {
+      const links = extractDependencyLinks(items, lineHeight, scale, timeOffset);
       // console.table(links);
-      return m('.mst__links', { style: boundsToStyle(bounds) }, links.map(link => m(ScenarioLink, { link })));
+      return m(
+        '.mst__links',
+        { style: boundsToStyle(bounds) },
+        links.map(link => m(ScenarioLink, { link }))
+      );
     },
   };
 };

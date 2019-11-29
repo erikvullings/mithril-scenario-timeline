@@ -15,6 +15,8 @@ export interface IScenarioItems extends Attributes {
   /** Optional component to render the item title */
   titleView?: FactoryComponent<{ item: IExecutingTimelineItem }>;
   items: IExecutingTimelineItem[];
+  /** Time offset in seconds */
+  timeOffset?: number;
 }
 
 export const ScenarioItems: FactoryComponent<IScenarioItems> = () => {
@@ -22,10 +24,10 @@ export const ScenarioItems: FactoryComponent<IScenarioItems> = () => {
   const gutter = 2;
 
   return {
-    view: ({ attrs: { items, bounds, scale, lineHeight, onClick, titleView } }) => {
+    view: ({ attrs: { items, bounds, scale, lineHeight, onClick, titleView, timeOffset = 0 } }) => {
       const getBounds = (item: IExecutingTimelineItem, row: number) => ({
         top: bounds.top + lineHeight * row + gutter,
-        left: item.startTime! * scale,
+        left: (item.startTime! + timeOffset) * scale,
         height: lineHeight - 2 * gutter,
         width: (item.endTime! - item.startTime!) * scale,
       });

@@ -3,8 +3,8 @@ import { IBoundingRectangle } from '../interfaces';
 import { boundsToStyle, range, padLeft } from '../helpers';
 
 export interface ITimeAxis extends Attributes {
-  /** Start time of the scenario: if supplied, will be used as the starting point */
-  scenarioStart?: Date;
+  /** Start time of the timeline: if supplied, will be used as the starting point */
+  timelineStart?: Date;
   /** Bound for the component using absolute positioning */
   bounds: IBoundingRectangle;
   /** Start time */
@@ -55,8 +55,8 @@ export const TimeAxis: FactoryComponent<ITimeAxis> = () => {
     `${padLeft(time.getHours())}:${padLeft(time.getMinutes())}${sf === 1 ? `.${padLeft(time.getSeconds())}` : ''}`;
 
   return {
-    view: ({ attrs: { bounds, startTime, endTime, scale, scenarioStart } }) => {
-      const sst = scenarioStart ? scenarioStart.valueOf() : 0;
+    view: ({ attrs: { bounds, startTime, endTime, scale, timelineStart } }) => {
+      const sst = timelineStart ? timelineStart.valueOf() : 0;
       const style = boundsToStyle(bounds);
       const step = stepSize(startTime, endTime);
       const [sf, legend] = scaleFactor(step);

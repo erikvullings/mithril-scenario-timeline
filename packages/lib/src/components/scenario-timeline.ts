@@ -43,6 +43,9 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
     items: IExecutingTimelineItem[];
     titleView: FactoryComponent<{ item: IExecutingTimelineItem }> | undefined;
     errorCallback?: (e: CircularDependencyError) => void;
+    /** When should the time axis start */
+    timelineStart?: Date;
+    /** When should the scenario start */
     scenarioStart?: Date;
     // 1 second is x pixels
     scale?: number;
@@ -72,11 +75,13 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
       time,
       items,
       titleView,
+      timelineStart,
       scenarioStart,
       startTime,
       endTime,
       maxWidth = Number.MAX_SAFE_INTEGER,
     } = state;
+    const timeOffset = scenarioStart && timelineStart ? (scenarioStart.valueOf() - timelineStart.valueOf()) / 1000 : 0;
     const t = Math.max(curTime, endTime);
     const { scale = calculateScale(t - startTime) } = state;
 
@@ -98,13 +103,14 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
       state.dom,
       m('.mst__container', [
         m(TimeAxis, {
-          scenarioStart,
-          startTime: startTime - 222,
+          timelineStart,
+          startTime,
           endTime: tMax,
           bounds: { ...bounds, top: 0, height: timeAxisHeight },
           scale,
         }),
         m(ScenarioItems, {
+          timeOffset,
           items,
           bounds,
           lineHeight,
@@ -113,13 +119,14 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
           titleView,
         }),
         m(ScenarioLinks, {
+          timeOffset,
           items,
           bounds: { ...bounds, top: gutter + timeAxisHeight },
           lineHeight,
           scale,
         }),
         m(ScenarioTime, {
-          scenarioStart,
+          timelineStart,
           time,
           bounds: {
             left: bounds.left,
@@ -142,21 +149,34 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
   };
 
   return {
-    oninit: ({ attrs: { scale, lineHeight = 28, onClick, titleView, errorCallback, width: maxWidth } }) => {
+    oninit: ({
+      attrs: {
+        time,
+        scale,
+        lineHeight = 28,
+        scenarioStart,
+        timelineStart,
+        onClick,
+        titleView,
+        errorCallback,
+        width: maxWidth,
+      },
+    }) => {
+      if (time && time instanceof Date && !scenarioStart) {
+        console.error(`When time is a Date, scenarioStart must be supplied as Date too!`);
+      }
       state.scale = scale;
       state.lineHeight = lineHeight;
       state.onClick = onClick;
       state.titleView = titleView;
       state.errorCallback = errorCallback;
       state.maxWidth = maxWidth;
+      state.scenarioStart = scenarioStart;
+      state.timelineStart = timelineStart || scenarioStart;
     },
-    view: ({ attrs: { timeline, time, scenarioStart, verbose } }) => {
-      if (time && time instanceof Date && !scenarioStart) {
-        console.error(`When time is a Date, scenarioStart must be supplied as Date too!`);
-      }
+    view: ({ attrs: { timeline, time, verbose } }) => {
       try {
         state.time = time;
-        state.scenarioStart = scenarioStart;
         const items = preprocessTimeline(timeline);
         state.items = items;
         state.startTime = Math.min(...items.map(item => item.startTime!));
