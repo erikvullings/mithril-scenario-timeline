@@ -38,7 +38,7 @@ npm i --save-dev @types/mithril`,
           dashboardSvc
             .getList()
             .filter(d => d.visible && !d.default)
-            .map(d => m('li.collection-item', m('a', { href: d.route, oncreate: m.route.link }, d.title))),
+            .map(d => m('li.collection-item', m(m.route.Link, { href: d.route }, d.title))),
         ]),
       ]),
     ]),
