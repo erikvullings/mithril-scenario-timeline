@@ -11,7 +11,7 @@ export const HomePage = () => ({
           m('h2', 'About mithril-scenario-timeline'),
           m('p', [
             `A component for Mithril to create a scenario timeline. See the `,
-            m('a[href=/editor]', { oncreate: m.route.link }, 'example.'),
+            m(m.route.Link, { href: '/example' }, 'example.'),
           ]),
           m('p', [
             'You can check out the API documentation ',

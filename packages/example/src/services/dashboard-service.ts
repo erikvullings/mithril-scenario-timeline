@@ -63,7 +63,7 @@ export const dashboardSvc: DashboardService = new DashboardService(Layout, [
     id: Dashboards.MARKDOWN_EDITOR,
     title: 'EXAMPLE',
     icon: 'create',
-    route: '/editor',
+    route: '/example',
     visible: true,
     component: EditorPage,
   },
