@@ -12,6 +12,7 @@ A scenario timeline component for the Mithril framework as being used in the [DR
 - Updated timeline bounds when time exceeds beyond the current time
 - Timeline width can be set (using the `width` property), or it is fixed by the initial container width
 - Timeline can start at a time not equal to the scenario start time, i.e. `timelineStart`, so you can use a rounded start time
+- Improved scaling for long running scenarios
 
 ### v0.0.x
 
