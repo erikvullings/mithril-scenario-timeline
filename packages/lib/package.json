@@ -1,11 +1,11 @@
 {
   "name": "mithril-scenario-timeline",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A scenario timeline component for the Mithril framework.",
   "source": "src/index.ts",
   "main": "dist/mithril-scenario-timeline.js",
-  "module": "dist/mithril-scenario-timeline.mjs",
-  "browser": "dist/mithril-scenario-timeline.mjs",
+  "module": "dist/mithril-scenario-timeline.module.js",
+  "unpkg": "dist/mithril-scenario-timeline.umd.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/erikvullings/mithril-scenario-timeline.git"
