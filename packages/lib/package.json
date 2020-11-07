@@ -1,6 +1,6 @@
 {
   "name": "mithril-scenario-timeline",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "A scenario timeline component for the Mithril framework.",
   "source": "src/index.ts",
   "main": "dist/mithril-scenario-timeline.js",
@@ -12,9 +12,9 @@
   },
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "microbundle --css-modules false",
+    "build": "npm run clean && microbundle --css-modules false",
     "start": "microbundle --css-modules false watch",
-    "clean": "rm -fr ./dist && rm -fr .rpt2_cache",
+    "clean": "rm -fr ./dist ./node_modules/.cache",
     "link": "npm run build && pnpm link",
     "build:production": "npm run clean && npm build",
     "build:domain": "typedoc --out ../../docs/typedoc src",
