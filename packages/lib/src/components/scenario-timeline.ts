@@ -135,7 +135,7 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
             height: bounds.height + 2 * gutter,
           },
           scale,
-          curTime: ct => {
+          curTime: (ct) => {
             state.curTime = ct;
             // As this is inside a closure, recompute tMax
             const tmax = (state.maxWidth! - horMargin) / state.scale!;
@@ -179,13 +179,13 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
         state.time = time;
         const items = preprocessTimeline(timeline);
         state.items = items;
-        state.startTime = Math.min(...items.map(item => item.startTime!));
-        state.endTime = Math.max(state.curTime || 0, ...items.map(item => item.endTime!));
+        state.startTime = Math.min(...items.map((item) => item.startTime!));
+        state.endTime = Math.max(state.curTime || 0, ...items.map((item) => item.endTime!));
         setTimeout(() => render(), 0);
         if (verbose) {
           console.table(items);
         }
-        return m('.mst__container');
+        return m('.scenario-timeline');
       } catch (e) {
         const { errorCallback } = state;
         if (errorCallback) {
@@ -197,7 +197,7 @@ export const ScenarioTimeline: FactoryComponent<IScenarioTimeline> = () => {
     oncreate: ({ dom }) => {
       state.dom = dom as HTMLDivElement;
       if (dom && !state.maxWidth) {
-        state.maxWidth = dom.clientWidth || 800;
+        state.maxWidth = state.dom.clientWidth || 800;
       }
     },
   };

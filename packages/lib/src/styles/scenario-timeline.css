@@ -1,5 +1,6 @@
 .mst__container {
   position: relative;
+  padding-bottom: 20px;
 }
 
 .mst__items {
@@ -203,7 +204,7 @@
   line-height: 1;
   width: 200px;
   bottom: 150%;
-  left: 50%; 
+  left: 50%;
   margin-left: -100px; /* Use half of the width (120/2 = 60), to center the tooltip */
   background-color: black;
   color: #fff;
@@ -215,7 +216,7 @@
   z-index: 1;
 }
 .mst__tooltip .mst__tooltiptext::after {
-  content: " ";
+  content: ' ';
   position: absolute;
   top: 100%; /* At the bottom of the tooltip */
   left: 50%;

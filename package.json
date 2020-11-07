@@ -4,13 +4,13 @@
   "description": "A scenario timeline component for the Mithril framework",
   "main": "index.js",
   "scripts": {
-    "postinstall": "lerna run link",
-    "link": "lerna run link",
-    "clean": "rm -fr ./docs && lerna run clean --parallel",
-    "build:domain": "lerna run build:domain --parallel",
-    "start": "lerna run start --parallel",
-    "patch-release": "lerna run patch-release --parallel",
-    "minor-release": "lerna run minor-release --parallel",
+    "postinstall": "pnpm run link",
+    "link": "pnpm m run link && pnpm m run postlink",
+    "clean": "rm -fr ./docs && pnpm run clean --parallel",
+    "build:domain": "pnpm run build:domain --parallel",
+    "start": "pnpm run start --parallel",
+    "patch-release": "pnpm run patch-release --parallel",
+    "minor-release": "pnpm run minor-release --parallel",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -31,6 +31,6 @@
   },
   "homepage": "https://github.com/erikvullings/mithril-scenario-timeline#readme",
   "devDependencies": {
-    "lerna": "^3.19.0"
+    "pnpm": "^5.10.4"
   }
 }

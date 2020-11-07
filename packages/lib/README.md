@@ -6,6 +6,12 @@ A scenario timeline component for the Mithril framework as being used in the [DR
 
 ## Release info
 
+### v0.2.x
+
+- Breaking change: you need to import the css e.g. `import 'mithril-scenario-timeline/dist/mithril-scenario-timeline.css';`
+- Updated to latest dependencies
+- Using microbundle instead of rollup so there are multiple outputs available
+
 ### v0.1.x
 
 - Using it in [scenario editor](https://github.com/driver-eu/scenario-editor)

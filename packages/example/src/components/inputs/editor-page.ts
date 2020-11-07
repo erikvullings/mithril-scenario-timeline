@@ -433,14 +433,7 @@ export const EditorPage = () => {
 
   return {
     view: () => {
-      const {
-        timeline,
-        timeline2,
-        timeline3,
-        timelineStart,
-        scenarioStart,
-        timelineCircularDependencies,
-      } = state;
+      const { timeline, timeline2, timeline3, timelineStart, scenarioStart, timelineCircularDependencies } = state;
       const onClick = (item: IExecutingTimelineItem) => console.table(item);
 
       return m('.col.s12', [
@@ -483,7 +476,7 @@ export const EditorPage = () => {
           timeline: timelineCircularDependencies,
           time: 90,
           onClick,
-          errorCallback: e => {
+          errorCallback: (e) => {
             console.log(e);
             state.error = e;
           },
